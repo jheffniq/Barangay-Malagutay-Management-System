@@ -1,0 +1,43 @@
+{%  extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+</style>
+
+<h1>List of Registered Residents</h1>
+<a href="resident_form">Add New Resident</a>
+
+<table>
+    <tr>
+        <th>Full Name</th>
+        <th>Date Added</th>
+        <th>Last Modified</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+
+    {% for res in Resident_obj %}
+    <tr>
+        <td><a href="">{{ res.First_name }} {{ res.Middle_name}}  {{res.Last_name}}</a></td>
+        <td>{{res.created_date}}</td>
+        <td>{{res.modified_date}}</td>
+        <td><a href="">Edit</a></td>
+        <td><a href="">Delete</a></td>
+    </tr>
+     {% endfor %}
+
+</table>
+{% endblock content %}

@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <style type="text/css">
+            .navigation{
+                height: 100%;
+                width: 150px;
+                position: fixed;
+                z-index: 1;
+                top: 0;
+                left: 0;
+                background-color: brown;
+                overflow-x: hidden;
+                padding-top: 20px;
+            }
+            .navigation a {
+                padding: 8px 6px 16px;
+                text-decoration: none;
+                font-size: 25px;
+                color: #818181;
+                display: block;
+            }
+            .main{
+                margin-left: 160px;
+                padding: 0px 10px;
+            }
+
+        </style>
+        
+    </head>
+    <body>
+        <div class="navigation">
+            <a href = "/home">Home</a>
+            <a href = "users">Users</a>
+            <a href = "/residents">Residents</a>
+            <a href = "/blotter">Blotter</a>
+            <div class = "Certifications">
+                <h2>Certifications</h2>
+                <a href = "/certificate1">Certificate1</a>
+                <a href = "/certificate2">Certificate2</a>
+                <a href = "/certificate3">Certificate3</a>
+            </div>
+            <a href = "/logout">logout</a>
+        </div>
+        <div class="main">
+            {% block content %}   
+            {% endblock content %}
+        </div>
+    </body>
+</html>
