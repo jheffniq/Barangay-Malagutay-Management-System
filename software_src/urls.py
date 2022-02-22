@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from Resident.views import Display_resident, formm, home
+from Resident.views import Display_resident, Create_resident, Update_resident, home
 
 from django.conf.urls.static import static
 from django.conf import settings
@@ -23,7 +23,8 @@ from django.conf import settings
 urlpatterns = [
     path ('home/', home),
     path('residents/',Display_resident),
-    path ('resident_form/',formm),
+    path ('resident_form/',Create_resident),
+    path ('resident_update/<str:pk>/', Update_resident, name = "update_resident"),
     path('admin/', admin.site.urls),
 ]
 
