@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from .models import Resident
 from .forms import Resident_Form
@@ -19,14 +19,16 @@ def Display_resident (request):
     return render (request,"Residents.html",context = context)
 
 def formm(request):
-    form = Resident_Form(request.POST)
-    if form.is_valid():
-        form.save(commit = False)
+    form = Resident_Form()
 
-    else:
-        form = Resident_Form()
+    if request.method == "POST":
+        form = Resident_Form(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/residents')
+
     context = {
         'form':form
     }
 
-    return render(request,"profile_form.html",context)
+    return render(request,"profile_form.html",context=context)

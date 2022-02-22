@@ -2,25 +2,13 @@
 
 {% block content %}
 <title>Add New Resident</title>
-<style>
-    table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
 
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-</style>
 <h1>Add New Resident</h1>
 <a href = "{{request.META.HTTP_REFERER}}">Go Back</a>
-<form>
+<form method = "POST" action="">
+    {% csrf_token %}
     {{ form.as_p }}
-    <input type = "submit">
+    <input type = "submit" name = "Submit">
 </form>
 
 

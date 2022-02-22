@@ -17,8 +17,10 @@ td, th {
 
 </style>
 
-<h1>List of Registered Residents</h1>
-<a href="resident_form">Add New Resident</a>
+<h1 style="text-align: center;">List of Registered Residents</h1>
+<a href="/resident_form">Add New Resident</a>
+<input type="text">
+<input type = "submit" name="search">
 
 <table>
     <tr>
@@ -29,7 +31,7 @@ td, th {
         <th>Delete</th>
     </tr>
 
-    {% for res in Resident_obj %}
+    {% for res in Resident_obj reversed %}
     <tr>
         <td><a href="">{{ res.First_name }} {{ res.Middle_name}}  {{res.Last_name}}</a></td>
         <td>{{res.created_date}}</td>

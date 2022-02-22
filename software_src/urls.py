@@ -23,7 +23,7 @@ from django.conf import settings
 urlpatterns = [
     path ('home/', home),
     path('residents/',Display_resident),
-    path ('residents/resident_form/',formm),
+    path ('resident_form/',formm),
     path('admin/', admin.site.urls),
 ]
 
