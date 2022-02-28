@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 from .models import Resident
 from .forms import Resident_Form
 
@@ -8,6 +9,7 @@ def home(request):
 
     return render(request,"base.html")
 
+#Display Resident
 def Display_resident (request):
     Resident_obj = Resident.objects.all()
     Resident_obj2 = Resident.objects.get(id = 6)
@@ -20,6 +22,7 @@ def Display_resident (request):
 
     return render (request,"Residents.html",context = context)
 
+#Create Resident
 def Create_resident(request):
     form = Resident_Form()
 
@@ -27,14 +30,17 @@ def Create_resident(request):
         form = Resident_Form(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request, "Resident has been added")
             return redirect('/residents')
+
 
     context = {
         'form':form
     }
 
     return render(request,"profile_form.html",context=context)
-    
+
+#Update Resident  
 def Update_resident(request, pk):
     resident_obj = Resident.objects.get(id = pk)
     form = Resident_Form(instance = resident_obj)
@@ -42,10 +48,19 @@ def Update_resident(request, pk):
         form = Resident_Form(request.POST, request.FILES, instance = resident_obj)
         if form.is_valid():
             form.save()
-            return redirect('/residents')
+            messages.success(request, "Resident has been modified")
+            return redirect('/residents/')
 
     context = {
         'form' : form
     }
 
     return render(request,"profile_form.html",context = context)
+
+#Delete Resident
+def Delete_resident(request, pk):
+    resident_obj = Resident.objects.get(id = pk)
+    resident_obj.delete()
+    messages.success(request, "Resident has been deleted")
+    return redirect('/residents/')
+

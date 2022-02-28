@@ -37,7 +37,7 @@ td, th {
         <td>{{res.created_date}}</td>
         <td>{{res.modified_date}}</td>
         <td><a href="{% url 'update_resident' res.id %}">Edit</a></td>
-        <td><a href="">Delete</a></td>
+        <td><a href="{% url 'delete_resident' res.id %}">Delete</a></td>
     </tr>
      {% endfor %}
 </table>
