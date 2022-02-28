@@ -22,8 +22,8 @@ from django.conf import settings
 
 urlpatterns = [
     path ('home/', home),
-    path('residents/',Display_resident, name = "residents"),
-    path ('resident_form/',Create_resident),
+    path('residents/', Display_resident, name = "residents"),
+    path ('resident_form/' ,Create_resident),
     path ('resident_update/<str:pk>/', Update_resident, name = "update_resident"),
     path('delete_resident/<str:pk>/', Delete_resident, name = "delete_resident"),
     path('admin/', admin.site.urls),

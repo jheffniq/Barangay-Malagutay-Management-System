@@ -3,7 +3,7 @@ from django.db import models
 from datetime import datetime, date
 
 class Resident (models.Model):
-    pic = models.ImageField(null=True, blank = True, verbose_name="Profile Picture")
+    pic = models.ImageField(null=True, blank = True, verbose_name="Profile Picture", upload_to= "images/")
     First_name = models.CharField(max_length=50)
     Last_name = models.CharField(max_length=50)
     Middle_name = models.CharField(max_length=50)
