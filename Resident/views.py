@@ -22,6 +22,17 @@ def Display_resident (request):
 
     return render (request,"Residents.html",context = context)
 
+#Display Profile
+
+def Display_profile(request, pk):
+    resident_obj = Resident.objects.get(id = pk)
+
+    context = {
+        "profile" : resident_obj
+    }
+    return render(request, "resident_profile.html",context=context)
+
+
 #Create Resident
 def Create_resident(request):
     form = Resident_Form()

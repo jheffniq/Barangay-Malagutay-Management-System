@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{%  load static %}
+{% block content %}
+<a href = "{{request.META.HTTP_REFERER}}">Go Back</a>
+{% if profile.pic %}
+   <img src = "{{profile.pic.url}}" width="250px" height="250px">
+{% endif %}
+
+<h1>{{profile.First_name}} {{profile.Middle_name}} {{profile.Last_name}} </h1>
+<h4>Gender: {{profile.Gender}}</h4>
+<h4>Age: {{profile.Age}}</h4>
+<h4>Birthdate: {{profile.Birthdate}}</h4>
+<h4>Contact Number: {{profile.Contact}}</h4>
+<h4>Citizenship: {{profile.Citizenship}}</h4>
+<h4>Religion: {{profile.Religion}}</h4>
+<h4>Occupation: {{profile.Occupation}}</h4>
+<h4>Vaccination Status: {{profile.Vaccination}}</h4>
+<h4>Street Address: {{profile.Address}}</h4>
+
+{%  endblock content %}
