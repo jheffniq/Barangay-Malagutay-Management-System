@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from django.db.models import Q
 from .models import Resident
 from .forms import Resident_Form
 
@@ -11,13 +12,11 @@ def home(request):
 
 #Display Resident
 def Display_resident (request):
-    Resident_obj = Resident.objects.all()
-    Resident_obj2 = Resident.objects.get(id = 6)
 
+    Resident_obj = Resident.objects.all()
 
     context = {
         'Resident_obj' : Resident_obj,
-        'Res2' : Resident_obj2,
     }
 
     return render (request,"Residents.html",context = context)
@@ -75,3 +74,13 @@ def Delete_resident(request, pk):
     messages.success(request, "Resident has been deleted")
     return redirect('/residents/')
 
+#Search
+def Search_resident(request):
+    if request.method == "POST":
+        q = request.POST["q"]
+        Name_query = Q(Q(First_name__icontains = q) | Q(Middle_name__icontains = q) | Q(Last_name__icontains = q))
+        result = Resident.objects.filter(Name_query)
+        return render(request, "Search_resident.html",{'result': result,'q':q})
+
+    else:
+        return render(request, "Search_resident.html")

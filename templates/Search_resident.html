@@ -16,7 +16,7 @@ td, th {
 }
 
 </style>
-
+<a href = "{% url 'residents'%}">Go Back</a>
 <h1 style="text-align: center;">List of Registered Residents</h1>
 <a href="/resident_form">Add New Resident</a>
 
@@ -25,7 +25,6 @@ td, th {
   <input type="search" placeholder="search" name = "q">
   <input type = "submit">
 </form>
-
 <table>
     <tr>
         <th>Full Name</th>
@@ -33,7 +32,7 @@ td, th {
         <th>Last Modified</th>
     </tr>
 
-    {% for res in Resident_obj reversed%}
+    {% for res in result %}
     <tr>
         <td><a href="{% url 'resident_profile' res.id %}">{{ res.First_name }} {{ res.Middle_name}}  {{res.Last_name}}</a></td>
         <td>{{res.created_date}}</td>
