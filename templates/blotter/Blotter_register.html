@@ -1,0 +1,41 @@
+{%  extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+</style>
+
+<h1 style="text-align: center;">List of Registered Residents</h1>
+
+<form method="POST" action = "{% url 'blotter_search_resident' %}">
+  {% csrf_token %}
+  <input type="search" placeholder="search" name = "q">
+  <input type = "submit">
+</form>
+
+<table>
+    <tr>
+        <th>Full Name</th>
+    </tr>
+
+    {% for res in Resident_obj reversed%}
+    <tr>
+        <td><a href="{% url 'resident_profile' res.id %}">{{ res.First_name }} {{ res.Middle_name}}  {{res.Last_name}}</a></td>
+        <td><a href="">Issue Report</a></td>
+    </tr>
+     {% endfor %}
+</table>
+
+{% endblock content %}

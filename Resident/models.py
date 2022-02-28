@@ -15,6 +15,14 @@ class Resident (models.Model):
         )
     Gender = models.CharField(max_length=100, choices=Gender_choices, default = "Not Specified")
     Contact = models.CharField(max_length=11)
+    Cstatus_choices = (
+        ('Single','Single'),
+        ('Married','Married'),
+        ('Divorced','Divorced'),
+        ('Separated','Separated'),
+        ('Widowed','Widowed'),
+        )
+    Marital_status = models.CharField(max_length=100, choices = Cstatus_choices, default = "")
     Citizenship = models.CharField(max_length=100) 
     Religion = models.CharField(max_length=100)
     Occupation = models.CharField(max_length=100)

@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from Resident.views import Display_resident, Create_resident, Update_resident, home, Delete_resident, Display_profile, Search_resident
-
+from Blotter.views import Addreport, Blotter_search_resident
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -28,6 +28,8 @@ urlpatterns = [
     path ('resident_form/' ,Create_resident),
     path ('resident_update/<str:pk>/', Update_resident, name = "update_resident"),
     path('delete_resident/<str:pk>/', Delete_resident, name = "delete_resident"),
+    path('add_report/', Addreport, name = "add_report"),
+    path('blotter_search_resident/', Blotter_search_resident, name = "blotter_search_resident"),
     path('admin/', admin.site.urls),
 ]
 
