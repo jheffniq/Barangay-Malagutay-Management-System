@@ -1,0 +1,36 @@
+{%  extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+</style>
+
+<h1 style="text-align: center;">List of Registered Residents</h1>
+
+
+<table>
+    <tr>
+        <th>Blotter Report</th>
+    </tr>
+
+    {% for blot in Blotter_obj reversed%}
+    <tr>
+        <td><a href="">Complaint From: {{blot.Complainant}}</a></td>
+        <td><a href="">Delete</a></td>
+    </tr>
+     {% endfor %}
+</table>
+
+{% endblock content %}

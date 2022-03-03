@@ -33,7 +33,7 @@ td, th {
     {% for res in Resident_obj reversed%}
     <tr>
         <td><a href="{% url 'resident_profile' res.id %}">{{ res.First_name }} {{ res.Middle_name}}  {{res.Last_name}}</a></td>
-        <td><a href="">Issue Report</a></td>
+        <td><a href="{% url 'blotter_form' res.id %}">Issue Report</a></td>
     </tr>
      {% endfor %}
 </table>

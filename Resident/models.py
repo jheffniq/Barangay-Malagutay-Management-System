@@ -32,6 +32,7 @@ class Resident (models.Model):
     )
     Vaccination = models.CharField(max_length=100, choices = Vac_choices, verbose_name="Vaccination Status", default="")
     Address = models.TextField(max_length=250, verbose_name="Street Address")
+    Blacklisted = models.BooleanField(default = False)
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
 

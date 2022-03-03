@@ -6,7 +6,7 @@ from Resident.models import Resident
 
 class Blotreport (models.Model):
 
-    Offender = models.ForeignKey (Resident, null = True, on_delete = models.CASCADE)
+    Offender = models.ForeignKey (Resident, null = True, default = None, on_delete = models.CASCADE)
     Complainant = models.CharField (max_length = 50)
     Complaint = models.TextField(max_length = 250)
     created_date = models.DateTimeField (auto_now_add=True)
