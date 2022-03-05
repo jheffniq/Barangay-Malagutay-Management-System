@@ -47,6 +47,13 @@ def Create_Report(request, pk):
 def Blotter_display(request):
     Blotter_obj = Blotreport.objects.all()
     context = {
-        'Botter_obj' : Blotter_obj
+        'Blotter_obj' : Blotter_obj
     }
     return render(request, "blotter/blotter_display.html", context = context)
+
+def Blotter_details(request, pk):
+    Blotter_obj = Blotreport.objects.get(id = pk)
+    context = {
+        'Blotter_obj' : Blotter_obj
+    }
+    return render(request,"blotter/blotter_details.html",context = context)
