@@ -44,6 +44,24 @@ def Create_Report(request, pk):
 
     return render(request,"blotter/blotter_form.html",context=context)
 
+def Delete_report(request, pk):
+    Blotter_obj = Blotreport.objects.get(id = pk)
+    Blotterall = Blotreport.objects.all()
+    Resident_id = Blotter_obj.Offender.id
+    Resident_obj = Resident.objects.get(id = Resident_id)
+    Blotter_obj.delete()
+
+    for obj in Blotterall:
+        if obj.Offender.id == Resident_id:
+            Resident_obj.Blacklisted = True
+            Resident_obj.save()
+        else:
+            Resident_obj.Blacklisted = False
+            Resident_obj.save()
+
+    messages.success(request, "Resident has been deleted")
+    return redirect('/blotter_display/')
+
 def Blotter_display(request):
     Blotter_obj = Blotreport.objects.all()
     context = {

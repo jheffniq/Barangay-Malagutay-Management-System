@@ -30,7 +30,7 @@ td, th {
     <tr>
         <td><a href="{% url 'blotter_details' blot.id %}">Complaint from: {{blot.Complainant}}</a></td>
         <td><a href = "{% url 'resident_profile' blot.Offender.id %}">{{blot.Offender}}</a></td>
-        <td><a href="">Delete</a></td>
+        <td><a href="{% url 'delete_report' blot.id %}">Delete</a></td>
     </tr>
      {% endfor %}
 </table>
