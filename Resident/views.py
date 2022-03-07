@@ -6,10 +6,6 @@ from .models import Resident
 from .forms import Resident_Form
 
 
-def home(request):
-
-    return render(request,"base.html")
-
 #Display Resident
 def Display_resident (request):
 
@@ -84,3 +80,19 @@ def Search_resident(request):
 
     else:
         return render(request, "Search_resident.html")
+
+def home(request):
+    Resident_obj = Resident.objects.all()
+    Gender_label = ['Males','Females']
+    Gender_data = []
+
+    Males = Resident.objects.filter(Gender="Male").count()
+    Females = Resident.objects.filter(Gender="Female").count()
+    Gender_data.append(Males)
+    Gender_data.append(Females)
+
+    context = {
+        'Gender_label' : Gender_label,
+        'Gender_data' : Gender_data
+    }
+    return render(request,"home.html", context = context)

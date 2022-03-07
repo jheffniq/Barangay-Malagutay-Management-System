@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    path ('home/', home),
+    path ('home/', home, name = "home"),
     path('residents/', Display_resident, name = "residents"),
     path('search_resident/', Search_resident, name = "search_resident"),
     path('resident_profile/<str:pk>', Display_profile, name = "resident_profile"),

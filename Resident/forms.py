@@ -19,6 +19,7 @@ class Resident_Form(forms.ModelForm):
             'Age',
             'Birthdate',
             'Gender',
+            'Marital_status',
             'Contact',
             'Citizenship',
             'Religion',
