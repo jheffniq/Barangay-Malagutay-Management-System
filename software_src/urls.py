@@ -37,6 +37,7 @@ urlpatterns = [
     path('delete_report/<str:pk>', Delete_report, name = "delete_report"),
 
     path('admin/', admin.site.urls),
+    
 ]
-
+handler404 = 'Resident.views.view_404' 
 urlpatterns += static (settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

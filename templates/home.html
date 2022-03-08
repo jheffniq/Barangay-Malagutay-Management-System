@@ -1,18 +1,35 @@
 {% extends 'base.html' %}
 {%  load static %}
-{% block content %}
 
-<div class="col-md-8">
-<canvas id="myChart" width="400" height="200"></canvas>
+
+{% block content %}
+<div class="container-fluid">
+
+<div class="row">
+    <div class="col"></div>
+    <div class="col"></div>
+    <div class="col"></div>
+    <div class="col"></div>
+</div>
+
+
+<div class="row">
+<div class="col-md-4">
+<canvas id="myChart" width="200" height="300"></canvas>
 <script>
+var label = ["Males","Females"]
+var Males = parseInt("{{Males}}")
+var Females = parseInt("{{Females}}")
+
+var sampledata = [Males,Females]
 const ctx = document.getElementById('myChart');
 const myChart = new Chart(ctx, {
-    type: 'bar',
+    type: 'pie',
     data: {
-        labels: [],
+        labels: label,
         datasets: [{
-            label: '# of Votes',
-            data: [0,0],
+            label: 'Gender Distribution',
+            data: sampledata,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -37,9 +54,13 @@ const myChart = new Chart(ctx, {
             y: {
                 beginAtZero: true
             }
-        }
+        },
+        responsive: true
     }
+    
 });
 </script>
+</div>
+</div>
 </div>
 {%  endblock content %}

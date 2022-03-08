@@ -1,36 +1,17 @@
 <html>
     <head>
-        <style type="text/css">
-            .navigation{
-                height: 100%;
-                width: 200px;
-                position: fixed;
-                z-index: 1;
-                top: 0;
-                left: 0;
-                background-color: brown;
-                overflow-x: hidden;
-                padding-top: 20px;
-            }
-            .navigation a {
-                padding: 8px 6px 16px;
-                text-decoration: none;
-                font-size: 25px;
-                color: #818181;
-                display: block;
-            }
-            .main{
-                margin-left: 200px;
-                padding: 0px 10px;
-            }
 
-        </style>
-        
     </head>
-    <body>
+    <body style="background-color:#fff4ec">
     {% include 'messages.html' %}
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/nav.css' %}">
+
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    
 
     <!-- Alerts -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -43,7 +24,83 @@
         <script>swal("Success!", "{{message}}", "success")</script>
         {% endfor %}
     {% endif %}
-        <div class="navigation">
+    
+    <div class="side-toggle">
+    <!-- Sidenav Trigger-->
+    <button class="btn btn-secondary btn-lg active ms-4 mt-4" 
+    type="button" data-bs-toggle="offcanvas" 
+    data-bs-target="#offcanvasScrolling" 
+    aria-controls="offcanvasScrolling">Menu</button>
+    </div>
+
+    <div class="sidebar-wrapper">
+      <!-- Sidenav -->
+      <div class="offcanvas offcanvas-start text-white" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+        <div class="offcanvas-header mt-2 mr-1">
+        <h5 class="offcanvas-title text-uppercase fw-bold ps-1" id="offcanvasExampleLabel">Welcome! User!</h5>
+        <button type="button" class="btn-close btn-close-white text-reset ms-auto" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-header mx-auto">
+            <img src="{ static 'images/malagutay_seal.jpg' }" width="150px" height="150px">
+        </div>
+        <div class="offcanvas-body p-0">
+            <nav class="navbar-dark">
+                <ul class="navbar-nav">
+                    <li><h3><a href = "/home" class="nav-link ps-3 active">HOME</a></h3></li>
+                    <li><a href = "/users" class="nav-link ps-3">Users</a></li>
+                    <li><a href = "/residents" class="nav-link ps-3">Residents</a></li>
+                    
+                    <li>
+                        <a class="nav-link px-3 sidebar-link active" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            Blotter
+                        </a>
+                        <div class="collapse" id="collapseExample">
+                        <div>
+                            <ul class="navbar-nav ps-3">
+                                <li><a href = "{% url 'add_report' %}" class = "nav-link px-3">Add Report</a></li>
+                                <li><a href = "{% url 'blotter_display' %}" class = "nav-link px-3">View Reports</a></li>
+                            </ul>                        
+                        </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a class="nav-link px-3 sidebar-link active" data-bs-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            Certifications
+                        </a>
+                        <div class="collapse" id="collapseExample2">
+                        <div>
+                            <ul class="navbar-nav ps-3">
+                                <li><a href = "" class = "nav-link px-3">Barangay Clearance</a></li>
+                                <li><a href = "" class = "nav-link px-3">Certificate of Indigency</a></li>
+                            </ul>                        
+                        </div>
+                        </div>
+                    </li>
+                  <li><a href = "#" class="nav-link px-3 active">logout</a></li>
+                </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>   
+        <main class="main mt-5">
+            {% block content %}   
+            {% endblock content %}
+        <main>
+
+
+
+
+
+
+
+
+
+
+
+       <!-- <div class="navigation">
             <a href = "/home">Home</a>
             <a href = "/users">Users</a>
             <a href = "/residents">Residents</a>
@@ -58,10 +115,5 @@
             </div>
             <a href = "/logout">logout</a>
         </div>
-        <div class="main">
-            {% block content %}   
-            {% endblock content %}
-        </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     </body>
 </html>
