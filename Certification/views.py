@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from Resident.models import Resident
 from Blotter.models import Blotreport
 from django.contrib import messages
+from datetime import datetime
 
 
 from django.http import HttpResponse
@@ -20,11 +21,24 @@ def resident_list(request):
     }
     return render(request, "certification/barangay_clearance.html",context = context)
 
+#Date_format
+def suffix(d):
+    return 'th' if 11<=d<=13 else {1:'st',2:'nd',3:'rd'}.get(d%10, 'th')
+
+def custom_strftime(format, t):
+    return t.strftime(format).replace('{S}', str(t.day) + suffix(t.day))
+
 def generate_certificate(request, pk):
     Resident_obj = Resident.objects.get(id = pk)
+    Month_Today = datetime.now().strftime('%B')
+    Day_Today = custom_strftime('{S}', datetime.now())
+    Year_Today = datetime.now().strftime('%Y')
     
     template_path = 'certification/Certificate1.html'
-    context = {'Resident_obj': Resident_obj}
+    context = {'Resident_obj': Resident_obj,
+                'Month_Today': Month_Today,
+                'Day_Today': Day_Today,
+                'Year_Today' : Year_Today}
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
 
