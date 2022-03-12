@@ -25,6 +25,8 @@ td, th {
   <input type="search" placeholder="search" name = "q">
   <input type = "submit">
 </form>
+
+{% if result %}
 <table>
     <tr>
         <th>Full Name</th>
@@ -42,5 +44,8 @@ td, th {
     </tr>
      {% endfor %}
 </table>
+{% else %}
+<h1>No Results Match</h1>
+{% endif %}
 
 {% endblock content %}

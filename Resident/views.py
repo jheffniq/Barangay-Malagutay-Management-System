@@ -77,12 +77,13 @@ def Delete_resident(request, pk):
 def Search_resident(request):
     if request.method == "POST":
         q = request.POST["q"]
+        searched = True
         Name_query = Q(Q(First_name__icontains = q) | Q(Middle_name__icontains = q) | Q(Last_name__icontains = q))
         result = Resident.objects.filter(Name_query)
-        return render(request, "Search_resident.html",{'result': result,'q':q})
+        return render(request, "Search_resident.html",{'result': result,'q':q,'searched':searched})
 
     else:
-        return render(request, "Search_resident.html")
+        searched = False
 
 def home(request):
     Males = Resident.objects.filter(Gender = "Male").count()

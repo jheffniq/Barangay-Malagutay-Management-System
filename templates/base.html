@@ -37,18 +37,17 @@
       <!-- Sidenav -->
       <div class="offcanvas offcanvas-start text-white" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
         <div class="offcanvas-header mt-2 mr-1">
-        <h5 class="offcanvas-title text-uppercase fw-bold ps-1" id="offcanvasExampleLabel">Welcome! User!</h5>
         <button type="button" class="btn-close btn-close-white text-reset ms-auto" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-header mx-auto">
-            <img src="{ static 'images/malagutay_seal.jpg' }" width="150px" height="150px">
+        <div class="offcanvas-header mx-auto mt-0 p-0 mb-3">
+            <img src="{% static 'images/logo.png' %}" width="150px" height="150px">
         </div>
         <div class="offcanvas-body p-0">
             <nav class="navbar-dark">
                 <ul class="navbar-nav">
-                    <li><h3><a href = "/home" class="nav-link ps-3 active">HOME</a></h3></li>
-                    <li><a href = "/users" class="nav-link ps-3">Users</a></li>
-                    <li><a href = "/residents" class="nav-link ps-3">Residents</a></li>
+                    <li><a href = "/home" class="nav-link ps-3 active">Home</a></li>
+                    <li><a href = "/users" class="nav-link ps-3 active">Users</a></li>
+                    <li><a href = "/residents" class="nav-link ps-3 active">Residents</a></li>
                     
                     <li>
                         <a class="nav-link px-3 sidebar-link active" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
@@ -57,8 +56,8 @@
                         <div class="collapse" id="collapseExample">
                         <div>
                             <ul class="navbar-nav ps-3">
-                                <li><a href = "{% url 'add_report' %}" class = "nav-link px-3">Add Report</a></li>
-                                <li><a href = "{% url 'blotter_display' %}" class = "nav-link px-3">View Reports</a></li>
+                                <li><a href = "{% url 'add_report' %}" class = "nav-link px-3 active">Add Report</a></li>
+                                <li><a href = "{% url 'blotter_display' %}" class = "nav-link px-3 active">View Reports</a></li>
                             </ul>                        
                         </div>
                         </div>
@@ -71,13 +70,13 @@
                         <div class="collapse" id="collapseExample2">
                         <div>
                             <ul class="navbar-nav ps-3">
-                                <li><a href = "" class = "nav-link px-3">Barangay Clearance</a></li>
-                                <li><a href = "" class = "nav-link px-3">Certificate of Indigency</a></li>
+                                <li><a href = "{% url 'barangay_certificate' %}" class = "nav-link px-3 active">Barangay Clearance</a></li>
+                                <li><a href = "" class = "nav-link px-3 active">Certificate of Indigency</a></li>
                             </ul>                        
                         </div>
                         </div>
                     </li>
-                  <li><a href = "#" class="nav-link px-3 active">logout</a></li>
+                  <li><a href = "#" class="nav-link px-3 active">Logout</a></li>
                 </ul>
             </nav>
           </div>
@@ -85,7 +84,7 @@
       </div>
     </div>
 </div>   
-        <main class="main mt-5">
+        <main class="main mt-3">
             {% block content %}   
             {% endblock content %}
         <main>

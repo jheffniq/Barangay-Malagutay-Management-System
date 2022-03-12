@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{%  load static %}
+{% block content %}
+<div class="container-fluid">
+
+    <nav>
+        <div class="nav nav-tabs" role="tablist">
+            <button class = "nav-link active" data-bs-toggle="tab" data-bs-target="#residentlist"
+            type="button" role="tab" aria-controls="nav-home" id = "clearedlist" aria-selected="true">Cleared Residents</button>
+            <button class = "nav-link" data-bs-toggle="tab" data-bs-target="#blacklist" id="blacklisted"
+            type="button" role="tab" aria-controls="nav-profile" aria-selected="true">Blacklisted Residents</button>
+        </div>
+    </nav>
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="residentlist" role="tabpanel" aria-labelledby="clearedlist">
+            <div class="container-fluid">
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th>Full Name</th>
+                        <th>Date Added</th>
+                        <th>Last Modified</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for res in Resident_cleared reversed%}
+                        <tr>
+                            <td><a href="{% url 'resident_profile' res.id %}">{{ res.First_name }} {{ res.Middle_name}}  {{res.Last_name}}</a></td>
+                            <td>{{res.created_date}}</td>
+                            <td>{{res.modified_date}}</td>
+                            <td><a href="">Generate Certificate</a></td>
+                        </tr>
+                         {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="tab-pane fade show" id="blacklist" role="tabpanel" aria-labelledby="blacklisted">
+            <div class="container-fluid">
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th>Full Name</th>
+                        <th>Date Added</th>
+                        <th>Last Modified</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for res in Resident_blacklisted reversed%}
+                        <tr>
+                            <td><a href="{% url 'resident_profile' res.id %}">{{ res.First_name }} {{ res.Middle_name}}  {{res.Last_name}}</a></td>
+                            <td>{{res.created_date}}</td>
+                            <td>{{res.modified_date}}</td>
+                        </tr>
+                         {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+{%  endblock content %}

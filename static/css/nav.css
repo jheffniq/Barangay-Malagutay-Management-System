@@ -26,6 +26,7 @@
     width: 250px;
     border: none;
     background-color: #c86444;
+    overflow: hidden;
 }
 .sidebar-link{
     display: flex;
@@ -50,6 +51,7 @@
     }
     main {
         margin-left: 255px;
+        margin-right: 5px;
     }
 }
 
@@ -57,6 +59,7 @@
     background-color: #c86444 !important;
     border:none;
 }
+
 
 
 
