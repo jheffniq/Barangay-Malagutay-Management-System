@@ -3,23 +3,23 @@
     <head>
         <title>Barangay Clearance</title>
         <style>
-
+            table { -pdf-keep-with-next: true; }
+         p { margin: 0; -pdf-keep-with-next: true; }
+          p.separator { -pdf-keep-with-next: false; font-size: 6pt; }
         </style>
     </head>
     <body>
-            <div>
-            <span style="font-size: 20px;">
-                <img src="static/images/logo.png" height="150px" width="150px" style="display: inline;"><span>PILIPINAS</span><span style="height: 50px; display: block;">AAAAA</span>
-            </span>
-            </div> 
+            <div style="text-align: center; margin-right: 110px;">
+                <img src="static/images/banner.png" height="150px" width="530px">
+            </div><br>
           <hr>
-          <h1 style="font-size: 34px; text-align: center; font-family: 'Times New Roman', Times, serif;"><br>BARANGAY CLEARANCE</h1>
+          <h1 style="font-size: 34px; text-align: center; font-family: 'Times New Roman', Times, serif;">BARANGAY CLEARANCE</h1>
             <h1 style="font-size: 25px; font-family: 'Times New Roman', Times, serif;">TO WHOM IT MAY CONCERN: <br></h1>
             <p style="font-size: 20px; font-family: 'Times New Roman', Times, serif;">
                 This is to certify that <b>{{Resident_obj.First_name}} {{Resident_obj.Middle_name}} {{Resident_obj.Last_name}}</b>
                 is a resident of <b>{{Resident_obj.Address}}, Barangay Malagutay, Zamboanga City</b> and
                 is known to be of good moral character and law abiding citizen in the community.<br><br>
-                Further certified that the above person has no pending case/derogatory records in this office.<br>
+                Further certified that the above person has no pending case/derogatory records in this office.<br><br>
                 Issued this <b>{{Day_Today}}</b> day of <b>{{Month_Today}}, {{Year_Today}}</b> at Barangay Malagutay, Zamboanga City
                 upon request of the interested party for whatever legal purposes it may serve.<br><br><br><br><br>
             </p>

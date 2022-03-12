@@ -16,7 +16,6 @@ class Resident_Form(forms.ModelForm):
             'First_name',
             'Middle_name',
             'Last_name',
-            'Age',
             'Birthdate',
             'Gender',
             'Marital_status',

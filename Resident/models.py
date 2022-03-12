@@ -7,7 +7,6 @@ class Resident (models.Model):
     First_name = models.CharField(max_length=50)
     Last_name = models.CharField(max_length=50)
     Middle_name = models.CharField(max_length=50)
-    Age = models.IntegerField()
     Birthdate = models.DateField(auto_now_add=False, auto_now=False)
     Gender_choices = (
         ('Male','Male'),
