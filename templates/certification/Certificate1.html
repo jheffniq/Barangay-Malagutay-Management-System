@@ -1,0 +1,32 @@
+<html>
+    {% load static %}
+    <head>
+        <title>Barangay Clearance</title>
+        <style>
+            @page {
+                @frame header_frame{
+                    -pdf-frame-content: header_content;
+                    left: 50pt; width: 512pt; top: 50pt; height: 40pt;
+                }
+            }
+
+            h1{
+                margin: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div style="display: inline;" id="header_content">
+            <h1><img style="vertical-align:middle" src="static/images/logo.png" height="150px" width="150px">
+            <p>
+                <h1>asfsadf</h1>
+                <h1>asfsadf</h1>
+                <h1>asfsadf</h1>
+            </p>
+          </div>
+        <hr>
+        
+        <h1>{{Resident_obj.First_name}} IS A PIECE OF SHIT</h1>
+
+    </body>
+</html>

@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from Resident.views import Display_resident, Create_resident, Update_resident, home, Delete_resident, Display_profile, Search_resident
 from Blotter.views import Addreport, Blotter_search_resident, Create_Report, Blotter_display, Blotter_details, Delete_report
-from Certification.views import barangay_certificate
+from Certification.views import resident_list, generate_certificate
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -25,7 +25,7 @@ urlpatterns = [
     path ('home/', home, name = "home"),
     path('residents/', Display_resident, name = "residents"),
     path('search_resident/', Search_resident, name = "search_resident"),
-    path('resident_profile/<str:pk>', Display_profile, name = "resident_profile"),
+    path('resident_profile/<str:pk>/', Display_profile, name = "resident_profile"),
     path ('resident_form/' ,Create_resident),
     path ('resident_update/<str:pk>/', Update_resident, name = "update_resident"),
     path('delete_resident/<str:pk>/', Delete_resident, name = "delete_resident"),
@@ -34,10 +34,11 @@ urlpatterns = [
     path('blotter_search_resident/', Blotter_search_resident, name = "blotter_search_resident"),
     path('blotter_form/<str:pk>/', Create_Report, name = "blotter_form"),
     path('blotter_display/', Blotter_display, name = "blotter_display"),
-    path('blotter_details/<str:pk>', Blotter_details, name = "blotter_details"),
-    path('delete_report/<str:pk>', Delete_report, name = "delete_report"),
+    path('blotter_details/<str:pk>/', Blotter_details, name = "blotter_details"),
+    path('delete_report/<str:pk>/', Delete_report, name = "delete_report"),
 
-    path('barangay_certificate',barangay_certificate,name="barangay_certificate"),
+    path('resident_list/',resident_list,name="resident_list"),
+    path('certificate/<str:pk>/',generate_certificate,name="certificate"),
 
     path('admin/', admin.site.urls),
     

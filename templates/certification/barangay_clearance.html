@@ -28,7 +28,7 @@
                             <td><a href="{% url 'resident_profile' res.id %}">{{ res.First_name }} {{ res.Middle_name}}  {{res.Last_name}}</a></td>
                             <td>{{res.created_date}}</td>
                             <td>{{res.modified_date}}</td>
-                            <td><a href="">Generate Certificate</a></td>
+                            <td><a href="{% url 'certificate' res.pk %}">Generate Certificate</a></td>
                         </tr>
                          {% endfor %}
                     </tbody>
