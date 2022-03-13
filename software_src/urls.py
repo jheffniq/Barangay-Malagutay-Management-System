@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from Accounts.views import LoginUser, LogoutUser
 from Resident.views import Display_resident, Create_resident, Update_resident, home, Delete_resident, Display_profile, Search_resident
 from Blotter.views import Addreport, Blotter_search_resident, Create_Report, Blotter_display, Blotter_details, Delete_report
 from Certification.views import resident_list, generate_certificate
@@ -22,6 +23,10 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
+
+    path('login/',LoginUser,name="login"),
+    path('logout/',LogoutUser, name="logout"),
+
     path ('home/', home, name = "home"),
     path('residents/', Display_resident, name = "residents"),
     path('search_resident/', Search_resident, name = "search_resident"),

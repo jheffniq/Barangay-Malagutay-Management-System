@@ -76,20 +76,21 @@
                         </div>
                         </div>
                     </li>
-                  <li><a href = "#" class="nav-link px-3 active">Logout</a></li>
+                  <li><a href = "{% url 'logout' %}" class="nav-link px-3 active">Logout</a></li>
                 </ul>
             </nav>
           </div>
         </div>
       </div>
     </div>
-</div>   
+ 
         <main class="main mt-3">
             {% block content %}   
             {% endblock content %}
-        <main>
+        </main>
 
-
+</body>
+</html>
 
 
 

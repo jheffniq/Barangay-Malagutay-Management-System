@@ -24,7 +24,7 @@ class Resident (models.Model):
     Marital_status = models.CharField(max_length=100, choices = Cstatus_choices, default = "")
     Citizenship = models.CharField(max_length=100) 
     Religion = models.CharField(max_length=100)
-    Occupation = models.CharField(max_length=100)
+    Occupation = models.CharField(max_length=100, null=True, blank=True)
     Vac_choices = (
         ('Vaccinated','Vaccinated'),
         ('Non-Vaccinated','Non-Vaccinated')

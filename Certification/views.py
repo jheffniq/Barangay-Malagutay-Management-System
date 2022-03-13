@@ -13,11 +13,23 @@ from xhtml2pdf import pisa
 
 def resident_list(request):
     Resident_obj = Resident.objects.all()
-    Resident_cleared = Resident.objects.filter(Blacklisted = False)
-    Resident_blacklisted = Resident.objects.filter(Blacklisted = True)
+    cresident = Resident.objects.filter(Blacklisted = False)
+    bresident = Resident.objects.filter(Blacklisted = True)
+
+    Resident_cleared = cresident.order_by('First_name')
+    Resident_blacklisted = bresident.order_by('First_name')
+    Blotter_number = []
+    
+    for res in Resident_blacklisted:
+        resid = res.id
+        blo = Blotreport.objects.filter(Offender = resid)
+        bloo = blo.count()
+        Blotter_number.append(bloo)
+
     context = {
         'Resident_cleared': Resident_cleared,
-        'Resident_blacklisted': Resident_blacklisted
+        'Resident_blacklisted': Resident_blacklisted,
+        'Blotter_number' : Blotter_number
     }
     return render(request, "certification/barangay_clearance.html",context = context)
 
