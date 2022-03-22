@@ -26,7 +26,7 @@ urlpatterns = [
 
     path('login/', LoginUser, name="login"),
     path('logout/', LogoutUser, name="logout"),
-    path('guestuser/', Guestuser, name="guestuser"),
+    path('index/', Guestuser, name="index"),
 
     path ('home/', home, name = "home"),
     path('residents/', Display_resident, name = "residents"),

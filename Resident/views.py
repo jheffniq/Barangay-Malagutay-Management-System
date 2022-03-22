@@ -8,7 +8,7 @@ from .models import Resident
 from .forms import Resident_Form
 
 def view_404(request, exception=None):
-    return redirect('/login/')
+    return redirect('/index/')
 
 
 #Display Resident
