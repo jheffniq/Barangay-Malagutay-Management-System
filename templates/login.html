@@ -21,7 +21,9 @@
         }
         .LoginForm{
             text-align: center;
-            margin-top: 15%;
+            margin-top: 37%;
+            margin-right: 15%;
+            margin-left: 15%;
         }
 
         @media (min-width: 1000px) {
@@ -66,7 +68,7 @@
               </div>
 
               <div class="LoginForm">
-                  <h1>Barangay Malagutay Monitoring System</h1>
+                  <h1>Barangay Malagutay Management System</h1>
                 <form action="" method="POST" autocomplete="off">
                     {% csrf_token %}
                     
@@ -78,8 +80,8 @@
                         <label for="exampleInputPassword1" class="form-label" autocomplete="off">Password</label>
                         <input type="password" class="form-control" name="password">
                       </div>
-                    <input type="submit" value="Submit" class="btn btn-primary" style="width: 100%;">
-                    <button class="btn btn-danger mt-2" style="width: 100%;"><a href="#" style="text-decoration: none; color: white;">Click here to enter as guest</a></button>
+                    <input type="submit" value="Login" class="btn btn-primary" style="width: 100%;">
+                    <a href="{% url 'guestuser' %}" class="btn btn-danger mt-2" role="button" style="text-decoration: none; color: white; width: 100%;">Enter as Guest</a>
                 </form>
               </div>
         </div>

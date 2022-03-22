@@ -15,17 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from Accounts.views import LoginUser, LogoutUser
+from Accounts.views import LoginUser, LogoutUser,Guestuser
 from Resident.views import Display_resident, Create_resident, Update_resident, home, Delete_resident, Display_profile, Search_resident
 from Blotter.views import Addreport, Blotter_search_resident, Create_Report, Blotter_display, Blotter_details, Delete_report
-from Certification.views import resident_list, generate_certificate
+from Certification.views import resident_list, generate_certificate, view_certificate
 from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
 
-    path('login/',LoginUser,name="login"),
-    path('logout/',LogoutUser, name="logout"),
+    path('login/', LoginUser, name="login"),
+    path('logout/', LogoutUser, name="logout"),
+    path('guestuser/', Guestuser, name="guestuser"),
 
     path ('home/', home, name = "home"),
     path('residents/', Display_resident, name = "residents"),
@@ -43,7 +44,8 @@ urlpatterns = [
     path('delete_report/<str:pk>/', Delete_report, name = "delete_report"),
 
     path('resident_list/',resident_list,name="resident_list"),
-    path('certificate/<str:pk>/',generate_certificate,name="certificate"),
+    path('view_certificate/<str:pk>', view_certificate, name="view_certificate"),
+    path('generate_certificate/<str:pk>/',generate_certificate,name="generate_certificate"),
 
     path('admin/', admin.site.urls),
     

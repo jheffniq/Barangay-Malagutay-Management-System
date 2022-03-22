@@ -2,7 +2,7 @@
     <head>
 
     </head>
-    <body style="background-color:#fff4ec">
+    <body style="background-color:#fff4ec; font-family: Century Gothic,Arial, Helvetica, sans-serif;">
     {% include 'messages.html' %}
 
     {% load static %}
@@ -36,8 +36,8 @@
     <div class="sidebar-wrapper">
       <!-- Sidenav -->
       <div class="offcanvas offcanvas-start text-white" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
-        <div class="offcanvas-header mt-2 mr-1">
-        <button type="button" class="btn-close btn-close-white text-reset ms-auto" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <div class="offcanvas-header mt-2 mr-1 pt-0 pb-0 pr-2">
+        <button type="button" class="btn-close btn-close-white text-reset ms-auto active" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-header mx-auto mt-0 p-0 mb-3">
             <img src="{% static 'images/logo.png' %}" width="150px" height="150px">
@@ -45,9 +45,10 @@
         <div class="offcanvas-body p-0">
             <nav class="navbar-dark">
                 <ul class="navbar-nav">
-                    <li><a href = "/home" class="nav-link ps-3 active">Home</a></li>
-                    <li><a href = "/users" class="nav-link ps-3 active">Users</a></li>
-                    <li><a href = "/residents" class="nav-link ps-3 active">Residents</a></li>
+                    {% if user.is_authenticated %}
+                    <li><h4><a href = "/home" class="nav-link ps-3 active">Home</a></h4></li>
+                    <li><h4><a href = "/users" class="nav-link ps-3 active">Users</a></h4></li>
+                    <li><h4><a href = "/residents" class="nav-link ps-3 active">Residents</a></h4></li>
                     
                     <li>
                         <a class="nav-link px-3 sidebar-link active" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
@@ -77,7 +78,26 @@
                         </div>
                     </li>
                   <li><a href = "{% url 'logout' %}" class="nav-link px-3 active">Logout</a></li>
+
+
+                  {% else %}
+                  <li><a href = "/resident_form" class="nav-link ps-3 active">Resident Form</a></li>
+                  <li>
+                    <a class="nav-link px-3 sidebar-link active" data-bs-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        Certifications
+                    </a>
+                    <div class="collapse" id="collapseExample2">
+                    <div>
+                        <ul class="navbar-nav ps-3">
+                            <li><a href = "{% url 'resident_list' %}" class = "nav-link px-3 active">Barangay Clearance</a></li>
+                            <li><a href = "" class = "nav-link px-3 active">Certificate of Indigency</a></li>
+                        </ul>                        
+                    </div>
+                    </div>
+                </li>
+                  <li><a href = "{% url 'logout' %}" class="nav-link px-3 active">Login</a></li>
                 </ul>
+            {%  endif %}
             </nav>
           </div>
         </div>

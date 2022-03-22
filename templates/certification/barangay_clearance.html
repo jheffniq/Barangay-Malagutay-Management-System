@@ -24,8 +24,8 @@
                         {% for res in Resident_cleared %}
                         <tr>
                             <td><a href="{% url 'resident_profile' res.id %}">{{ res.First_name }} {{ res.Middle_name}} {{res.Last_name}}</a></td>
-                            <td><a href ="#">View Certificate</a></td>
-                            <td><a href="{% url 'certificate' res.pk %}">Download Certificate</a></td>
+                            <td><a href ="{% url 'view_certificate' res.pk %}">View Certificate</a></td>
+                            <td><a href="{% url 'generate_certificate' res.pk %}">Download Certificate</a></td>
                         </tr>
                          {% endfor %}
                     </tbody>

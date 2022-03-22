@@ -23,4 +23,7 @@ def LogoutUser (request):
     logout(request)
     return redirect('/login/')
 
+def Guestuser (request):
+    return render(request,"guest/home.html")
+
 

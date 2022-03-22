@@ -1,15 +1,18 @@
+from cmath import log
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, JsonResponse
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Q
 from .models import Resident
 from .forms import Resident_Form
 
 def view_404(request, exception=None):
-    return redirect('/home/')
+    return redirect('/login/')
 
 
 #Display Resident
+@login_required(login_url='login')
 def Display_resident (request):
 
     Resident_obj = Resident.objects.all()
@@ -21,7 +24,7 @@ def Display_resident (request):
     return render (request,"Residents.html",context = context)
 
 #Display Profile
-
+@login_required(login_url='login')
 def Display_profile(request, pk):
     resident_obj = Resident.objects.get(id = pk)
 
@@ -32,6 +35,7 @@ def Display_profile(request, pk):
 
 
 #Create Resident
+
 def Create_resident(request):
     form = Resident_Form()
 
@@ -49,7 +53,8 @@ def Create_resident(request):
 
     return render(request,"profile_form.html",context=context)
 
-#Update Resident  
+#Update Resident 
+@login_required(login_url='login')
 def Update_resident(request, pk):
     resident_obj = Resident.objects.get(id = pk)
     form = Resident_Form(instance = resident_obj)
@@ -67,6 +72,7 @@ def Update_resident(request, pk):
     return render(request,"profile_form.html",context = context)
 
 #Delete Resident
+@login_required(login_url='login')
 def Delete_resident(request, pk):
     resident_obj = Resident.objects.get(id = pk)
     resident_obj.delete()
@@ -74,6 +80,7 @@ def Delete_resident(request, pk):
     return redirect('/residents/')
 
 #Search
+@login_required(login_url='login')
 def Search_resident(request):
     if request.method == "POST":
         q = request.POST["q"]
@@ -84,7 +91,7 @@ def Search_resident(request):
 
     else:
         searched = False
-
+@login_required(login_url='login')
 def home(request):
     Males = Resident.objects.filter(Gender = "Male").count()
     Females = Resident.objects.filter(Gender= "Female").count()

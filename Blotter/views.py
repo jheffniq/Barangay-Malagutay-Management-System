@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from Resident.models import Resident
 from .models import Blotreport
 from .forms import Blotter_Form
 from django.contrib import messages
 from django.db.models import Q
 
+#Add report
+@login_required(login_url='login')
 def Addreport(request):
     Resident_obj = Resident.objects.all()
     context = {
@@ -12,6 +15,8 @@ def Addreport(request):
     }
     return render(request,"blotter/Blotter_register.html",context = context)
 
+#Search
+@login_required(login_url='login')
 def Blotter_search_resident(request):
     if request.method == "POST":
         q = request.POST["q"]
@@ -22,6 +27,8 @@ def Blotter_search_resident(request):
     else:
         return render(request, "blotter/Search_resident.html")
 
+#Report Form
+@login_required(login_url='login')
 def Create_Report(request, pk):
     form = Blotter_Form()
 
@@ -44,6 +51,8 @@ def Create_Report(request, pk):
 
     return render(request,"blotter/blotter_form.html",context=context)
 
+#Delete Report
+@login_required(login_url='login')
 def Delete_report(request, pk):
     Blotter_obj = Blotreport.objects.get(id = pk)
     Blotterall = Blotreport.objects.all()
@@ -62,6 +71,8 @@ def Delete_report(request, pk):
     messages.success(request, "Resident has been deleted")
     return redirect('/blotter_display/')
 
+#Show Report
+@login_required(login_url='login')
 def Blotter_display(request):
     Blotter_obj = Blotreport.objects.all()
     context = {
@@ -69,6 +80,7 @@ def Blotter_display(request):
     }
     return render(request, "blotter/blotter_display.html", context = context)
 
+@login_required(login_url='login')
 def Blotter_details(request, pk):
     Blotter_obj = Blotreport.objects.get(id = pk)
     context = {

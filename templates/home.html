@@ -3,6 +3,7 @@
 
 
 {% block content %}
+{% if user.is_authenticated %}
 <div class="container-fluid">
 
 <div class="row">
@@ -190,5 +191,6 @@ const myChart = new Chart(ctx, {
 </div>
 </div>
 </div>
-
+{% endif %}
 {%  endblock content %}
+
