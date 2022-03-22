@@ -1,7 +1,7 @@
 <html>
     {% load static %}
     <head>
-        <title>Barangay Clearance</title>
+        <title>Certificate of Indigency</title>
         <style>
             table { -pdf-keep-with-next: true; }
          p { margin: 0; -pdf-keep-with-next: true; }
@@ -13,13 +13,14 @@
                 <img src="static/images/banner.png" height="150px" width="530px">
             </div><br>
           <hr>
-          <h1 style="font-size: 34px; text-align: center; font-family: 'Times New Roman', Times, serif;">BARANGAY CLEARANCE</h1>
+          <h1 style="font-size: 34px; text-align: center; font-family: 'Times New Roman', Times, serif;">CERTIFICATE OF INDIGENCY</h1>
             <h1 style="font-size: 25px; font-family: 'Times New Roman', Times, serif;">TO WHOM IT MAY CONCERN: <br></h1>
             <p style="font-size: 20px; font-family: 'Times New Roman', Times, serif;">
-                This is to certify that <b>{{Resident_obj.First_name}} {{Resident_obj.Middle_name}} {{Resident_obj.Last_name}}</b>
-                is a resident of <b>{{Resident_obj.Address}}, Barangay Malagutay, Zamboanga City</b> and
-                is known to be of good moral character and law abiding citizen in the community.<br><br>
-                Further certified that the above person has no pending case/derogatory records in this office.<br><br>
+                This is to certify that <b>{{Resident_obj.First_name}} {{Resident_obj.Middle_name}} {{Resident_obj.Last_name}}</b>, 
+                of legal age, and a bonafide resident of Barangay Malagutay, Zamboanga City</b> belongs to the indigent family of this barangay.
+                Moreover, the above mentioned has minimal means of livelihood to augment {% if Resident_obj.Gender == "Male"%}his {%  else %}her {% endif %}
+                needs.
+                <br><br>
                 Issued this <b>{{Day_Today}}</b> day of <b>{{Month_Today}}, {{Year_Today}}</b> at Barangay Malagutay, Zamboanga City
                 upon request of the interested party for whatever legal purposes it may serve.<br><br><br><br><br>
             </p>

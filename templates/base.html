@@ -72,30 +72,12 @@
                         <div>
                             <ul class="navbar-nav ps-3">
                                 <li><a href = "{% url 'resident_list' %}" class = "nav-link px-3 active">Barangay Clearance</a></li>
-                                <li><a href = "" class = "nav-link px-3 active">Certificate of Indigency</a></li>
+                                <li><a href = "{% url 'resident_list02' %}" class = "nav-link px-3 active">Certificate of Indigency</a></li>
                             </ul>                        
                         </div>
                         </div>
                     </li>
                   <li><a href = "{% url 'logout' %}" class="nav-link px-3 active">Logout</a></li>
-
-
-                  {% else %}
-                  <li><a href = "/resident_form" class="nav-link ps-3 active">Resident Form</a></li>
-                  <li>
-                    <a class="nav-link px-3 sidebar-link active" data-bs-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample">
-                        Certifications
-                    </a>
-                    <div class="collapse" id="collapseExample2">
-                    <div>
-                        <ul class="navbar-nav ps-3">
-                            <li><a href = "{% url 'resident_list' %}" class = "nav-link px-3 active">Barangay Clearance</a></li>
-                            <li><a href = "" class = "nav-link px-3 active">Certificate of Indigency</a></li>
-                        </ul>                        
-                    </div>
-                    </div>
-                </li>
-                  <li><a href = "{% url 'logout' %}" class="nav-link px-3 active">Login</a></li>
                 </ul>
             {%  endif %}
             </nav>

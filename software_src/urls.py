@@ -18,7 +18,7 @@ from django.urls import path
 from Accounts.views import LoginUser, LogoutUser,Guestuser
 from Resident.views import Display_resident, Create_resident, Update_resident, home, Delete_resident, Display_profile, Search_resident
 from Blotter.views import Addreport, Blotter_search_resident, Create_Report, Blotter_display, Blotter_details, Delete_report
-from Certification.views import resident_list, generate_certificate, view_certificate
+from Certification.views import resident_list, resident_list02, generate_certificate, view_certificate, view_certificate02, generate_certificate02
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -44,8 +44,11 @@ urlpatterns = [
     path('delete_report/<str:pk>/', Delete_report, name = "delete_report"),
 
     path('resident_list/',resident_list,name="resident_list"),
+    path('resident_list02/',resident_list02,name="resident_list02"),
     path('view_certificate/<str:pk>', view_certificate, name="view_certificate"),
     path('generate_certificate/<str:pk>/',generate_certificate,name="generate_certificate"),
+    path('view_certificate02/<str:pk>', view_certificate02, name="view_certificate02"),
+    path('generate_certificate02/<str:pk>/',generate_certificate02,name="generate_certificate02"),
 
     path('admin/', admin.site.urls),
     
