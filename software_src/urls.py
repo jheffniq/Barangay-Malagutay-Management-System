@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from Accounts.views import LoginUser, LogoutUser,Guestuser
+from Accounts.views import LoginUser, LogoutUser,Guestuser, Displayusers
 from Resident.views import Display_resident, Create_resident, Update_resident, home, Delete_resident, Display_profile, Search_resident
 from Blotter.views import Addreport, Blotter_search_resident, Create_Report, Blotter_display, Blotter_details, Delete_report
 from Certification.views import resident_list, resident_list02, generate_certificate, view_certificate, view_certificate02, generate_certificate02
@@ -29,6 +29,7 @@ urlpatterns = [
     path('index/', Guestuser, name="index"),
 
     path ('home/', home, name = "home"),
+    path('users/', Displayusers, name = "users"),
     path('residents/', Display_resident, name = "residents"),
     path('search_resident/', Search_resident, name = "search_resident"),
     path('resident_profile/<str:pk>/', Display_profile, name = "resident_profile"),

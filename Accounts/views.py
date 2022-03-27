@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 def LoginUser (request):
@@ -26,4 +28,12 @@ def LogoutUser (request):
 def Guestuser (request):
     return render(request,"guest/home.html")
 
+@login_required(login_url='login')
+def Displayusers (request):
+    User = get_user_model()
+    users = User.objects.all()
+    context = {
+        "user" : users
+    }
+    return render(request, "users.html", context = context)
 

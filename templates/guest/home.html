@@ -1,5 +1,73 @@
 {% extends 'guest/guest.html' %}
 {%  load static %}
 {% block content %}
+<style>
+    .carousel-item{
+        height: 32rem;
+        background: black;
+        color: white;
+        position: relative;
+    }
+    .carousel-item .container{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 50px;
+    }
+    .overlay-image{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: 0;
+        background-position: center;
+        background-size: cover;
+        opacity: 0.5;
+    }
+
+</style>
 <title>Home</title>
+
+<div id="MainCarousel" class="carousel slide" data-ride="carousel" style="background-color: #c86444; ">
+    <div class="carousel-inner">
+
+            <div class = "carousel-item active" data-interval="8000">
+            <div class="overlay-image" style="background-image: url('/static/images/main_image01.jpg');">  </div>
+            <div class="container" style="text-align: center;">
+                <h1>BIENVENIDO!</h1>
+                <p>WELCOME TO BARANGAY MALAGUTAY MANAGEMENT SYSTEM</p>
+            </div>
+            </div>
+
+            <div class = "carousel-item" data-interval="8000">
+            <div class="overlay-image" style="background-image: url('/static/images/main_image02.jpg');"></div>
+                <div class="container">
+                    <h1>Visit our offical facebook page</h1>
+                    <p>Get updated with what's going on in our community by visiting our social media account.<br>
+                        Send us a message with your feedbacks or concerns and we'll be sure to reply. Don't forget
+                        to leave a like and follow us.
+                    </p>
+                    <a href = "https://web.facebook.com/barangaymalagutay" class="btn btn-lg btn-primary">Click here to visit</a>
+                </div>
+                </div>
+
+                <div class = "carousel-item" data-interval="8000">
+                    <div class="overlay-image" style="background-image: url('/static/images/main_image03.jpg');">  </div>
+                    <div class="container" style="text-align: center;">
+                        <h1>LOREM IPSUM</h1>
+                        <p>Lorem ipsum lorem lorem ipsum</p>
+                    </div>
+                    </div>
+    </div>
+    <a href="#MainCarousel" class="carousel-control-prev" role="button" data-slide="prev">
+        <span class="sr-only"></span>
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    </a>
+    <a href="#MainCarousel" class="carousel-control-next" role="button" data-slide="next">
+        <span class="sr-only"></span>
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    </a>
+</div>
+
 {%  endblock content %}
