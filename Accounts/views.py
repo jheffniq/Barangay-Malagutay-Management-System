@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from .forms import User_form
 
 def LoginUser (request):
     if request.method == "POST":
@@ -27,6 +29,25 @@ def LogoutUser (request):
 
 def Guestuser (request):
     return render(request,"guest/home.html")
+
+
+def Adduser(request):
+    if request.method == "POST":
+        form = User_form(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            messages.success(request, "User sucessfully added")
+            return redirect('/users/')
+    else:
+        form = User_form
+
+    context = {
+        'form' : form
+    }
+
+    return render(request, "register.html", context = context)
 
 @login_required(login_url='login')
 def Displayusers (request):

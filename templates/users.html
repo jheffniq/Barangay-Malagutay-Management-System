@@ -1,7 +1,7 @@
 {%  extends 'base.html' %}
 {% load static %}
 {% block content %}
-<title>Residents</title>
+<title>Users</title>
 <style>
     table {
   font-family: arial, sans-serif;
@@ -18,7 +18,9 @@ td, th {
 </style>
 
 <h1 style="text-align: center;">List of Users</h1>
-<a href="/resident_form">Add New User</a>
+<a href="{% url 'adduser' %}">Add New User</a>
+<a href="#">Edit Barangay Officials</a>
+<a href="#">Edit Your Account</a>
 
 <table>
     <tr>
@@ -32,7 +34,6 @@ td, th {
         <td>{{ user.username}}</td>
         <td>{{ user.first_name }}</td>
         <td>{{ user.last_name }}</td>
-        <td><a href="#">Edit</a></td>
         <td><a href="#">Delete</a></td>
     </tr>
      {% endfor %}

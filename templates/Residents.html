@@ -29,15 +29,17 @@ td, th {
 
 <table>
     <tr>
-        <th>Full Name</th>
-        <th>Date Added</th>
+        <th>Last Name</th>
+        <th>First Name</th>
+        <th>Middle Name</th>
         <th>Last Modified</th>
     </tr>
 
-    {% for res in Resident_obj reversed%}
+    {% for res in Resident_obj %}
     <tr>
-        <td><a href="{% url 'resident_profile' res.id %}">{{ res.First_name }} {{ res.Middle_name}}  {{res.Last_name}}</a></td>
-        <td>{{res.created_date}}</td>
+        <td><a href="{% url 'resident_profile' res.id %}">{{res.Last_name}}</a></td>
+        <td><a href="{% url 'resident_profile' res.id %}">{{ res.First_name }}</a></td>
+        <td><a href="{% url 'resident_profile' res.id %}">{{ res.Middle_name}}</a></td>
         <td>{{res.modified_date}}</td>
         <td><a href="{% url 'update_resident' res.id %}">Edit</a></td>
         <td><a href="{% url 'delete_resident' res.id %}">Delete</a></td>
