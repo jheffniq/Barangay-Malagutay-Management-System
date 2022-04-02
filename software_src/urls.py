@@ -16,15 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, reverse_lazy
 from django.contrib.auth import views as auth_views
+from django.contrib.staticfiles.storage import staticfiles_storage
+from django.views.generic.base import RedirectView
 from Accounts.views import LoginUser, LogoutUser,Guestuser, Displayusers, Adduser, Edituser, Edit_officals
 from Resident.views import Display_resident, Create_resident, Update_resident, home, Delete_resident, Display_profile, Search_resident
 from Blotter.views import Addreport, Blotter_search_resident, Create_Report, Blotter_display, Blotter_details, Delete_report
-from Certification.views import resident_list, resident_list02, generate_certificate, view_certificate, view_certificate02, generate_certificate02
+from Certification.views import resident_list, resident_list02, generate_certificate, view_certificate, view_certificate02, generate_certificate02, email
 from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
 
+    path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('images/favicon.ico'))),
     path('login/', LoginUser, name="login"),
     path('logout/', LogoutUser, name="logout"),
     path('adduser/',Adduser, name = "adduser"),
@@ -32,6 +35,7 @@ urlpatterns = [
     path('change_password/', auth_views.PasswordChangeView.as_view(template_name="change_password.html",success_url=reverse_lazy('users')), name = "change_password"),
     path('edit_officals/', Edit_officals, name = "edit_officials"),
     path('index/', Guestuser, name="index"),
+    path('email/<str:pk>/', email, name = "email"),
 
     path ('home/', home, name = "home"),
     path('users/', Displayusers, name = "users"),
