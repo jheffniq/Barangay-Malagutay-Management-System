@@ -14,8 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from Accounts.views import LoginUser, LogoutUser,Guestuser, Displayusers, Adduser
+from django.urls import path, reverse_lazy
+from django.contrib.auth import views as auth_views
+from Accounts.views import LoginUser, LogoutUser,Guestuser, Displayusers, Adduser, Edituser, Edit_officals
 from Resident.views import Display_resident, Create_resident, Update_resident, home, Delete_resident, Display_profile, Search_resident
 from Blotter.views import Addreport, Blotter_search_resident, Create_Report, Blotter_display, Blotter_details, Delete_report
 from Certification.views import resident_list, resident_list02, generate_certificate, view_certificate, view_certificate02, generate_certificate02
@@ -27,6 +28,9 @@ urlpatterns = [
     path('login/', LoginUser, name="login"),
     path('logout/', LogoutUser, name="logout"),
     path('adduser/',Adduser, name = "adduser"),
+    path('edit_user/', Edituser, name = "edituser"),
+    path('change_password/', auth_views.PasswordChangeView.as_view(template_name="change_password.html",success_url=reverse_lazy('users')), name = "change_password"),
+    path('edit_officals/', Edit_officals, name = "edit_officials"),
     path('index/', Guestuser, name="index"),
 
     path ('home/', home, name = "home"),

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from Accounts.models import Official
 from django.http import HttpResponse
 from Resident.models import Resident
 from Blotter.models import Blotreport
@@ -68,12 +69,15 @@ def custom_strftime(format, t):
 #View Certificate
 def view_certificate(request, pk):
     Resident_obj = Resident.objects.get(id = pk)
+    Officials = Official.objects.get(id=1)
+    Chairman = Officials.Barangay_Chairman
     Month_Today = datetime.now().strftime('%B')
     Day_Today = custom_strftime('{S}', datetime.now())
     Year_Today = datetime.now().strftime('%Y')
     
     template_path = 'certification/Certificate1.html'
     context = {'Resident_obj': Resident_obj,
+                'Chairman' : Chairman,
                 'Month_Today': Month_Today,
                 'Day_Today': Day_Today,
                 'Year_Today' : Year_Today}
@@ -101,12 +105,15 @@ def view_certificate(request, pk):
 #Generate Certificate
 def generate_certificate(request, pk):
     Resident_obj = Resident.objects.get(id = pk)
+    Officials = Official.objects.get(id=1)
+    Chairman = Officials.Barangay_Chairman
     Month_Today = datetime.now().strftime('%B')
     Day_Today = custom_strftime('{S}', datetime.now())
     Year_Today = datetime.now().strftime('%Y')
     
     template_path = 'certification/Certificate1.html'
     context = {'Resident_obj': Resident_obj,
+                'Chairman' : Chairman,
                 'Month_Today': Month_Today,
                 'Day_Today': Day_Today,
                 'Year_Today' : Year_Today}
@@ -133,12 +140,15 @@ def generate_certificate(request, pk):
 #View Second Certificate
 def view_certificate02(request, pk):
     Resident_obj = Resident.objects.get(id = pk)
+    Officials = Official.objects.get(id=1)
+    Chairman = Officials.Barangay_Chairman
     Month_Today = datetime.now().strftime('%B')
     Day_Today = custom_strftime('{S}', datetime.now())
     Year_Today = datetime.now().strftime('%Y')
     
     template_path = 'certification/Certificate2.html'
     context = {'Resident_obj': Resident_obj,
+                'Chairman' : Chairman,
                 'Month_Today': Month_Today,
                 'Day_Today': Day_Today,
                 'Year_Today' : Year_Today}
@@ -164,12 +174,15 @@ def view_certificate02(request, pk):
 #Generate Second Certificate
 def generate_certificate02(request, pk):
     Resident_obj = Resident.objects.get(id = pk)
+    Officials = Official.objects.get(id=1)
+    Chairman = Officials.Barangay_Chairman
     Month_Today = datetime.now().strftime('%B')
     Day_Today = custom_strftime('{S}', datetime.now())
     Year_Today = datetime.now().strftime('%Y')
     
     template_path = 'certification/Certificate2.html'
     context = {'Resident_obj': Resident_obj,
+                'Chairman' : Chairman,
                 'Month_Today': Month_Today,
                 'Day_Today': Day_Today,
                 'Year_Today' : Year_Today}

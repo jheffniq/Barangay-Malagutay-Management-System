@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{%  load static %}
+{% block content %}
+<title>Edit User</title>
+<a href = "{% url 'users' %}">Go Back</a>
+<h1 class="mb-3" style="text-align: center;">Edit User</h1>
+
+{% if form.errors %}
+    <div class = "alert alert-danger alert-dismissible fade show" role = "alert">
+        Update failed. Please ensure registration instructions are followed.
+        <button type="button" class="close float-end" data-dismiss="alert" aria-label="Close" style="background-color: Transparent; border-color: transparent;">
+            <span aria-hidden="true">✖</span>
+          </button>
+    </div>
+{% endif %}
+
+<div class="border border-danger rounded shadow-lg p-3 mb-5">
+    <form method = POST>
+        {% csrf_token %}
+        {{form.as_p}}
+        <br>
+        <input type = "submit" name = "Submit" onclick = "">
+    </form>
+</div>
+{%  endblock content %}
