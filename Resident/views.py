@@ -101,4 +101,3 @@ def home(request):
         'Females' : Females
     }
     return render(request,"home.html",context = context)
-

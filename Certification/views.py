@@ -5,6 +5,8 @@ from Accounts.models import Official
 from django.http import HttpResponse
 from Resident.models import Resident
 from Blotter.models import Blotreport
+from Certification.models import Certrequest
+from .forms import Request_form
 from django.contrib import messages
 from datetime import datetime
 from django.core.mail import send_mail, EmailMessage
@@ -204,6 +206,47 @@ def generate_certificate02(request, pk):
     if pisa_status.err:
        return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
+
+def request_list(request, request_type):
+    Requestype = request_type
+    form = Request_form
+    if Requestype == 'barangay_certificate' or Requestype == 'indigency':
+        Resident_obj = Resident.objects.all()
+        cresident = Resident.objects.filter(Blacklisted = False)
+        bresident = Resident.objects.filter(Blacklisted = True)
+
+        Resident_cleared = cresident.order_by('First_name')
+        Resident_blacklisted = bresident.order_by('First_name')
+        Blotter_number = []
+        
+        for res in Resident_blacklisted:
+            resid = res.id
+            blo = Blotreport.objects.filter(Offender = resid)
+            bloo = blo.count()
+            Blotter_number.append(bloo)
+
+        context = {
+            'Resident_cleared': Resident_cleared,
+            'Resident_blacklisted': Resident_blacklisted,
+            'Blotter_number' : Blotter_number,
+            'Requestype' : Requestype,
+            'form' : form
+        }
+        return render(request, "certification/guest_request.html",context = context)
+    else:
+        return redirect('index')
+
+def Createrequest(request, request_type, pk):
+    if request.method == "POST":
+        form = Request_form(request.POST)
+        if form.is_valid():
+            form.save()
+            request_obj = Certrequest.objects.last()
+            request_obj.Resident_id = pk
+            request_obj.Request_type = "Barangay certificate"
+            request_obj.save()
+            messages.success(request, "Request submitted for validation")
+            return redirect('/request_certificate/barangay_certificate/')
 
 def email(request, pk):
     receiver = "jheffniq@gmail.com"

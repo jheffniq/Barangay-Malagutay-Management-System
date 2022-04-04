@@ -18,10 +18,19 @@ from django.urls import path, reverse_lazy
 from django.contrib.auth import views as auth_views
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.views.generic.base import RedirectView
+
 from Accounts.views import LoginUser, LogoutUser,Guestuser, Displayusers, Adduser, Edituser, Edit_officals
-from Resident.views import Display_resident, Create_resident, Update_resident, home, Delete_resident, Display_profile, Search_resident
-from Blotter.views import Addreport, Blotter_search_resident, Create_Report, Blotter_display, Blotter_details, Delete_report
-from Certification.views import resident_list, resident_list02, generate_certificate, view_certificate, view_certificate02, generate_certificate02, email
+
+from Resident.views import Display_resident, Create_resident, Update_resident, home
+from Resident.views import Delete_resident, Display_profile, Search_resident
+
+from Blotter.views import Addreport, Blotter_search_resident, Create_Report, Blotter_display
+from Blotter.views import Blotter_details, Delete_report
+
+from Certification.views import resident_list, resident_list02, generate_certificate, view_certificate 
+from Certification.views import view_certificate02, generate_certificate02, email, request_list 
+from Certification.views import Createrequest
+
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -34,7 +43,11 @@ urlpatterns = [
     path('edit_user/', Edituser, name = "edituser"),
     path('change_password/', auth_views.PasswordChangeView.as_view(template_name="change_password.html",success_url=reverse_lazy('users')), name = "change_password"),
     path('edit_officals/', Edit_officals, name = "edit_officials"),
+
     path('index/', Guestuser, name="index"),
+    path('request_certificate/<request_type>/', request_list, name = "request_certificate"),
+    path('request_certificate/<request_type>/<str:pk>/', Createrequest, name="Createrequest"),
+
     path('email/<str:pk>/', email, name = "email"),
 
     path ('home/', home, name = "home"),
@@ -59,6 +72,8 @@ urlpatterns = [
     path('generate_certificate/<str:pk>/',generate_certificate,name="generate_certificate"),
     path('view_certificate02/<str:pk>', view_certificate02, name="view_certificate02"),
     path('generate_certificate02/<str:pk>/',generate_certificate02,name="generate_certificate02"),
+
+
 
     path('admin/', admin.site.urls),
     

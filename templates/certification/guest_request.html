@@ -1,0 +1,103 @@
+{% extends 'guest/guest.html' %}
+{%  load static %}
+{% block content %}
+<div class="container" style="margin-bottom: 20%;">
+{% if Requestype == 'barangay_certificate' or Requestype == 'indigency'%}
+<title>Request Barangay Certificate</title>
+<div class="container-fluid">
+{% if Requestype == 'barangay_certificate' %}
+<h1>Request Barangay Certificate</h1>
+{% elif Requestype == 'indigency' %}
+<h1>Request Certificate of Indigency</h1>
+{% endif %}
+    <nav>
+        <div class="nav nav-tabs" role="tablist">
+            <button class = "nav-link active" data-bs-toggle="tab" data-bs-target="#residentlist"
+            type="button" role="tab" aria-controls="nav-home" id = "clearedlist" aria-selected="true">Cleared Residents</button>
+            <button class = "nav-link" data-bs-toggle="tab" data-bs-target="#blacklist" id="blacklisted"
+            type="button" role="tab" aria-controls="nav-profile" aria-selected="true">Blacklisted Residents</button>
+        </div>
+    </nav>
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="residentlist" role="tabpanel" aria-labelledby="clearedlist">
+            <div class="container-fluid">
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th>Full Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for res in Resident_cleared %}
+                        <tr>
+                            <td>{{ res.First_name }} {{ res.Middle_name}} {{res.Last_name}}</a></td>
+                            {% if Requestype == 'barangay_certificate' %}
+                            <td>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#barangay_certificate">
+                                Request Certificate
+                                </button>
+                                
+                                <!-- Modal -->
+                                <div class="modal fade" id="barangay_certificate" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalScrollableTitle">Please fill up this form to continue</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class="modal-body">
+                                        <form action="{% url 'Createrequest' 'barangay_certificate' res.pk %}" method="POST">
+                                        {% csrf_token %}
+                                        {{form.as_p}}
+                                        <input type = "submit" value="Submit" class="btn btn-primary">
+                                        </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button href ="{% url 'Createrequest' 'barangay_certificate' res.pk %}"  type="submit" value="Submit" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </td>
+                                <td><a href="{% url 'Createrequest' 'barangay_certificate' res.pk %}">Request Certificate</a></td>
+
+                            {% elif Requestype == 'indigency' %}
+                            <td><h5>Hello</h5></td>
+                            {% endif %}
+                        </tr>
+                         {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="tab-pane fade show" id="blacklist" role="tabpanel" aria-labelledby="blacklisted">
+            <div class="container-fluid">
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th>Full Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for res in Resident_blacklisted %}
+                        <tr>
+                            <td>{{ res.First_name }} {{ res.Middle_name}}  {{res.Last_name}}</a></td>
+                        </tr>
+                         {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<h1 style="text-align: center; margin-top: 20%;">Not Found!</h1>
+<p style = "text-align: center; margin-bottom: 30%;"> We couldn't find the page you are looking for.</p>
+{% endif %}
+</div>
+{%  endblock content %}

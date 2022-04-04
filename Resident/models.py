@@ -37,9 +37,3 @@ class Resident (models.Model):
 
     def __str__(self):
         return f'{self.First_name} {self.Last_name}'
-
-class Official(models.Model):
-    Barangay_Chairman = models.CharField(max_length=100, verbose_name="Barangay Chairman", null= False, blank= False),
-    Barangay_Secretary = models.CharField(max_length=100, verbose_name="Barangay Secretary", null= False, blank= False),
-    Barangay_Treasurer = models.CharField(max_length=100, verbose_name="Barangay Treasurer", null= False, blank= False),
-    SK_Chairman = models.CharField(max_length=100, verbose_name="SK Chairman", null= False, blank= False),
