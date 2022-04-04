@@ -243,10 +243,14 @@ def Createrequest(request, request_type, pk):
             form.save()
             request_obj = Certrequest.objects.last()
             request_obj.Resident_id = pk
-            request_obj.Request_type = "Barangay certificate"
+            request_obj.Request_type = request_type
             request_obj.save()
+
             messages.success(request, "Request submitted for validation")
-            return redirect('/request_certificate/barangay_certificate/')
+            if request_type == 'Barangay Certificate':
+                return redirect('/request_certificate/barangay_certificate/')
+            elif request_type == 'Certificate of Indigency':
+                return redirect('/request_certificate/indigency/')
 
 def email(request, pk):
     receiver = "jheffniq@gmail.com"
