@@ -226,6 +226,7 @@ def request_list(request, request_type):
             Blotter_number.append(bloo)
 
         context = {
+            'Resident' : Resident_obj,
             'Resident_cleared': Resident_cleared,
             'Resident_blacklisted': Resident_blacklisted,
             'Blotter_number' : Blotter_number,
@@ -251,6 +252,13 @@ def Createrequest(request, request_type, pk):
                 return redirect('/request_certificate/barangay_certificate/')
             elif request_type == 'Certificate of Indigency':
                 return redirect('/request_certificate/indigency/')
+
+def Renderrequest(request):
+    return render(request, "requests.html")
+
+
+
+
 
 def email(request, pk):
     receiver = "jheffniq@gmail.com"

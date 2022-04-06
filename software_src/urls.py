@@ -18,24 +18,30 @@ from django.urls import path, reverse_lazy
 from django.contrib.auth import views as auth_views
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.views.generic.base import RedirectView
-
-from Accounts.views import LoginUser, LogoutUser,Guestuser, Displayusers, Adduser, Edituser, Edit_officals
-
-from Resident.views import Display_resident, Create_resident, Update_resident, home
-from Resident.views import Delete_resident, Display_profile, Search_resident
-
-from Blotter.views import Addreport, Blotter_search_resident, Create_Report, Blotter_display
-from Blotter.views import Blotter_details, Delete_report
-
-from Certification.views import resident_list, resident_list02, generate_certificate, view_certificate 
-from Certification.views import view_certificate02, generate_certificate02, email, request_list 
-from Certification.views import Createrequest
-
 from django.conf.urls.static import static
 from django.conf import settings
 
+#Accounts app import
+from Accounts.views import LoginUser, LogoutUser,Guestuser, Displayusers, Adduser, Edituser, Edit_officals
+
+#Residents app import
+from Resident.views import Display_resident, Create_resident, Update_resident, home
+from Resident.views import Delete_resident, Display_profile, Search_resident
+
+#Blotter app import
+from Blotter.views import Addreport, Blotter_search_resident, Create_Report, Blotter_display
+from Blotter.views import Blotter_details, Delete_report
+
+#Certification app import
+from Certification.views import resident_list, resident_list02, generate_certificate, view_certificate 
+from Certification.views import view_certificate02, generate_certificate02, email, request_list 
+from Certification.views import Createrequest, Renderrequest
+
+
+
 urlpatterns = [
 
+    #Landing page paths
     path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('images/favicon.ico'))),
     path('login/', LoginUser, name="login"),
     path('logout/', LogoutUser, name="logout"),
@@ -43,13 +49,13 @@ urlpatterns = [
     path('edit_user/', Edituser, name = "edituser"),
     path('change_password/', auth_views.PasswordChangeView.as_view(template_name="change_password.html",success_url=reverse_lazy('users')), name = "change_password"),
     path('edit_officals/', Edit_officals, name = "edit_officials"),
-
     path('index/', Guestuser, name="index"),
     path('request_certificate/<request_type>/', request_list, name = "request_certificate"),
     path('request_certificate/<request_type>/<str:pk>/', Createrequest, name="Createrequest"),
 
     path('email/<str:pk>/', email, name = "email"),
 
+    #Resident paths
     path ('home/', home, name = "home"),
     path('users/', Displayusers, name = "users"),
     path('residents/', Display_resident, name = "residents"),
@@ -59,6 +65,7 @@ urlpatterns = [
     path ('resident_update/<str:pk>/', Update_resident, name = "update_resident"),
     path('delete_resident/<str:pk>/', Delete_resident, name = "delete_resident"),
     
+    #Blotter paths
     path('add_report/', Addreport, name = "add_report"),
     path('blotter_search_resident/', Blotter_search_resident, name = "blotter_search_resident"),
     path('blotter_form/<str:pk>/', Create_Report, name = "blotter_form"),
@@ -66,12 +73,14 @@ urlpatterns = [
     path('blotter_details/<str:pk>/', Blotter_details, name = "blotter_details"),
     path('delete_report/<str:pk>/', Delete_report, name = "delete_report"),
 
+    #Certificate paths
     path('resident_list/',resident_list,name="resident_list"),
     path('resident_list02/',resident_list02,name="resident_list02"),
     path('view_certificate/<str:pk>', view_certificate, name="view_certificate"),
     path('generate_certificate/<str:pk>/',generate_certificate,name="generate_certificate"),
     path('view_certificate02/<str:pk>', view_certificate02, name="view_certificate02"),
     path('generate_certificate02/<str:pk>/',generate_certificate02,name="generate_certificate02"),
+    path('display_requests/',Renderrequest,name="display_requests"),
 
 
 

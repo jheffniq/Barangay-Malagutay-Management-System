@@ -1,6 +1,128 @@
 {% extends 'guest/guest.html' %}
 {%  load static %}
 {% block content %}
+<div class="container-fluid" style="margin-bottom:20%; margin-top: 5%;">
+{% if Requestype == 'barangay_certificate' or Requestype == 'indigency'%}
+<title>Request Barangay Certificate</title>
+<div class="container-fluid">
+{% if Requestype == 'barangay_certificate' %}
+<h1>Request Barangay Certificate</h1>
+{% elif Requestype == 'indigency' %}
+<h1>Request Certificate of Indigency</h1>
+{% endif %}
+
+<table class = "table table-bordered table-hover" id="RequestTable">
+     <thead class="thead-dark">
+         <tr>
+            <th>First Name</th>
+            <th>Middle Name</th>
+            <th>Last Name</th>
+            <th>Eligibility</th>
+            <th>Request</th>
+        </tr>
+     </thead>
+
+     <tbody>
+            {% for res in Resident %}
+            <tr>
+                <td>{{ res.First_name }}</td>
+                <td>{{ res.Middle_name}}</td>
+                <td>{{res.Last_name}}</td>
+                {% if res.Blacklisted == True %}
+                <td style="color:red;">Not Eligible</td>
+                {% else %}
+                <td style="color: green;">Eligible</td>
+                {% endif %}
+
+                {% if Requestype == 'barangay_certificate' %}
+                {% if res.Blacklisted == True %}
+                <td style="text-align: center;"><button type="button" class="btn btn-primary" disabled>Request Certificate</button></td>
+                {% else %}
+                <td style="text-align: center;">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-{{ res.id }}">
+                    Request Certificate
+                    </button>
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="modal-{{ res.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content " style="text-align: left;">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalScrollableTitle">Please fill up this form to continue</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                            <form action="{% url 'Createrequest' 'Barangay Certificate' res.pk %}" method="POST">
+                            {% csrf_token %}
+                            {{form.as_p}}
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <input type = "submit" value="Submit" class="btn btn-primary">
+                            </form>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </td>
+                {% endif %}
+
+                {% elif Requestype == 'indigency' %}
+                {% if res.Blacklisted == True %}
+                <td style="text-align: center;"><button type="button" class="btn btn-primary" disabled>Request Certificate</button></td>
+                {% else %}
+                <td style="text-align: center;">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-{{ res.id }}">
+                    Request Certificate
+                    </button>
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="modal-{{ res.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalScrollableTitle">Please fill up this form to continue</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body" style="text-align: left;">
+                            <form action="{% url 'Createrequest' 'Certificate of Indigency' res.pk %}" method="POST">
+                            {% csrf_token %}
+                            {{form.as_p}}
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <input type = "submit" value="Submit" class="btn btn-primary">
+                            </form>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </td>
+                {% endif %}
+                {% endif %}
+            </tr>
+            {% endfor %}
+     </tbody>
+</table>
+
+<script>
+$(document).ready(function() {
+    $('#RequestTable').DataTable();
+} );
+</script>
+</div>
+{% else %}
+<h1 style="text-align: center; margin-top: 20%;">Not Found!</h1>
+<p style = "text-align: center; margin-bottom: 30%;"> We couldn't find the page you are looking for.</p>
+{% endif %}
+
+<!--
 <div class="container" style="margin-bottom: 20%;">
 {% if Requestype == 'barangay_certificate' or Requestype == 'indigency'%}
 <title>Request Barangay Certificate</title>
@@ -33,13 +155,13 @@
                             <td>{{ res.First_name }} {{ res.Middle_name}} {{res.Last_name}}</a></td>
 
                             {% if Requestype == 'barangay_certificate' %}
-                            <td style="text-align: right;">
-                                <!-- Button trigger modal -->
+                            <td style="text-align: right;"> -->
+                                <!-- Button trigger modal 
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-{{ res.id }}">
                                 Request Certificate
                                 </button>
                                 
-                                <!-- Modal -->
+                                --><!-- Modal 
                                 <div class="modal fade" id="modal-{{ res.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content " style="text-align: left;">
@@ -68,12 +190,12 @@
                             {% elif Requestype == 'indigency' %}
 
                             <td style="text-align: right;">
-                                <!-- Button trigger modal -->
+                                --><!-- Button trigger modal 
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-{{ res.id }}">
                                 Request Certificate
                                 </button>
                                 
-                                <!-- Modal -->
+                                --><!-- Modal 
                                 <div class="modal fade" id="modal-{{ res.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
@@ -130,5 +252,5 @@
 <h1 style="text-align: center; margin-top: 20%;">Not Found!</h1>
 <p style = "text-align: center; margin-bottom: 30%;"> We couldn't find the page you are looking for.</p>
 {% endif %}
-</div>
+</div>-->
 {%  endblock content %}
