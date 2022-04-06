@@ -34,8 +34,8 @@ from Blotter.views import Blotter_details, Delete_report
 
 #Certification app import
 from Certification.views import resident_list, resident_list02, generate_certificate, view_certificate 
-from Certification.views import view_certificate02, generate_certificate02, email, request_list 
-from Certification.views import Createrequest, Renderrequest
+from Certification.views import view_certificate02, generate_certificate02, request_list 
+from Certification.views import Createrequest, Renderrequest, Email_certificate
 
 
 
@@ -52,8 +52,6 @@ urlpatterns = [
     path('index/', Guestuser, name="index"),
     path('request_certificate/<request_type>/', request_list, name = "request_certificate"),
     path('request_certificate/<request_type>/<str:pk>/', Createrequest, name="Createrequest"),
-
-    path('email/<str:pk>/', email, name = "email"),
 
     #Resident paths
     path ('home/', home, name = "home"),
@@ -81,6 +79,9 @@ urlpatterns = [
     path('view_certificate02/<str:pk>', view_certificate02, name="view_certificate02"),
     path('generate_certificate02/<str:pk>/',generate_certificate02,name="generate_certificate02"),
     path('display_requests/',Renderrequest,name="display_requests"),
+
+    #Email Certificate
+    path('email/<str:pk>/', Email_certificate, name = "email"),
 
 
 

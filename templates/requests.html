@@ -1,4 +1,43 @@
 {% extends 'base.html' %}
 {%  load static %}
 {% block content %}
+
+<h1>Certificate Requests</h1>
+
+<table class = "table table-bordered table-hover" id="Display">
+     <thead class="thead-dark">
+         <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Request Type</th>
+            <th>Purpose</th>
+            <th>Decline</th>
+            <th>Accept</th>
+        </tr>
+     </thead>
+
+     <tbody>
+            {% for Resident in Request %}
+            <tr>
+                <td>{{ Resident.Requester.First_name }}</td>
+                <td>{{ Resident.Requester.Last_name }}</td>
+                <td>{{ Resident.Request_type }}</td>
+                <td>{{ Resident.Purpose }}</td>
+                <td style="text-align: center;"><button class="btn btn-danger">Decline</button></td>
+                <td style="text-align: center;"><a href = "{% url 'email' Resident.id%}" class="btn btn-success" role="button">Accept</button></td>
+            </tr>
+            {% endfor %}
+     </tbody>
+</table>
+
+<script>
+    $(document).ready(function() {
+        $('#Display').DataTable({
+            order: [[0, 'asc']],
+            pagingType: 'full_numbers'
+            
+        });
+    } );
+</script>
+
 {%  endblock content %}
