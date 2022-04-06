@@ -35,7 +35,7 @@ from Blotter.views import Blotter_details, Delete_report
 #Certification app import
 from Certification.views import resident_list, resident_list02, generate_certificate, view_certificate 
 from Certification.views import view_certificate02, generate_certificate02, request_list 
-from Certification.views import Createrequest, Renderrequest, Email_certificate
+from Certification.views import Createrequest, Renderrequest, Email_certificate, Declinerequest
 
 
 
@@ -82,6 +82,7 @@ urlpatterns = [
 
     #Email Certificate
     path('email/<str:pk>/', Email_certificate, name = "email"),
+    path('declinerequest/<str:pk>/', Declinerequest, name = "declinerequest"),
 
 
 

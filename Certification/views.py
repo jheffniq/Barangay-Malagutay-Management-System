@@ -264,8 +264,6 @@ def Renderrequest(request):
 
 
 
-
-
 def Email_certificate(request, pk):
     Request_obj = Certrequest.objects.get(id=pk)
     Request_type = Request_obj.Request_type
@@ -327,17 +325,18 @@ def Email_certificate(request, pk):
        return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
 
+def Declinerequest(request, pk):
+    Request_obj = Certrequest.objects.get(id = pk)
+    receiver = Request_obj.Email
+    email = EmailMessage(
+        'Barangay Malagutay Certificate Request',
+        'Good Day,\n\nUnfortunately, your request for certificate has been declined. Please contact the barangay officials/representatives regarding this issue.\n\n\nThis is an automated email, do not reply. Please contact the respected barangay officials/workers if you have inquiries.',
+        'testbmms88@gmail.com', 
+        [receiver]
+    )
+    email.send()
+    Request_obj.delete()
+    messages.success(request, "Request has been declined")
+    return redirect('/display_requests/')
 
 
-
-
-
-   # usermail = "jheffniq@gmail.com"
-   # send_mail(
-   #     'Test email',
-    #    'Send this messagessssssssss test message lorem ipsum test message', #message
-   #     'testbmms88@gmail.com', #email sender
-   #     [usermail], #email receiver
-  #      fail_silently = False
-  #  )
-  #  return redirect('home')

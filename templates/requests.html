@@ -2,17 +2,17 @@
 {%  load static %}
 {% block content %}
 
-<h1>Certificate Requests</h1>
+<h1 style="text-align: center;" class="mb-5"><b>Certificate Requests</b></h1>
 
-<table class = "table table-bordered table-hover" id="Display">
+<table class = "table table-bordered table-hover mt-2 mb-5" id="Display">
      <thead class="thead-dark">
          <tr>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Request Type</th>
             <th>Purpose</th>
-            <th>Decline</th>
-            <th>Accept</th>
+            <th style="text-align: center;">Decline</th>
+            <th style="text-align: center;">Accept</th>
         </tr>
      </thead>
 
@@ -23,7 +23,32 @@
                 <td>{{ Resident.Requester.Last_name }}</td>
                 <td>{{ Resident.Request_type }}</td>
                 <td>{{ Resident.Purpose }}</td>
-                <td style="text-align: center;"><button class="btn btn-danger">Decline</button></td>
+                <td style="text-align: center;">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-{{ Resident.id }}">
+                        Decline
+                    </button>
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="modal-{{ Resident.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header mx-auto">
+                            <h5 class="modal-title" id="exampleModalLongTitle"><b>CONFIRM DECLINE</b></h5>
+
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                            <h5>Are you sure you want to decline {{ Resident.Requester.First_name }} {{ Resident.Requester.Last_name }}'s request?</h5>
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                            <a href="{% url 'declinerequest' Resident.id %}" role="button" class="btn btn-danger">YES</a>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </td>
                 <td style="text-align: center;"><a href = "{% url 'email' Resident.id%}" class="btn btn-success" role="button">Accept</button></td>
             </tr>
             {% endfor %}
