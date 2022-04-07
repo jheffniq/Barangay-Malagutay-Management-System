@@ -150,10 +150,3 @@ def home(request):
         'Females' : Females
     }
     return render(request,"home.html",context = context)
-
-#Upload CSV
-
-def Uploadcsv(request):
-
-
-    return render(request, "upload.html", context = context)
