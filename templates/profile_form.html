@@ -4,7 +4,7 @@
 <title>Resident Form</title>
 
 <h1>Add New Resident</h1>
-<a href = "{{request.META.HTTP_REFERER}}">Go Back</a>
+<a href = "{% url 'residents' %}">Go Back</a>
 <form enctype="multipart/form-data" method = "POST" action="">
     {% csrf_token %}
     {{ form.as_p }}

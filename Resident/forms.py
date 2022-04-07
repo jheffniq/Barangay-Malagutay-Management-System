@@ -1,11 +1,12 @@
 from django import forms
-from .models import Resident
+from .models import Resident, CSV
 
 class DateInput(forms.DateInput):
     input_type = 'date'
 
 
 class Resident_Form(forms.ModelForm):
+
     class Meta:
         widgets = {
             'Birthdate' : DateInput()
@@ -25,4 +26,11 @@ class Resident_Form(forms.ModelForm):
             'Occupation',
             'Vaccination',
             'Address',   
+        ]
+
+class CSVmodel(forms.ModelForm):
+    class Meta:
+        model = CSV
+        fields = [
+            'file_name'
         ]

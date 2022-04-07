@@ -1,9 +1,16 @@
 {% extends 'base.html' %}
 {%  load static %}
 {% block content %}
+<style>
+body{
+    background-color: #fcfafa !important;
+}
+</style>
+
 <title>Add New User</title>
+<span>
 <a href = "{% url 'users' %}">Go Back</a>
-<h1 class="mb-3" style="text-align: center;">Add a New User</h1>
+<h1 class="mb-3" style="text-align: center;">Add New User</h1></span>
 
 {% if form.errors %}
     <div class = "alert alert-danger alert-dismissible fade show" role = "alert">
@@ -13,12 +20,12 @@
           </button>
     </div>
 {% endif %}
-<div class="border border-danger rounded shadow-lg p-3 mb-5" style="background-color: #c86444; color:white">
+<div class="border border-dark rounded shadow-lg p-3 mb-5" style="background-color:white">
     <form method = POST>
         {% csrf_token %}
         {{form.as_p}}
         <br>
-        <input type = "submit" name = "Submit" onclick = "">
+        <input type = "submit" name = "Submit" onclick = "" value="Register" class="btn btn-primary">
     </form>
 </div>
 {%  endblock content %}

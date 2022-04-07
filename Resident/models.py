@@ -3,7 +3,7 @@ from django.db import models
 from datetime import datetime, date
 
 class Resident (models.Model):
-    pic = models.ImageField(null=True, blank = True, verbose_name="Profile Picture", upload_to= "images/")
+    pic = models.ImageField(null=True, blank = True, verbose_name="Profile Picture", upload_to= "images/", default='images/default_pp.jpg')
     First_name = models.CharField(max_length=50)
     Last_name = models.CharField(max_length=50)
     Middle_name = models.CharField(max_length=50)
@@ -37,3 +37,11 @@ class Resident (models.Model):
 
     def __str__(self):
         return f'{self.First_name} {self.Last_name}'
+
+class CSV(models.Model):
+    file_name = models.FileField(upload_to='files/csv')
+    uploaded = models.DateTimeField(auto_now_add=True)
+    activated = models.BooleanField(default=False)
+
+    def __str_(self):
+        return f'File id: {self.id}'
