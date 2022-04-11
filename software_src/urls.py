@@ -26,7 +26,8 @@ from Accounts.views import LoginUser, LogoutUser,Guestuser, Displayusers, Adduse
 
 #Residents app import
 from Resident.views import Display_resident, Create_resident, Update_resident, home
-from Resident.views import Delete_resident, Display_profile, Search_resident
+from Resident.views import Delete_resident, Display_profile, Search_resident, Temp_Resident, display_registrations
+from Resident.views import registration_profile, Acceptresident, Declineresident
 
 #Blotter app import
 from Blotter.views import Addreport, Blotter_search_resident, Create_Report, Blotter_display
@@ -62,6 +63,11 @@ urlpatterns = [
     path ('resident_form/' ,Create_resident),
     path ('resident_update/<str:pk>/', Update_resident, name = "update_resident"),
     path('delete_resident/<str:pk>/', Delete_resident, name = "delete_resident"),
+    path('temp_resident/',Temp_Resident, name = "tempresident"),
+    path ('display_registrations/', display_registrations, name = "display_registrations"),
+    path ('temp_profile/<str:pk>', registration_profile, name = "temp_profile"),
+    path('acceptresident/<str:pk>', Acceptresident, name = "acceptresident"),
+    path('declineresident/<str:pk>', Declineresident, name= "declineresident"),
     
     #Blotter paths
     path('add_report/', Addreport, name = "add_report"),

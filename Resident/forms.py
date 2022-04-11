@@ -1,5 +1,5 @@
 from django import forms
-from .models import Resident, CSV
+from .models import Resident, CSV, TempResident
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -33,4 +33,28 @@ class CSVmodel(forms.ModelForm):
         model = CSV
         fields = [
             'file_name'
+        ]
+
+class Temp_Form(forms.ModelForm):
+
+    class Meta:
+        widgets = {
+            'Birthdate' : DateInput()
+        }
+        model = TempResident
+        fields = [
+            'pic',
+            'First_name',
+            'Middle_name',
+            'Last_name',
+            'Email',
+            'Birthdate',
+            'Gender',
+            'Marital_status',
+            'Contact',
+            'Citizenship',
+            'Religion',
+            'Occupation',
+            'Vaccination',
+            'Address',   
         ]

@@ -59,7 +59,21 @@
                 <ul class="navbar-nav">
                     <li><h5><a href = "/home" class="nav-link ps-3 active">Home</a></h5></li>
                     <li><h5><a href = "{% url 'users' %}" class="nav-link ps-3 active">Users</a></h5></li>
-                    <li><h5><a href = "{% url 'display_requests' %}" class="nav-link ps-3 active">Requests</a></h5></li>
+                    <li>
+                        <a class="nav-link px-3 sidebar-link active" data-bs-toggle="collapse" href="#Request" role="button" aria-expanded="false" aria-controls="collapseExample"
+                        style="display: flex; align-items: center;">
+                            <span><h5>Requests</h5></span>
+                            <span class="right-icon ms-auto"  style="display: inline-flex;"><i class="bi bi-chevron-down"></i></span>
+                        </a>
+                        <div class="collapse" id="Request">
+                        <div>
+                            <ul class="navbar-nav ps-3">
+                                <li><a href = "{% url 'display_registrations' %}" class = "nav-link px-3 active" style="display: inline-block; margin-right: 20%;">Registration</a></li>
+                                <li><a href = "{% url 'display_requests' %}" class = "nav-link px-3 active" style="display: inline-block; margin-right: 20%;">Certification</a></li>
+                            </ul>                        
+                        </div>
+                        </div>
+                    </li>
                     <li><h5><a href = "/residents" class="nav-link ps-3 active">Residents</a></h5></li>
                     
                     <li>

@@ -6,41 +6,74 @@
 {% if user.is_authenticated %}
 <title>Home</title>
 <div class="container-fluid">
-
 <div class="row">
     <div class="col">
         <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-            <div class="card-header"></div>
+            <div class="card-header">
+                RESIDENTS
+            </div>
             <div class="card-body">
-              <h5 class="card-title"></h5>
-              <p class="card-text"></p>
+              {% if TotResident %}
+              <h1 class="card-title" style="text-align: center;">{{TotResident}}</h1>
+              {% else %}
+              <h1 class="card-title" style="text-align: center;">0</h1>
+              {% endif %}
+              {% if TotBlot == 1 %}
+              <p class="card-text" style="text-align: center;">Registered Resident</p>
+              {% else %}
+              <p class="card-text" style="text-align: center;">Registered Residents</p>
+              {% endif %}
             </div>
           </div>
     </div>
     <div class="col">
         <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
-            <div class="card-header"></div>
+            <div class="card-header">BLOTTER</div>
             <div class="card-body">
-              <h5 class="card-title"></h5>
-              <p class="card-text"></p>
+                {% if TotBlot %}
+                <h1 class="card-title" style="text-align: center;">{{TotBlot}}</h1>
+                {% else %}
+                <h1 class="card-title" style="text-align: center;">0</h1>
+                {% endif %}
+                {% if TotBlot == 1 %}
+                <p class="card-text" style="text-align: center;">Blotter Report Issued</p>
+                {% else %}
+                <p class="card-text" style="text-align: center;">Blotter Reports Issued</p>
+                {% endif %}
             </div>
           </div>
     </div>
     <div class="col">
         <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-            <div class="card-header"></div>
+            <div class="card-header">VACCINATION</div>
             <div class="card-body">
-              <h5 class="card-title"></h5>
-              <p class="card-text"></p>
+                {% if VacResidents %}
+                <h1 class="card-title" style="text-align: center;">{{VacResidents}}</h1>
+                {% else %}
+                <h1 class="card-title" style="text-align: center;">0</h1>
+                {% endif %}
+                {% if VacResidents == 1 %}
+                <p class="card-text" style="text-align: center;">Vaccinated Resident</p>
+                {% else %}
+                <p class="card-text" style="text-align: center;">Vaccinated Residents</p>
+                {% endif %}
             </div>
           </div>
     </div>
     <div class="col">
-        <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-            <div class="card-header"></div>
+        <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+            <div class="card-header">VACCINATION</div>
             <div class="card-body">
-              <h5 class="card-title"></h5>
-              <p class="card-text"></p>
+                {% if UnVacResidents %}
+                <h1 class="card-title" style="text-align: center;">{{UnVacResidents}}</h1>
+                {% else %}
+                <h1 class="card-title" style="text-align: center;">0</h1>
+                {% endif %}
+                {% if UnVacResidents == 1 %}
+                <p class="card-text" style="text-align: center;">Unvaccinated Resident</p>
+                {% else %}
+                <p class="card-text" style="text-align: center;">Unvaccinated Residents</p>
+                {% endif %}
             </div>
           </div>
     </div>

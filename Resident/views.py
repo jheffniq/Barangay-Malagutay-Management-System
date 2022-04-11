@@ -4,14 +4,17 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Q
+from django.core.mail import EmailMessage
 from .models import Resident, CSV
-from .forms import Resident_Form, CSVmodel
+from Resident.models import TempResident
+from Blotter.models import Blotreport
+from .forms import Resident_Form, CSVmodel, Temp_Form
+from Certification.models import Certrequest
 import csv
 from datetime import datetime
 
 def view_404(request, exception=None):
     return redirect('/index/')
-
 
 #Display Resident
 @login_required(login_url='login')
@@ -84,7 +87,6 @@ def Display_profile(request, pk):
 
 
 #Create Resident
-
 def Create_resident(request):
     form = Resident_Form()
 
@@ -140,13 +142,98 @@ def Search_resident(request):
 
     else:
         searched = False
+
+#Home
 @login_required(login_url='login')
 def home(request):
+    TotResident = Resident.objects.all().count()
+    TotBlot = Blotreport.objects.all().count()
+    VacResidents = Resident.objects.filter(Vaccination = "Vaccinated").count()
+    UnVacResidents = Resident.objects.filter(Vaccination = "Non-Vaccinated").count()
     Males = Resident.objects.filter(Gender = "Male").count()
     Females = Resident.objects.filter(Gender= "Female").count()
 
     context = {
         'Males' : Males,
-        'Females' : Females
+        'Females' : Females,
+        'TotResident' : TotResident,
+        'TotBlot' : TotBlot,
+        'VacResidents' : VacResidents,
+        'UnVacResidents' : UnVacResidents
     }
     return render(request,"home.html",context = context)
+
+#Add Temp Resident
+def Temp_Resident(request):
+    form = Temp_Form()
+
+    if request.method == "POST":
+        form = Temp_Form(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Form submitted succesfully")
+            return redirect('/index/')
+
+
+    context = {
+        'form':form
+    }
+
+    return render(request,"guest/temp_form.html",context=context)
+
+def display_registrations(request):
+    Request_obj = TempResident.objects.all()
+    context = {
+        'Request_obj' : Request_obj
+    }
+    return render(request, "register_requests.html", context = context)
+
+def registration_profile(request, pk):
+    profile = TempResident.objects.get(id = pk)
+    context = {
+        'profile' : profile
+    }
+    return render(request, "temp_profile.html", context = context)
+
+def Acceptresident(request, pk):
+    Input = TempResident.objects.get(id = pk)
+
+    Resident.objects.create(
+    First_name = Input.First_name,
+    Middle_name = Input.Middle_name,
+    Last_name = Input.Last_name,
+    Birthdate = Input.Birthdate,
+    Gender = Input.Gender,
+    Contact = Input.Contact,
+    Marital_status = Input.Marital_status,
+    Citizenship = Input.Citizenship,
+    Religion = Input.Religion,
+    Occupation = Input.Occupation,
+    Vaccination = Input.Vaccination,
+    Address = Input.Address
+    )
+    receiver = Input.Email
+    email = EmailMessage(
+        'Barangay Malagutay Certificate Request',
+        'Good Day,\n\nCongratulations! Your request for registration has been accepted. You are now registered on the Barangay Malagutay Management System and can now request for certifications. If you find any errors please do not hesitate to contact us.\n\n\nThis is an automated email, do not reply. Please contact the respected barangay officials/workers if you have inquiries.',
+        'testbmms88@gmail.com', 
+        [receiver]
+    )
+    email.send()
+    Input.delete()
+    messages.success(request, "Resident successfully added!")
+    return redirect('/display_registrations/')
+
+def Declineresident(request, pk):
+    Input = TempResident.objects.get(id = pk)
+    receiver = Input.Email
+    email = EmailMessage(
+        'Barangay Malagutay Certificate Request',
+        'Good Day,\n\nUnfortunately, your request for registration has been declined. Please contact the barangay officials/representatives regarding this issue.\n\n\nThis is an automated email, do not reply. Please contact the respected barangay officials/workers if you have inquiries.',
+        'testbmms88@gmail.com', 
+        [receiver]
+    )
+    email.send()
+    Input.delete()
+    messages.success(request, "Request has been declined")
+    return redirect('/display_registrations/')
