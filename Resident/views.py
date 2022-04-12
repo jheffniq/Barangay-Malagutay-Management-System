@@ -148,8 +148,8 @@ def Search_resident(request):
 def home(request):
     TotResident = Resident.objects.all().count()
     TotBlot = Blotreport.objects.all().count()
-    VacResidents = Resident.objects.filter(Vaccination = "Vaccinated").count()
-    UnVacResidents = Resident.objects.filter(Vaccination = "Non-Vaccinated").count()
+    Regreq = TempResident.objects.all().count()
+    Certreq = Certrequest.objects.all().count()
     Males = Resident.objects.filter(Gender = "Male").count()
     Females = Resident.objects.filter(Gender= "Female").count()
 
@@ -158,8 +158,8 @@ def home(request):
         'Females' : Females,
         'TotResident' : TotResident,
         'TotBlot' : TotBlot,
-        'VacResidents' : VacResidents,
-        'UnVacResidents' : UnVacResidents
+        'Regreq' : Regreq,
+        'Certreq' : Certreq
     }
     return render(request,"home.html",context = context)
 

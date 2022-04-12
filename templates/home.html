@@ -45,34 +45,34 @@
     </div>
     <div class="col">
         <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-            <div class="card-header">VACCINATION</div>
+            <div class="card-header">REQUESTS</div>
             <div class="card-body">
-                {% if VacResidents %}
-                <h1 class="card-title" style="text-align: center;">{{VacResidents}}</h1>
+                {% if Regreq %}
+                <h1 class="card-title" style="text-align: center;">{{Reqreq}}</h1>
                 {% else %}
                 <h1 class="card-title" style="text-align: center;">0</h1>
                 {% endif %}
-                {% if VacResidents == 1 %}
-                <p class="card-text" style="text-align: center;">Vaccinated Resident</p>
+                {% if Regreq == 1 %}
+                <p class="card-text" style="text-align: center;">Resident Request</p>
                 {% else %}
-                <p class="card-text" style="text-align: center;">Vaccinated Residents</p>
+                <p class="card-text" style="text-align: center;">Resident Requests</p>
                 {% endif %}
             </div>
           </div>
     </div>
     <div class="col">
         <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-            <div class="card-header">VACCINATION</div>
+            <div class="card-header">REQUESTS</div>
             <div class="card-body">
-                {% if UnVacResidents %}
-                <h1 class="card-title" style="text-align: center;">{{UnVacResidents}}</h1>
+                {% if Certreq %}
+                <h1 class="card-title" style="text-align: center;">{{Certreq}}</h1>
                 {% else %}
                 <h1 class="card-title" style="text-align: center;">0</h1>
                 {% endif %}
-                {% if UnVacResidents == 1 %}
-                <p class="card-text" style="text-align: center;">Unvaccinated Resident</p>
+                {% if Certreq == 1 %}
+                <p class="card-text" style="text-align: center;">Certification Request</p>
                 {% else %}
-                <p class="card-text" style="text-align: center;">Unvaccinated Residents</p>
+                <p class="card-text" style="text-align: center;">Certification Requests</p>
                 {% endif %}
             </div>
           </div>

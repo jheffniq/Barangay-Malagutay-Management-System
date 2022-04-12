@@ -5,6 +5,13 @@
 body{
     background-color: #fcfafa !important;
 }
+.errorlist{
+        list-style-type: none;
+        color: red;
+        margin: 0;
+        padding: 0;
+        
+    }
 </style>
 
 <title>Add New User</title>
@@ -23,7 +30,12 @@ body{
 <div class="border border-dark rounded shadow-lg p-3 mb-5" style="background-color:white">
     <form method = POST>
         {% csrf_token %}
-        {{form.as_p}}
+        {{form.non_field_errors}}
+        {% for field in form %}
+        <div>
+        {{field.label_tag}} {{field}} {{field.errors}}
+        </div>
+        {% endfor %}
         <br>
         <input type = "submit" name = "Submit" onclick = "" value="Register" class="btn btn-primary">
     </form>
