@@ -1,229 +1,327 @@
 {% extends 'base.html' %}
 {%  load static %}
-
-
 {% block content %}
 {% if user.is_authenticated %}
 <title>Home</title>
 <div class="container-fluid">
-<div class="row">
-    <div class="col">
-        <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-            <div class="card-header">
-                RESIDENTS
-            </div>
-            <div class="card-body">
-              {% if TotResident %}
-              <h1 class="card-title" style="text-align: center;">{{TotResident}}</h1>
-              {% else %}
-              <h1 class="card-title" style="text-align: center;">0</h1>
-              {% endif %}
-              {% if TotBlot == 1 %}
-              <p class="card-text" style="text-align: center;">Registered Resident</p>
-              {% else %}
-              <p class="card-text" style="text-align: center;">Registered Residents</p>
-              {% endif %}
-            </div>
-          </div>
-    </div>
-    <div class="col">
-        <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
-            <div class="card-header">BLOTTER</div>
-            <div class="card-body">
-                {% if TotBlot %}
-                <h1 class="card-title" style="text-align: center;">{{TotBlot}}</h1>
+    <div class="row">
+        <div class="col">
+            <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+                <div class="card-header">
+                    RESIDENTS
+                </div>
+                <div class="card-body">
+                {% if TotResident %}
+                <h1 class="card-title" style="text-align: center;">{{TotResident}}</h1>
                 {% else %}
                 <h1 class="card-title" style="text-align: center;">0</h1>
                 {% endif %}
                 {% if TotBlot == 1 %}
-                <p class="card-text" style="text-align: center;">Blotter Report Issued</p>
+                <p class="card-text" style="text-align: center;">Registered Resident</p>
                 {% else %}
-                <p class="card-text" style="text-align: center;">Blotter Reports Issued</p>
+                <p class="card-text" style="text-align: center;">Registered Residents</p>
                 {% endif %}
+                </div>
             </div>
-          </div>
+        </div>
+        <div class="col">
+            <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+                <div class="card-header">BLOTTER</div>
+                <div class="card-body">
+                    {% if TotBlot %}
+                    <h1 class="card-title" style="text-align: center;">{{TotBlot}}</h1>
+                    {% else %}
+                    <h1 class="card-title" style="text-align: center;">0</h1>
+                    {% endif %}
+                    {% if TotBlot == 1 %}
+                    <p class="card-text" style="text-align: center;">Blotter Report Issued</p>
+                    {% else %}
+                    <p class="card-text" style="text-align: center;">Blotter Reports Issued</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+                <div class="card-header">REQUESTS</div>
+                <div class="card-body">
+                    {% if Regreq %}
+                    <h1 class="card-title" style="text-align: center;">{{Reqreq}}</h1>
+                    {% else %}
+                    <h1 class="card-title" style="text-align: center;">0</h1>
+                    {% endif %}
+                    {% if Regreq == 1 %}
+                    <p class="card-text" style="text-align: center;">Resident Request</p>
+                    {% else %}
+                    <p class="card-text" style="text-align: center;">Resident Requests</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+                <div class="card-header">REQUESTS</div>
+                <div class="card-body">
+                    {% if Certreq %}
+                    <h1 class="card-title" style="text-align: center;">{{Certreq}}</h1>
+                    {% else %}
+                    <h1 class="card-title" style="text-align: center;">0</h1>
+                    {% endif %}
+                    {% if Certreq == 1 %}
+                    <p class="card-text" style="text-align: center;">Certification Request</p>
+                    {% else %}
+                    <p class="card-text" style="text-align: center;">Certification Requests</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col">
-        <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-            <div class="card-header">REQUESTS</div>
+    <div class="row">
+        <div class="col-sm-2 col-md-4  p-1">
+            <div class="card shadow-sm">
+            <div class="card-header">Gender Chart</div>
+                <div class="card-body">
+                <canvas id="Genderchart" width="400" height="400"></canvas>
+                    <script>
+                    var label = ["Males","Females"]
+                    var Males = parseInt("{{Males}}")
+                    var Females = parseInt("{{Females}}")
+                    var sampledata = [Males,Females]
+
+                    const ctx = document.getElementById('Genderchart');
+                    const myChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: label,
+                            datasets: [{
+                                label: 'Gender Distribution',
+                                data: sampledata,
+                                backgroundColor: [
+                                    'rgba(245, 137, 189, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                ],
+                                borderColor: [
+                                    'rgba(245, 137, 189, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            },
+                            responsive: true
+                        }
+                        
+                    });
+                    </script>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-2 col-md-4 p-1">
+            <div class="card shadow-sm">
+            <div class="card-header">Vaccination Status</div>
             <div class="card-body">
-                {% if Regreq %}
-                <h1 class="card-title" style="text-align: center;">{{Reqreq}}</h1>
-                {% else %}
-                <h1 class="card-title" style="text-align: center;">0</h1>
-                {% endif %}
-                {% if Regreq == 1 %}
-                <p class="card-text" style="text-align: center;">Resident Request</p>
-                {% else %}
-                <p class="card-text" style="text-align: center;">Resident Requests</p>
-                {% endif %}
-            </div>
-          </div>
-    </div>
-    <div class="col">
-        <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-            <div class="card-header">REQUESTS</div>
+            <canvas id="Vacchart" width="400" height="400"></canvas>
+            
+            <script>
+            var vaclabel = ["Vaccinated","Unvaccinated"]
+            var Vaccinated = parseInt("{{Vaccinated}}")
+            var Unvaccinated = parseInt("{{Unvaccinated}}")
+            var vacdata = [Vaccinated,Unvaccinated]
+
+            const con = document.getElementById('Vacchart');
+            const Vacchart = new Chart(con, {
+                type: 'doughnut',
+                data: {
+                    labels: vaclabel,
+                    datasets: [{
+                        label: 'Vaccination Status',
+                        data: vacdata,
+                        backgroundColor: [
+                            'rgba(102, 204, 153,0.5)',
+                            'rgba(244, 158, 67, 0.5)'
+                        ],
+                        borderColor: [
+                            'rgba(102, 204, 153, 1)',
+                            'rgba(244, 158, 67, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+            </script>
+        </div>
+        </div>
+        </div>
+
+        <div class="col-sm-2 col-md-4 p-1">
+            <div class="card shadow-sm">
+            <div class="card-header">Age Distribution</div>
             <div class="card-body">
-                {% if Certreq %}
-                <h1 class="card-title" style="text-align: center;">{{Certreq}}</h1>
-                {% else %}
-                <h1 class="card-title" style="text-align: center;">0</h1>
-                {% endif %}
-                {% if Certreq == 1 %}
-                <p class="card-text" style="text-align: center;">Certification Request</p>
-                {% else %}
-                <p class="card-text" style="text-align: center;">Certification Requests</p>
-                {% endif %}
+            <canvas id="Agechart" width="400" height="400"></canvas>
+            <script>
+            var agelabel = ["Kids","Teens","Adults","Seniors"]
+            var Kids = parseInt("{{Kids}}")
+            var Teens = parseInt("{{Teens}}")
+            var Adults = parseInt("{{Adults}}")
+            var Seniors = parseInt("{{Senior_Citizens}}")
+            var agedata = [Kids,Teens,Adults,Seniors]
+
+            const ages = document.getElementById('Agechart');
+            const Agechart = new Chart(ages, {
+                type: 'bar',
+                data: {
+                    labels: agelabel,
+                    datasets: [{
+                        label: 'Age Distribution',
+                        data: agedata,
+                        backgroundColor: [
+                            'rgba(127, 63, 191, 0.5)',
+                            'rgba(93, 191, 191, 0.5)',
+                            'rgba(241, 44, 132, 0.5)',
+                            'rgba(53, 44, 241, 0.5)'
+                        ],
+                        borderColor: [
+                            'rgba(127, 63, 191, 1)',
+                            'rgba(63, 191, 191, 1)',
+                            'rgba(241, 44, 132, 1)',
+                            'rgba(53, 44, 241, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+            </script>
+        </div>
             </div>
-          </div>
+        </div>
     </div>
-</div>
+    <div class="row justify-content-between mt-2 mb-5">
+       <div class="col-lg-6 col-md-6 col-sm-6 shadow-sm">
+            <div class="card" style="align-self: stretch;">
+            <div class="card-header">Philhealth Membership Types</div>
+            <div class="card-body">
+            <canvas id="Philhealth" width="100" height="100"></canvas>
+            <script>
+            var phNone = parseInt("{{phNone}}")
+            var PhEmployed = parseInt("{{PhEmployed}}")
+            var PhVoluntary = parseInt("{{PhVoluntary}}")
+            var PhOfw = parseInt("{{PhOfw}}")
+            var PhSponsored = parseInt("{{PhSponsored}}")
+            var PhIndigent = parseInt("{{PhIndigent}}")
+            var PhLifetime = parseInt("{{PhLifetime}}")
+            var PhSenior = parseInt("{{PhSenior}}")
+            var Phdata = [phNone,PhEmployed,PhVoluntary,PhOfw,PhSponsored,PhIndigent,PhLifetime,PhSenior]
+            var phlabel = ['None','Employed','Voluntary','OFW','Sponsored','Indigent','Lifetime','Senior']
 
 
-<div class="row">
-<div class="col-sm-2 col-md-4  p-1">
-<div class="card">
-<div class="card-header">Chart</div>
-<div class="card-body">
-<canvas id="myChart" width="400" height="400"></canvas>
-<script>
-var label = ["Males","Females"]
-var Males = parseInt("{{Males}}")
-var Females = parseInt("{{Females}}")
-
-var sampledata = [Males,Females]
-const ctx = document.getElementById('myChart');
-const myChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-        labels: label,
-        datasets: [{
-            label: 'Gender Distribution',
-            data: sampledata,
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        },
-        responsive: true
-    }
-    
-});
-</script>
+            const phealth = document.getElementById('Philhealth');
+            const Philhealth = new Chart(phealth, {
+                type: 'polarArea',
+                data: {
+                    labels: phlabel,
+                    datasets: [{
+                        label: 'Philhealth Membership Types',
+                        data: Phdata,
+                        backgroundColor: [
+                            'rgba(89,89,89,0.5)',
+                            'rgba(255, 99, 132, 0.5)',
+                            'rgba(54, 162, 235, 0.5)',
+                            'rgba(255, 0, 0, 0.5)',
+                            'rgba(18, 150, 40, 0.5)',
+                            'rgba(153, 102, 255, 0.5)',
+                            'rgba(18, 146, 150, 0.5)',
+                            'rgba(255, 170, 0, 0.5)'
 
 
-</div>
-</div>
-</div>
-<div class="col-sm-2 col-md-4 p-1">
-    <div class="card">
-    <div class="card-header">Chart 2</div>
-    <div class="card-body">
-    <canvas id="myChart2" width="400" height="400"></canvas>
-    <script>
-    const con = document.getElementById('myChart2');
-    const myChart2 = new Chart(con, {
-        type: 'bar',
-        data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
                 }
-            }
-        }
-    });
-    </script>
-</div>
-</div>
-</div>
-<div class="col-sm-2 col-md-4 p-1">
-    <div class="card">
-    <div class="card-header">Chart 2</div>
-    <div class="card-body">
-    <canvas id="myChart3" width="400" height="400"></canvas>
-    <script>
-    const cons = document.getElementById('myChart3');
-    const myChart3 = new Chart(cons, {
-        type: 'radar',
-        data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+            });
+            </script>
+        </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 shadow-sm">
+            <div class="card">
+            <div class="card-header">Civil Status Demographic</div>
+            <div class="card-body">
+            <canvas id="Marital" width="400" height="400"></canvas>
+            <script>
+            Single = parseInt("{{Single}}")
+            Married = parseInt("{{Married}}")
+            Separated = parseInt("{{Separated}}")
+            Widowed = parseInt("{{Widowed}}")
+            maritaldata = [Single,Married,Separated,Widowed]
+            maritallabel =["Single", "Married", "Separated", "Widowed"]
+
+            const mstatus = document.getElementById('Marital');
+            const Marital = new Chart(mstatus, {
+                type: 'doughnut',
+                data: {
+                    labels: maritallabel,
+                    datasets: [{
+                        label: 'Civil Status Demographic',
+                        data: maritaldata,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
                 }
-            }
-        }
-    });
-    </script>
-</div>
-</div>
+            });
+            </script>
+        </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endif %}
 {%  endblock content %}

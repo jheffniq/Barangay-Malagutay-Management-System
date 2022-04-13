@@ -1,4 +1,5 @@
 from cmath import log
+from re import A
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
@@ -11,7 +12,7 @@ from Blotter.models import Blotreport
 from .forms import Resident_Form, CSVmodel, Temp_Form
 from Certification.models import Certrequest
 import csv
-from datetime import datetime
+from datetime import datetime, date
 
 def view_404(request, exception=None):
     return redirect('/index/')
@@ -146,12 +147,46 @@ def Search_resident(request):
 #Home
 @login_required(login_url='login')
 def home(request):
+    today = date.today()
+    Resident_obj = Resident.objects.all()
     TotResident = Resident.objects.all().count()
     TotBlot = Blotreport.objects.all().count()
     Regreq = TempResident.objects.all().count()
     Certreq = Certrequest.objects.all().count()
     Males = Resident.objects.filter(Gender = "Male").count()
     Females = Resident.objects.filter(Gender= "Female").count()
+    Vaccinated = Resident.objects.filter(Vaccination = "Vaccinated").count()
+    Unvaccinated = Resident.objects.filter(Vaccination = "Unvaccinated").count()
+    phNone = Resident.objects.filter(Philhealth_membership = "None").count()
+    PhEmployed = Resident.objects.filter(Philhealth_membership = "Employed").count()
+    PhVoluntary = Resident.objects.filter(Philhealth_membership = "Voluntary").count()
+    PhOfw = Resident.objects.filter(Philhealth_membership = "OFW").count()
+    PhSponsored = Resident.objects.filter(Philhealth_membership = "Sponsored").count()
+    PhIndigent = Resident.objects.filter(Philhealth_membership = "Indigent").count()
+    PhLifetime = Resident.objects.filter(Philhealth_membership = "Lifetime").count()
+    PhSenior = Resident.objects.filter(Philhealth_membership = "Senior").count()
+    Single = Resident.objects.filter(Marital_status = "Single").count()
+    Married = Resident.objects.filter(Marital_status = "Married").count()
+    Separated = Resident.objects.filter(Marital_status = "Separated").count()
+    Widowed = Resident.objects.filter(Marital_status = "Widowed").count()
+
+
+    #Age distribution
+    Kids = 0
+    Teens = 0
+    Adults = 0
+    Senior_Citizens = 0
+
+    for Res in Resident_obj:
+        age = today.year - Res.Birthdate.year
+        if age <= 13:
+            Kids += 1
+        if age > 13 and age <= 21:
+            Teens += 1
+        if age > 21 and age <= 59:
+            Adults += 1
+        if age >= 60:
+            Senior_Citizens += 1
 
     context = {
         'Males' : Males,
@@ -159,7 +194,25 @@ def home(request):
         'TotResident' : TotResident,
         'TotBlot' : TotBlot,
         'Regreq' : Regreq,
-        'Certreq' : Certreq
+        'Certreq' : Certreq,
+        'Vaccinated': Vaccinated,
+        'Unvaccinated' : Unvaccinated,
+        'Kids' : Kids,
+        'Teens' : Teens,
+        'Adults' : Adults,
+        'Senior_Citizens' : Senior_Citizens,
+        'phNone' : phNone,
+        'PhEmployed' : PhEmployed,
+        'PhVoluntary' : PhVoluntary,
+        'PhOfw' : PhOfw,
+        'PhSponsored' : PhSponsored,
+        'PhIndigent': PhIndigent,
+        'PhLifetime': PhLifetime,
+        'PhSenior': PhSenior,
+        'Single': Single,
+        'Married' : Married,
+        'Separated' : Separated,
+        'Widowed' : Widowed
     }
     return render(request,"home.html",context = context)
 

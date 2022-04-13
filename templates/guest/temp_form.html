@@ -3,7 +3,7 @@
 {% block content %}
 <title>Resident Form</title>
 <h1>Resident Form</h1>
-<p class="mb-5">Please fill up this form to submit a registration</p>
+<p class="mb-5">Please fill up this form to register your resident information on the system</p>
 <form enctype="multipart/form-data" method = "POST" action="">
     {% csrf_token %}
     {{ form.as_p }}

@@ -14,10 +14,21 @@ class Resident (models.Model):
         )
     Gender = models.CharField(max_length=100, choices=Gender_choices, default = "Not Specified")
     Contact = models.CharField(max_length=11)
+    Phealthnone = 'None'
+    Phealth_choices = (
+        ('None', 'None'),
+        ('Employed','Employed'),
+        ('Voluntary','Voluntary'),
+        ('OFW','OFW'),
+        ('Sponsored','Sponsored'),
+        ('Indigent','Indigent'),
+        ('Lifetime','Lifetime'),
+        ('Senior','Senior')
+    )
+    Philhealth_membership = models.CharField(max_length=100,choices=Phealth_choices,default=Phealthnone,verbose_name="Philhealth Membership Type")
     Cstatus_choices = (
         ('Single','Single'),
         ('Married','Married'),
-        ('Divorced','Divorced'),
         ('Separated','Separated'),
         ('Widowed','Widowed'),
         )
@@ -27,7 +38,7 @@ class Resident (models.Model):
     Occupation = models.CharField(max_length=100, null=True, blank=True)
     Vac_choices = (
         ('Vaccinated','Vaccinated'),
-        ('Non-Vaccinated','Non-Vaccinated')
+        ('Unvaccinated','Unvaccinated')
     )
     Vaccination = models.CharField(max_length=100, choices = Vac_choices, verbose_name="Vaccination Status", default="")
     Address = models.TextField(max_length=250, verbose_name="Street Address")
@@ -59,10 +70,21 @@ class TempResident (models.Model):
         )
     Gender = models.CharField(max_length=100, choices=Gender_choices, default = "Not Specified")
     Contact = models.CharField(max_length=11)
+    Phealthnone = 'None'
+    Phealth_choices = (
+        ('None', 'None'),
+        ('Employed','Employed'),
+        ('Voluntary','Voluntary'),
+        ('OFW','OFW'),
+        ('Sponsored','Sponsored'),
+        ('Indigent','Indigent'),
+        ('Lifetime','Lifetime'),
+        ('Senior','Senior')
+    )
+    Philhealth_membership = models.CharField(max_length=100,choices=Phealth_choices, default=Phealthnone,verbose_name="Philhealth Membership Type")
     Cstatus_choices = (
         ('Single','Single'),
         ('Married','Married'),
-        ('Divorced','Divorced'),
         ('Separated','Separated'),
         ('Widowed','Widowed'),
         )
@@ -72,7 +94,7 @@ class TempResident (models.Model):
     Occupation = models.CharField(max_length=100, null=True, blank=True)
     Vac_choices = (
         ('Vaccinated','Vaccinated'),
-        ('Non-Vaccinated','Non-Vaccinated')
+        ('Unvaccinated','Unvaccinated')
     )
     Vaccination = models.CharField(max_length=100, choices = Vac_choices, verbose_name="Vaccination Status", default="")
     Address = models.TextField(max_length=250, verbose_name="Street Address")
