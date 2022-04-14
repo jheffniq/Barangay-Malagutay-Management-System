@@ -53,7 +53,7 @@ class CSV(models.Model):
     file_name = models.FileField(upload_to='files/csv')
     uploaded = models.DateTimeField(auto_now_add=True)
     activated = models.BooleanField(default=False)
-
+    
     def __str_(self):
         return f'File id: {self.id}'
 

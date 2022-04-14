@@ -45,7 +45,7 @@
     <div class="carousel-inner">
 
             <div class = "carousel-item active">
-            <div class="overlay-image" style="background-image: url('/static/images/main_image01.jpg');">  </div>
+            <div class="overlay-image" style="background-image: url('/static/images/main_image02.jpg');">  </div>
             <div class="container" style="text-align: center;">
                 <h1>BIENVENIDO!</h1>
                 <p>WELCOME TO BARANGAY MALAGUTAY MANAGEMENT SYSTEM</p>
@@ -53,7 +53,7 @@
             </div>
 
             <div class = "carousel-item">
-            <div class="overlay-image" style="background-image: url('/static/images/main_image02.jpg');"></div>
+            <div class="overlay-image" style="background-image: url('/static/images/main_image06.jpg');"></div>
                 <div class="container">
                     <h1>Visit our offical facebook page</h1>
                     <p>Get updated with what's going on in our community by visiting our social media account.<br>
@@ -76,5 +76,64 @@
         <span class="sr-only"></span>
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
     </a>
+</div>
+<div class="row mt-3">
+    <div class="col-md-4">
+        <div class="card text-white bg-info mb-3">
+            <div class="card-header" style="text-align: center;"><b>BARANGAY OFFICIALS</b></div>
+                <div class="card-body" style="text-align: center;">
+                    <h5 class="card-title m-0 p-0">{{Officials_obj.Barangay_Chairman}}</h5>
+                    <p class="card-text mb-4 mt-0 p-0" style="color: #f0f0f0;">Barangay Chairman</p>
+                    <h5 class="card-title m-0 p-0">{{Officials_obj.Barangay_Secretary}}</h5>
+                    <p class="card-text mb-4 mt-0 p-0" style="color: #f0f0f0;">Barangay Secretary</p>
+                    <h5 class="card-title m-0 p-0">{{Officials_obj.Barangay_Treasurer}}</h5>
+                    <p class="card-text mb-4 mt-0 p-0" style="color: #f0f0f0;">Barangay Treasurer</p>
+                    <h5 class="card-title m-0 p-0">{{Officials_obj.SK_Chairman}}</h5>
+                    <p class="card-text mb-4 mt-0 p-0" style="color: #f0f0f0;">SK Chairman</p>
+                    {% for councilor in Councilors1 %}
+                    <h5 class="card-title m-0 p-0">{{councilor}}</h5>
+                    <p class="card-text mb-4 mt-0 p-0" style="color: #f0f0f0;">Barangay Councilor</p>
+                    {% endfor %}
+                    {% for councilor in Councilors2 %}
+                    <h5 class="card-title m-0 p-0">{{councilor}}</h5>
+                    <p class="card-text mb-4 mt-0 p-0" style="color: #f0f0f0;">SK Councilor</p>
+                    {% endfor %}
+                </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+
+        <div class="card text-dark mb-3 bg-light">
+            <div class="card-header"><b>About</b></div>
+            <div class="card-body">
+              <h5 class="card-title">Welcome to Barangay Malagutay Management System!</h5>
+              <p class="card-text">Barangay Malagutay Management System is a web-based application that aims to help barangay officials manage and monitor
+                  the barangay comfortably and conveniently.<br><br>This web-application is accessible to all the staff and barangay officials of barangay Malagutay.
+                  Account holders may log in to the system using their credentials.
+              </p>
+            </div>
+        </div>
+
+        <!---->
+
+        <div class="card mb-3">
+            <img class="card-img-top" src="{% static 'images/main_image01.jpg' %}" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">About Barangay Malagutay</h5>
+              <p class="card-text">
+                Malagutay is a barangay in Zamboanga City. Its population 
+                represents 0.85% of the total population of 
+                Zamboanga City. Malagutay is situated approximately 6.9390, 122.0163, in the 
+                island of Mindanao and borders the barangays of San Jose Gusu, Capisan, San Roque,
+                Maasin, Sinunoc, and Calarian.
+                </p>
+            </div>
+          </div>
+        <div>
+            <iframe width="710" 
+            height="460" style="border:0" loading="lazy" 
+            allowfullscreen src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJ8-Adj_VAUDIRpgJSaQIYge4&key=AIzaSyCmy56RDA5uqhqABUjDmKpJ_zRGrv-VPnM"></iframe>
+        </div>
+    </div><!--Col end-->
 </div>
 {%  endblock content %}

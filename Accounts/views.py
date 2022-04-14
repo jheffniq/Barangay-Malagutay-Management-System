@@ -34,8 +34,19 @@ def LogoutUser (request):
     return redirect('/index/')
 
 def Guestuser (request):
-    return render(request,"guest/home.html")
+    Officials_obj = Official.objects.get(id=1)
+    Councilors1 = Officials_obj.Barangay_Councilors.replace('','').split(',')
+    Councilors2 = Officials_obj.SK_Councilors.replace('','').split(',')
 
+    context = {
+        'Officials_obj' : Officials_obj,
+        'Councilors1' : Councilors1,
+        'Councilors2' : Councilors2
+    }
+    return render(request,"guest/home.html", context = context)
+
+def Faqs (request):
+    return render(request, "guest/faq.html")
 
 def Adduser(request):
     if request.method == "POST":

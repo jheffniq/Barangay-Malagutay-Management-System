@@ -24,7 +24,7 @@ from django.conf import settings
 
 #Accounts app import
 from Accounts.views import LoginUser, LogoutUser,Guestuser, Displayusers, Adduser, Edituser, Edit_officals
-from Accounts.views import Deleteuser
+from Accounts.views import Deleteuser,Faqs
 
 #Residents app import
 from Resident.views import Display_resident, Create_resident, Update_resident, home
@@ -78,6 +78,7 @@ urlpatterns = [
     path ('temp_profile/<str:pk>', registration_profile, name = "temp_profile"),
     path('acceptresident/<str:pk>', Acceptresident, name = "acceptresident"),
     path('declineresident/<str:pk>', Declineresident, name= "declineresident"),
+    path('faq/',Faqs,name="faq"),
     
     #Blotter paths
     path('add_report/', Addreport, name = "add_report"),

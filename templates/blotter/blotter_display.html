@@ -1,12 +1,18 @@
 {%  extends 'base.html' %}
 {% load static %}
 {% block content %}
+<style>
+  thead {
+    background-color: #c86444;
+    border-color: none;
+    color: white;
+  }
+</style>
 <title>View Blotter Reports</title>
-
 <h1 style="text-align: center;"><b>Blotter List</b></h1>
   <div class="container-fluid mt-5 mb-5">
         <table class = "table table-bordered table-hover mt-2 mb-5" id="Display">
-          <thead class="thead-dark">
+          <thead>
               <tr>
                 <th>Blotter Report</th>
                 <th>Offender</th>

@@ -36,8 +36,8 @@
                 <td style="text-align: center;"><a style="color: gray;">Download Certificate</a></td>
                 {% else %}
                 <td style="color: green;">Eligible</td>
-                <td style="text-align: center;"><a href ="{% url 'view_certificate' res.pk %}">View Certificate</a></td>
-                <td style="text-align: center;"><a href="{% url 'generate_certificate' res.pk %}">Download Certificate</a></td>
+                <td style="text-align: center;"><a href ="{% url 'view_certificate02' res.pk %}">View Certificate</a></td>
+                <td style="text-align: center;"><a href="{% url 'generate_certificate02' res.pk %}">Download Certificate</a></td>
                 {% endif %}
             </tr>
             {% endfor %}

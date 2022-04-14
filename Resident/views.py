@@ -13,6 +13,7 @@ from .forms import Resident_Form, CSVmodel, Temp_Form
 from Certification.models import Certrequest
 import csv
 from datetime import datetime, date
+from django import forms
 
 def view_404(request, exception=None):
     return redirect('/index/')

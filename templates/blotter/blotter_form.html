@@ -1,17 +1,25 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-<title>Add New Resident</title>
-<h1>Blotter Report Form</h1>
-<div style="margin-right: 50px; margin-left: 50px;">
-    <a href = "{% url 'add_report' %}">Go Back</a>
-    <form enctype="multipart/form-data" method = "POST" action="">
-        {% csrf_token %}
-        {{ form | crispy }}
-        <label for="#evidence">Evidences</label><br>
-        <input type="file" multiple name="evidence" id="evidence"/><br>
+<style>
+    .asteriskField{
+        display:none
+    }
+</style>
+<title>Issue Blotter Report</title>
+<a href = "{% url 'add_report' %}" class="btn btn-success ml-5 mb-3" role="button">Go Back</a>
+<div style="background-color: white; margin-left: 50px; margin-right: 50px; margin-bottom: 100px; padding: 20px" class="border rounded shadow-sm">
+    <h1 class="ml-5">Blotter Report Form</h1>
+    <div style="margin-right: 50px; margin-left: 50px;">
 
-        <input type = "submit" name = "Submit" onclick = "">
-    </form>
+        <form enctype="multipart/form-data" method = "POST" action="">
+            {% csrf_token %}
+            {{ form | crispy }}
+            <label for="#evidence">Evidences</label><br>
+            <input type="file" multiple name="evidence" id="evidence"/><br>
+
+            <input type = "submit" name = "Submit" onclick = "" value="Issue Report" class="btn btn-primary mt-3">
+        </form>
+    </div>
 </div>
 {% endblock content %} 

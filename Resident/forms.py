@@ -30,11 +30,14 @@ class Resident_Form(forms.ModelForm):
         ]
 
 class CSVmodel(forms.ModelForm):
+
+    file_name = forms.FileField(widget=forms.FileInput(attrs={'accept' : ".csv"}))
     class Meta:
         model = CSV
         fields = [
             'file_name'
-        ]
+        ]    
+
 
 class Temp_Form(forms.ModelForm):
 
