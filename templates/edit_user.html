@@ -1,27 +1,16 @@
 {% extends 'base.html' %}
 {%  load static %}
+{% load crispy_forms_tags %}
 {% block content %}
 <title>Edit User</title>
 <a href = "{% url 'users' %}" class="btn btn-success ml-2" role="button">Go Back</a>
+<div class="border rounded shadow-md p-3 mb-5 mt-3" style="background-color: white;">
 <h1 class="mb-3" style="text-align: center;"><b>Edit User Details</b></h1>
-
-{% if form.errors %}
-    <div class = "alert alert-danger alert-dismissible fade show" role = "alert">
-        Update failed. Please ensure registration instructions are followed.
-        <button type="button" class="close float-end" data-dismiss="alert" aria-label="Close" style="background-color: Transparent; border-color: transparent;">
-            <span aria-hidden="true">✖</span>
-          </button>
-    </div>
-{% endif %}
-
-<div class="border border-dark rounded shadow-lg p-3 mb-5">
     <form method = POST>
         {% csrf_token %}
-        {{form.as_p}}
+        {{form | crispy}}
         <br>
-        <div style="text-align: right;">
         <input type = "submit" class ="btn btn-md btn-primary" name = "Submit" value="Save" onclick = "" style="padding-left: 5%; padding-right: 5%; text-align: center;">
-        </div>
     </form>
 </div>
 {%  endblock content %}

@@ -8,4 +8,5 @@ class Official (models.Model):
     SK_Chairman = models.CharField(max_length=50)
     SK_Councilors = models.TextField(max_length=500)
 
+
  

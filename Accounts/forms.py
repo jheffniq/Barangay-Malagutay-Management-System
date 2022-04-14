@@ -4,10 +4,6 @@ from django.contrib.auth.models import User
 from django import forms
 
 class User_form(UserCreationForm):
-    email = forms.EmailField(widget=forms.EmailInput(attrs={'class' : 'form-control' }))
-    first_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class' : 'form-control' }))
-    last_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class' : 'form-control' }))
-    username = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class' : 'form-control' }))
 
     class Meta:
         model = User
@@ -23,14 +19,8 @@ class User_form(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(User_form, self).__init__(*args, **kwargs)
 
-        self.fields['password1'].widget.attrs['class'] = 'form-control'
-        self.fields['password2'].widget.attrs['class'] = 'form-control'
 
 class Update_user(forms.ModelForm):
-    email = forms.EmailField(widget=forms.EmailInput(attrs={'class' : 'form-control' }))
-    first_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class' : 'form-control' }))
-    last_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class' : 'form-control' }))
-    username = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class' : 'form-control' }))
 
     class Meta:
         model = User
@@ -52,3 +42,7 @@ class OfficalForm(forms.ModelForm):
         'SK_Chairman',
         'SK_Councilors'
     ]
+    def __init__(self, *args, **kwargs):
+        super(OfficalForm, self).__init__(*args, **kwargs)
+        self.fields['Barangay_Councilors'].help_text = "Please separate each name with a comma."
+        self.fields['SK_Councilors'].help_text = "Please separate each name with a comma."

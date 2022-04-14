@@ -1,14 +1,17 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags %}
 {% block content %}
 <title>Add New Resident</title>
 <h1>Blotter Report Form</h1>
-<a href = "{% url 'add_report' %}">Go Back</a>
-<form enctype="multipart/form-data" method = "POST" action="">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="file" multiple name="evidence" id="evidence"/>
-    <input type = "submit" name = "Submit" onclick = "">
-</form>
+<div style="margin-right: 50px; margin-left: 50px;">
+    <a href = "{% url 'add_report' %}">Go Back</a>
+    <form enctype="multipart/form-data" method = "POST" action="">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <label for="#evidence">Evidences</label><br>
+        <input type="file" multiple name="evidence" id="evidence"/><br>
 
+        <input type = "submit" name = "Submit" onclick = "">
+    </form>
+</div>
 {% endblock content %} 

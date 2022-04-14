@@ -1,6 +1,13 @@
 {% extends 'guest/guest.html' %}
 {%  load static %}
 {% block content %}
+<style>
+    thead {
+      background-color: #c86444;
+      border-color: none;
+      color: white;
+    }
+  </style>
 <title>Certification Requests</title>
 <div class="container-fluid" style="margin-bottom:20%; margin-top: 5%;">
 {% if Requestype == 'barangay_certificate' or Requestype == 'indigency'%}
@@ -13,7 +20,7 @@
 {% endif %}
 
 <table class = "table table-bordered table-hover" id="RequestTable">
-     <thead class="thead-dark">
+     <thead>
          <tr>
             <th>First Name</th>
             <th>Middle Name</th>

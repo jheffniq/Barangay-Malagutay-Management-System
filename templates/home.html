@@ -45,15 +45,15 @@
             <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
                 <div class="card-header">REQUESTS</div>
                 <div class="card-body">
-                    {% if Regreq %}
-                    <h1 class="card-title" style="text-align: center;">{{Reqreq}}</h1>
+                    {% if Regreqs %}
+                    <h1 class="card-title" style="text-align: center;">{{Regreqs}}</h1>
                     {% else %}
                     <h1 class="card-title" style="text-align: center;">0</h1>
                     {% endif %}
-                    {% if Regreq == 1 %}
-                    <p class="card-text" style="text-align: center;">Resident Request</p>
+                    {% if Regreqs == 1 %}
+                    <p class="card-text" style="text-align: center;">Registration Request</p>
                     {% else %}
-                    <p class="card-text" style="text-align: center;">Resident Requests</p>
+                    <p class="card-text" style="text-align: center;">Registration Requests</p>
                     {% endif %}
                 </div>
             </div>
@@ -97,8 +97,8 @@
                                 label: 'Gender Distribution',
                                 data: sampledata,
                                 backgroundColor: [
-                                    'rgba(245, 137, 189, 0.2)',
-                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(245, 137, 189, 0.5)',
+                                    'rgba(54, 162, 235, 0.5)',
                                 ],
                                 borderColor: [
                                     'rgba(245, 137, 189, 1)',

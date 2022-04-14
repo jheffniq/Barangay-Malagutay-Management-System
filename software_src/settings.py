@@ -40,10 +40,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Accounts',
     'xhtml2pdf',
+    'crispy_forms',
     'Resident',
     'Blotter',
     'Certification',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

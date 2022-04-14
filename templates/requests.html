@@ -1,12 +1,18 @@
 {% extends 'base.html' %}
 {%  load static %}
 {% block content %}
+<style>
+    thead {
+      background-color: #c86444;
+      border-color: none;
+      color: white;
+    }
+  </style>
 <title>Certificate Requests</title>
-
 <h1 style="text-align: center;" class="mb-5"><b>Certificate Requests</b></h1>
 
 <table class = "table table-bordered table-hover mt-2 mb-5" id="Display">
-     <thead class="thead-dark">
+     <thead>
          <tr>
             <th>First Name</th>
             <th>Last Name</th>

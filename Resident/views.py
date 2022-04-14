@@ -151,7 +151,8 @@ def home(request):
     Resident_obj = Resident.objects.all()
     TotResident = Resident.objects.all().count()
     TotBlot = Blotreport.objects.all().count()
-    Regreq = TempResident.objects.all().count()
+    Regreq = TempResident.objects.all()
+    Regreqs = Regreq.count()
     Certreq = Certrequest.objects.all().count()
     Males = Resident.objects.filter(Gender = "Male").count()
     Females = Resident.objects.filter(Gender= "Female").count()
@@ -193,7 +194,7 @@ def home(request):
         'Females' : Females,
         'TotResident' : TotResident,
         'TotBlot' : TotBlot,
-        'Regreq' : Regreq,
+        'Regreqs' : Regreqs,
         'Certreq' : Certreq,
         'Vaccinated': Vaccinated,
         'Unvaccinated' : Unvaccinated,

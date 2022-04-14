@@ -1,12 +1,19 @@
 {% extends 'base.html' %}
 {%  load static %}
 {% block content %}
+<style>
+    thead {
+      background-color: #c86444;
+      border-color: none;
+      color: white;
+    }
+  </style>
 <title>Certificate of Indigency</title>
 <h1 style="margin-left: 10px; margin-bottom:20px;"><b>Certificate of Indigency</b></h1>
 <div class="container-fluid mt-3 mb-5">
 
     <table class = "table table-bordered table-hover" id="RequestTable">
-        <thead class="thead-dark">
+        <thead>
             <tr>
             <th>First Name</th>
             <th>Middle Name</th>

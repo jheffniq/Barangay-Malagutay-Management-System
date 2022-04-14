@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {%  load static %}
+{% load crispy_forms_tags %}
 {% block content %}
 <style>
 body{
@@ -17,27 +18,40 @@ body{
 <title>Add New User</title>
 <span>
 <a href = "{% url 'users' %}" class="btn btn-success ml-2" role="button">Go Back</a>
-<h1 class="mb-3" style="text-align: center;"><b>Add New User</b></h1></span>
 
-{% if form.errors %}
-    <div class = "alert alert-danger alert-dismissible fade show" role = "alert">
-        Registration failed. Please ensure registration instructions are followed.
-        <button type="button" class="close float-end" data-dismiss="alert" aria-label="Close" style="background-color: Transparent; border-color: transparent;">
-            <span aria-hidden="true">✖</span>
-          </button>
-    </div>
-{% endif %}
-<div class="border border-dark rounded shadow-lg p-3 mb-5" style="background-color:white">
+<div class="border rounded shadow-lg p-3 mb-5 mt-3" style="background-color:white">
+    <h1 class="mb-3" style="text-align: center;"><b>Add New User</b></h1></span>
     <form method = POST>
         {% csrf_token %}
-        {{form.non_field_errors}}
-        {% for field in form %}
-        <div>
-        {{field.label_tag}} {{field}} {{field.errors}}
+        <div class="form-row">
+            <div class="form-group col">
+                {{ form.username | as_crispy_field }}
+            </div>
         </div>
-        {% endfor %}
-        <br>
-        <input type = "submit" name = "Submit" onclick = "" value="Add New User" class="btn btn-primary">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                {{ form.first_name | as_crispy_field }}
+            </div>
+            <div class="form-group col-md-6">
+                {{  form.last_name | as_crispy_field }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col">
+                {{ form.email | as_crispy_field }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                {{ form.password1 | as_crispy_field }}
+            </div>
+            <div class="form-group col-md-6">
+                {{  form.password2 | as_crispy_field }}
+            </div>
+        </div>
+        <div style="text-align: end;">
+            <input type = "submit" name = "Submit" onclick = "" value="Add New User" class="btn btn-primary">
+        </div>
     </form>
 </div>
 {%  endblock content %}

@@ -1,8 +1,17 @@
 {%  extends 'base.html' %}
 {% load static %}
 {% block content %}
+<style>
+  thead {
+    background-color: #c86444;
+    border-color: none;
+    color: white;
+  }
+</style>
 <title>Users</title>
-<h1 style="text-align: center;"><b>List of Users</b></h1>
+<div style="background-color: white; padding: 5px;" class="container-fluid mb-5 shadow-sm rounded">
+<h1 style="text-align: center; margin-top: 15px;"><b>List of Users</b></h1>
+
 <div class="row">
   <div class="col-sm mt-3">
     <a href="{% url 'adduser' %}" class="btn btn-primary mt-2" role="button">Add New User</a>
@@ -14,9 +23,9 @@
   </div>
 </div>
 <hr>
-</div>
+
 <table class = "table table-bordered table-hover mt-2 mb-5" id="Display">
-  <thead class="thead-dark">
+  <thead>
       <tr>
          <th>Username</th>
          <th>First Name</th>
@@ -71,7 +80,7 @@
          {% endfor %}
   </tbody>
 </table>
-
+</div>
 <script>
   $(document).ready(function() {
       $('#Display').DataTable({
