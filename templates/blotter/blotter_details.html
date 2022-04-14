@@ -1,13 +1,48 @@
-{% extends 'base.html' %}
-{%  load static %}
-{% block content %}
-<a href = "{% url 'blotter_display'%}">Go Back</a>
+<style>
+    p{
+        font-size: 14px;
+    }
+    li{
+        font-size: 14px;
+    }
+    h5{
+        font-size: 14px;
+        text-align: right;
+    }
+    h1{
+        font-size: 32px;
+        text-align: center;
+    }
+    h4{
+        font-size: 14px;
+    }
+</style>
+<title>Blotter Report</title>
+<div style="text-align: center; margin-right: 110px;">
+    <img src="static/images/banner.png" height="150px" width="530px">
+</div><br>
+<hr><br>
 <h1>Blotter Report</h1>
 <h5>Entry Date: {{Blotter_obj.created_date}}</h5>
-<h5>Case No: {{Blotter_obj.id}}</h5>
-<h3>Complaint by: {{Blotter_obj.Complainant}}</h3>
-<h3>Issued to: {{Blotter_obj.Offender}}</h3>
+<h5>Case No: {{Blotter_obj.id}}</h5><br><br>
+<h4>Complaint by: {{Blotter_obj.Complainant}}</h3>
+<h4>Issued to: {{Blotter_obj.Offender}}</h3><br>
+<div style="justify-content: center;">
 <p>This report was issued upon the request of the complainant. The details of the report are as follows: </p>
-<p>{{Blotter_obj.Complaint}}</p>    
+<p>{{Blotter_obj.Complaint}}</p>
+</div>
+<div style="margin-left: 50px;">
+<p>Facts:</p>
+{% for fact in Facts %}
+<ul>
+    <li>{{fact}}</li>
+</ul>
+{% endfor %}
+</div>
+<p>Evidences:</p>
+{% for url in url_list %}
+<div style="margin-left: 5px; margin-right: 5px; text-align: center;">
+<img src="static/{{url}}" height="320px" width="320px">
+</div>
+{% endfor %}
 
-{%  endblock content %}

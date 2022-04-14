@@ -2,84 +2,105 @@
 {% load static %}
 {% block content %}
 <title>Residents</title>
-<style>
-    table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
+<h1 style="text-align: center;"><b>List of Registered Residents</b></h1>
+<div class="container-fluid mt-5 mb-5">
 
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-a{
-  text-decoration: none;
-}
+  <a href="/resident_form" class="btn btn-primary mb-3" role="button">Add New Resident</a>
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-info mb-3" data-toggle="modal" data-target="#Uploadcsv">
+      Upload CSV
+      </button>
 
-</style>
-
-<h1 style="text-align: center;">List of Registered Residents</h1>
-<a href="/resident_form">Add New Resident</a>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Uploadcsv">
-     Upload CSV
-    </button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="Uploadcsv" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form action="" method="POST" enctype="multipart/form-data">
-              {% csrf_token %}
-              {{form.file_name}}
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" value ="Submit" class="btn btn-primary">Save changes</button>
-          </form>
+      <!-- Modal -->
+      <div class="modal fade" id="Uploadcsv" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Upload CSV</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form.file_name}}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" value ="Submit" class="btn btn-primary">Import Data</button>
+            </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-<a href="{% static 'Add_Template.csv' %}" class="btn btn-success" type="button" download>Download CSV Template</a>
+  <a href="{% static 'Add_Template.csv' %}" class="btn btn-success mb-3" type="button" download>Download CSV Template</a>
 
+      <table class = "table table-bordered table-hover mt-2 mb-5" id="Display">
+        <thead class="thead-dark">
+            <tr>
+              <th>Last Name</th>
+              <th>First Name</th>
+              <th>Middle Name</th>
+              <th>Last Modified</th>
+              <th style="text-align: center;">Edit</th>
+              <th style="text-align: center;">Delete</th>
+          </tr>
+        </thead>
 
+        <tbody>
+              {% for res in Resident_obj %}
+              <tr>
+                <td><a href="{% url 'resident_profile' res.id %}">{{res.Last_name}}</a></td>
+                <td><a href="{% url 'resident_profile' res.id %}">{{ res.First_name }}</a></td>
+                <td><a href="{% url 'resident_profile' res.id %}">{{ res.Middle_name}}</a></td>
+                <td>{{res.modified_date}}</td>
+                <td style="text-align: center;"><a href="{% url 'update_resident' res.id %}" class="btn btn-primary" role="button">Edit</a></td>
+                  <td style="text-align: center;">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-{{ res.id }}">
+                          Delete
+                      </button>
+                      
+                      <!-- Modal -->
+                      <div class="modal fade" id="modal-{{ res.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                              <div class="modal-header mx-auto">
+                              <h5 class="modal-title" id="exampleModalLongTitle"><b>CONFIRM DELETE</b></h5>
 
+                              </button>
+                              </div>
+                              <div class="modal-body">
+                              <h5>Are you sure you want to delete {{ res.First_name }} {{ res.Last_name }} from the database?</h5>
+                              </div>
+                              <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                              <a href="{% url 'delete_resident' res.id %}" role="button" class="btn btn-danger">YES</a>
+                              </div>
+                          </div>
+                          </div>
+                      </div>
+                    </td>
+              </tr>
+              {% endfor %}
+        </tbody>
+      </table>
 
-<form method="POST" action = "{% url 'search_resident' %}">
+      <script>
+        $(document).ready(function() {
+            $('#Display').DataTable({
+                order: [[0, 'asc']],
+                pagingType: 'full_numbers'
+                
+            });
+        } );
+      </script>
+</div>
+<!--<form method="POST" action = "{% url 'search_resident' %}">
   {% csrf_token %}
   <input type="search" placeholder="search" name = "q">
   <input type = "submit">
-</form>
-
-
-<table>
-    <tr>
-        <th>Last Name</th>
-        <th>First Name</th>
-        <th>Middle Name</th>
-        <th>Last Modified</th>
-    </tr>
-
-    {% for res in Resident_obj %}
-    <tr>
-        <td><a href="{% url 'resident_profile' res.id %}">{{res.Last_name}}</a></td>
-        <td><a href="{% url 'resident_profile' res.id %}">{{ res.First_name }}</a></td>
-        <td><a href="{% url 'resident_profile' res.id %}">{{ res.Middle_name}}</a></td>
-        <td>{{res.modified_date}}</td>
-        <td><a href="{% url 'update_resident' res.id %}">Edit</a></td>
-        <td><a href="{% url 'delete_resident' res.id %}">Delete</a></td>
-    </tr>
-     {% endfor %}
-</table>
+</form>-->
 
 {% endblock content %}

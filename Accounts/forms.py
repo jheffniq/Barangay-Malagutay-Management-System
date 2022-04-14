@@ -48,5 +48,7 @@ class OfficalForm(forms.ModelForm):
         'Barangay_Chairman',
         'Barangay_Secretary',
         'Barangay_Treasurer',
-        'SK_Chairman'
+        'Barangay_Councilors',
+        'SK_Chairman',
+        'SK_Councilors'
     ]

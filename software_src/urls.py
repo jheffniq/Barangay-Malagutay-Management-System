@@ -24,6 +24,7 @@ from django.conf import settings
 
 #Accounts app import
 from Accounts.views import LoginUser, LogoutUser,Guestuser, Displayusers, Adduser, Edituser, Edit_officals
+from Accounts.views import Deleteuser
 
 #Residents app import
 from Resident.views import Display_resident, Create_resident, Update_resident, home
@@ -32,7 +33,7 @@ from Resident.views import registration_profile, Acceptresident, Declineresident
 
 #Blotter app import
 from Blotter.views import Addreport, Blotter_search_resident, Create_Report, Blotter_display
-from Blotter.views import Blotter_details, Delete_report
+from Blotter.views import Blotter_details, Delete_report, Create_Report_unregistered
 
 #Certification app import
 from Certification.views import resident_list, resident_list02, generate_certificate, view_certificate 
@@ -49,6 +50,7 @@ urlpatterns = [
     path('logout/', LogoutUser, name="logout"),
     path('adduser/',Adduser, name = "adduser"),
     path('edit_user/', Edituser, name = "edituser"),
+    path('delete_user/<str:pk>/',Deleteuser, name="deleteuser"),
     path('change_password/', auth_views.PasswordChangeView.as_view(template_name="change_password.html",success_url=reverse_lazy('users')), name = "change_password"),
     path('edit_officals/', Edit_officals, name = "edit_officials"),
     path('index/', Guestuser, name="index"),
@@ -81,6 +83,7 @@ urlpatterns = [
     path('add_report/', Addreport, name = "add_report"),
     path('blotter_search_resident/', Blotter_search_resident, name = "blotter_search_resident"),
     path('blotter_form/<str:pk>/', Create_Report, name = "blotter_form"),
+    path('blotter_form_unregistered/',Create_Report_unregistered,name="blotter_form_unregistered"),
     path('blotter_display/', Blotter_display, name = "blotter_display"),
     path('blotter_details/<str:pk>/', Blotter_details, name = "blotter_details"),
     path('delete_report/<str:pk>/', Delete_report, name = "delete_report"),

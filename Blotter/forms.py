@@ -8,4 +8,14 @@ class Blotter_Form(forms.ModelForm):
         fields = [
             'Complainant',
             'Complaint',
+            'Facts',
+        ]
+
+class Blotter_Form_Unregistered(Blotter_Form):
+    class Meta(Blotter_Form.Meta):
+        fields = [
+            'Offender_unregistered',
+            'Complainant',
+            'Complaint',
+            'Facts',
         ]

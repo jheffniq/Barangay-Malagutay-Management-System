@@ -9,7 +9,7 @@ from Certification.models import Certrequest
 from .forms import Request_form
 from django.contrib import messages
 from datetime import datetime
-from django.core.mail import send_mail, EmailMessage
+from django.core.mail import EmailMessage
 from django.http import HttpResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
@@ -32,6 +32,7 @@ def resident_list(request):
         Blotter_number.append(bloo)
 
     context = {
+        'Resident_obj' : Resident_obj,
         'Resident_cleared': Resident_cleared,
         'Resident_blacklisted': Resident_blacklisted,
         'Blotter_number' : Blotter_number
@@ -54,6 +55,7 @@ def resident_list02(request):
         Blotter_number.append(bloo)
 
     context = {
+        'Resident_obj' : Resident_obj,
         'Resident_cleared': Resident_cleared,
         'Resident_blacklisted': Resident_blacklisted,
         'Blotter_number' : Blotter_number

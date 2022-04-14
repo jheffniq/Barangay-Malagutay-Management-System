@@ -88,12 +88,15 @@ def Displayusers (request):
 
     context = {
         "user" : users,
-        "admin" : admin
+        "admin" : admin,
     }
     return render(request, "users.html", context = context)
 
 def Edit_officals(request):
    Officials_obj = Official.objects.get(id=1)
+   Councilors1 = Officials_obj.Barangay_Councilors.replace('','').split(',')
+   Councilors2 = Officials_obj.SK_Councilors.replace('','').split(',')
+
    form = OfficalForm(instance=Officials_obj)
    if request.method == "POST":
         form = OfficalForm(request.POST, instance = Officials_obj)
@@ -102,5 +105,12 @@ def Edit_officals(request):
             messages.success(request, "List Of Officials Have Been Updated")
             return redirect('users')
             
-   context = {'form' : form}
+   context = {'form' : form, 'Councilors1' : Councilors1}
    return render(request,"officials_form.html",context = context)
+
+def Deleteuser(request, pk):
+    User = get_user_model()
+    userdel = User.objects.get(id = pk)
+    userdel.delete()
+    messages.success(request, "User successfully deleted")
+    return redirect('/users/')

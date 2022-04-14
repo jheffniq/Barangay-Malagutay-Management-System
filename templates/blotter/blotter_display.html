@@ -2,23 +2,53 @@
 {% load static %}
 {% block content %}
 <title>View Blotter Reports</title>
-<style>
-    table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
 
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
+<h1 style="text-align: center;"><b>Blotter List</b></h1>
+  <div class="container-fluid mt-5 mb-5">
+        <table class = "table table-bordered table-hover mt-2 mb-5" id="Display">
+          <thead class="thead-dark">
+              <tr>
+                <th>Blotter Report</th>
+                <th>Offender</th>
+                <th style="text-align: center;">Delete</th>
+            </tr>
+          </thead>
+    
+          <tbody>
+                {% for blot in Blotter_obj %}
+                <tr>
+                  <td><a href="{% url 'blotter_details' blot.id %}">Complaint from: {{blot.Complainant}}</a></td>
+                  {% if blot.Unregistered == True %}
+                  <td>{{blot.Offender_unregistered}}</td>
+                  {% else %}
+                  <td>{{blot.Offender}}</a></td>
+                  {% endif %}
+                  <td style="text-align: center;"><a href="{% url 'delete_report' blot.id %}" class="btn btn-danger" role="button">Delete</a></td>
+                </tr>
+                {% endfor %}
+          </tbody>
+        </table>
+    
+        <script>
+          $(document).ready(function() {
+              $('#Display').DataTable({
+                  order: [[0, 'asc']],
+                  pagingType: 'full_numbers'
+                  
+              });
+          } );
+        </script>
+    </div>
 
-</style>
 
-<h1 style="text-align: center;">Blotter List</h1>
 
+
+
+
+
+
+
+<!--
 <table>
     <tr>
         <th>Blotter Report</th>
@@ -29,10 +59,14 @@ td, th {
     {% for blot in Blotter_obj reversed %}
     <tr>
         <td><a href="{% url 'blotter_details' blot.id %}">Complaint from: {{blot.Complainant}}</a></td>
-        <td><a href = "{% url 'resident_profile' blot.Offender.id %}">{{blot.Offender}}</a></td>
+        {% if blot.Unregistered == True %}
+        <td>{{blot.Offender_unregistered}}</td>
+        {% else %}
+        <td>{{blot.Offender}}</a></td>
+        {% endif %}
         <td><a href="{% url 'delete_report' blot.id %}">Delete</a></td>
     </tr>
      {% endfor %}
-</table>
+</table>-->
 
 {% endblock content %}

@@ -2,44 +2,46 @@
 {% load static %}
 {% block content %}
 <title>Add Blotter</title>
-<style>
-    table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
+<h1 style="text-align: center;"><b>List of Registered Residents</b></h1>
+<div class="container-fluid mt-5 mb-5">
 
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-</style>
-
-<h1 style="text-align: center;">List of Registered Residents</h1>
-
-<form method="POST" action = "{% url 'blotter_search_resident' %}">
+<!-- <form method="POST" action = "{% url 'blotter_search_resident' %}">
   {% csrf_token %}
   <input type="search" placeholder="search" name = "q">
   <input type = "submit">
-</form>
 
-<table>
-    <tr>
-        <th>Last Name</th>
-        <th>First Name</th>
-        <th>Middle Name</th>
-    </tr>
+</form> --->
+<a href = "{% url 'blotter_form_unregistered' %}" class="btn btn-primary mb-3" role="button">Report Unregistered Resident</a>
+    <table class = "table table-bordered table-hover mt-2 mb-5" id="Display">
+      <thead class="thead-dark">
+          <tr>
+            <th>Last Name</th>
+            <th>First Name</th>
+            <th>Middle Name</th>
+            <th style="text-align: center;">&nbsp;</th>
+        </tr>
+      </thead>
 
-    {% for res in Resident_obj reversed%}
-    <tr>
-        <td><a href="{% url 'resident_profile' res.id %}">{{res.Last_name}}</a></td>
-        <td><a href="{% url 'resident_profile' res.id %}">{{ res.First_name }}</a></td>
-        <td><a href="{% url 'resident_profile' res.id %}">{{ res.Middle_name}}</a></td>
-        <td><a href="{% url 'blotter_form' res.id %}">Issue Report</a></td>
-    </tr>
-     {% endfor %}
-</table>
+      <tbody>
+            {% for res in Resident_obj %}
+            <tr>
+              <td><a href="{% url 'resident_profile' res.id %}">{{res.Last_name}}</a></td>
+              <td><a href="{% url 'resident_profile' res.id %}">{{ res.First_name }}</a></td>
+              <td><a href="{% url 'resident_profile' res.id %}">{{ res.Middle_name}}</a></td>
+              <td style="text-align: center;"><a href="{% url 'blotter_form' res.id %}" class="btn btn-primary" role="button">Issue Report</a></td>
+            </tr>
+            {% endfor %}
+      </tbody>
+    </table>
 
+    <script>
+      $(document).ready(function() {
+          $('#Display').DataTable({
+              order: [[0, 'asc']],
+              pagingType: 'full_numbers'
+              
+          });
+      } );
+    </script>
+</div>
 {% endblock content %}

@@ -3,10 +3,11 @@
 {% block content %}
 <title>Add New Resident</title>
 <h1>Blotter Report Form</h1>
-<a href = "{{request.META.HTTP_REFERER}}">Go Back</a>
+<a href = "{% url 'add_report' %}">Go Back</a>
 <form enctype="multipart/form-data" method = "POST" action="">
     {% csrf_token %}
     {{ form.as_p }}
+    <input type="file" multiple name="evidence" id="evidence"/>
     <input type = "submit" name = "Submit" onclick = "">
 </form>
 
