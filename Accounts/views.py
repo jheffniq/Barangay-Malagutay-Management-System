@@ -133,3 +133,4 @@ def Deleteuser(request, pk):
     userdel.delete()
     messages.success(request, "User successfully deleted")
     return redirect('/users/')
+    #
