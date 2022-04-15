@@ -36,7 +36,7 @@ def LogoutUser (request):
 
 
 def Guestuser (request):
-    Officials_obj = Official.objects.get(id=1)
+    Officials_obj = Official.objects.last()
     Councilors1 = Officials_obj.Barangay_Councilors.replace('','').split(',')
     Councilors2 = Officials_obj.SK_Councilors.replace('','').split(',')
 
@@ -111,7 +111,7 @@ def Displayusers (request):
 
 @login_required(login_url='login')
 def Edit_officals(request):
-   Officials_obj = Official.objects.get(id=1)
+   Officials_obj = Official.objects.get.last()
    Councilors1 = Officials_obj.Barangay_Councilors.replace('','').split(',')
    Councilors2 = Officials_obj.SK_Councilors.replace('','').split(',')
 
