@@ -112,8 +112,12 @@ def Displayusers (request):
 @login_required(login_url='login')
 def Edit_officals(request):
    Officials_obj = Official.objects.get.last()
-   Councilors1 = Officials_obj.Barangay_Councilors.replace('','').split(',')
-   Councilors2 = Officials_obj.SK_Councilors.replace('','').split(',')
+   
+   if Officials_obj.Barangay_Councilors is not None:
+    Councilors1 = Officials_obj.Barangay_Councilors.replace('','').split(',')
+
+   if Officials_obj.Sk_Councilors is not None:
+    Councilors2 = Officials_obj.SK_Councilors.replace('','').split(',')
 
    form = OfficalForm(instance=Officials_obj)
    if request.method == "POST":
@@ -133,4 +137,4 @@ def Deleteuser(request, pk):
     userdel.delete()
     messages.success(request, "User successfully deleted")
     return redirect('/users/')
-    #
+    
