@@ -1,0 +1,1800 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.2
+-- Dumped by pg_dump version 14.2
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: Accounts_official; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Accounts_official" (
+    id bigint NOT NULL,
+    "Barangay_Secretary" character varying(50) NOT NULL,
+    "Barangay_Treasurer" character varying(50) NOT NULL,
+    "Barangay_Chairman" character varying(50) NOT NULL,
+    "SK_Chairman" character varying(50) NOT NULL,
+    "Barangay_Councilors" text NOT NULL,
+    "SK_Councilors" text NOT NULL
+);
+
+
+ALTER TABLE public."Accounts_official" OWNER TO postgres;
+
+--
+-- Name: Accounts_official_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Accounts_official_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Accounts_official_id_seq" OWNER TO postgres;
+
+--
+-- Name: Accounts_official_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Accounts_official_id_seq" OWNED BY public."Accounts_official".id;
+
+
+--
+-- Name: Blotter_blotreport; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Blotter_blotreport" (
+    id bigint NOT NULL,
+    "Complainant" character varying(50) NOT NULL,
+    "Complaint" text NOT NULL,
+    created_date timestamp with time zone NOT NULL,
+    modified_date timestamp with time zone NOT NULL,
+    "Offender_id" bigint,
+    "Facts" text NOT NULL,
+    "Offender_unregistered" character varying(50),
+    "Unregistered" boolean NOT NULL
+);
+
+
+ALTER TABLE public."Blotter_blotreport" OWNER TO postgres;
+
+--
+-- Name: Blotter_blotreport_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Blotter_blotreport_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Blotter_blotreport_id_seq" OWNER TO postgres;
+
+--
+-- Name: Blotter_blotreport_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Blotter_blotreport_id_seq" OWNED BY public."Blotter_blotreport".id;
+
+
+--
+-- Name: Blotter_evidences; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Blotter_evidences" (
+    id bigint NOT NULL,
+    images character varying(100) NOT NULL,
+    "Report_id" bigint
+);
+
+
+ALTER TABLE public."Blotter_evidences" OWNER TO postgres;
+
+--
+-- Name: Blotter_evidences_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Blotter_evidences_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Blotter_evidences_id_seq" OWNER TO postgres;
+
+--
+-- Name: Blotter_evidences_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Blotter_evidences_id_seq" OWNED BY public."Blotter_evidences".id;
+
+
+--
+-- Name: Certification_certrequest; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Certification_certrequest" (
+    id bigint NOT NULL,
+    "Purpose" character varying(100) NOT NULL,
+    "Request_type" character varying(100) NOT NULL,
+    "Email" character varying(254) NOT NULL,
+    "Resident_id" character varying(250) NOT NULL,
+    "Requester_id" bigint
+);
+
+
+ALTER TABLE public."Certification_certrequest" OWNER TO postgres;
+
+--
+-- Name: Certification_certrequest_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Certification_certrequest_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Certification_certrequest_id_seq" OWNER TO postgres;
+
+--
+-- Name: Certification_certrequest_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Certification_certrequest_id_seq" OWNED BY public."Certification_certrequest".id;
+
+
+--
+-- Name: Resident_csv; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Resident_csv" (
+    id bigint NOT NULL,
+    file_name character varying(100) NOT NULL,
+    uploaded timestamp with time zone NOT NULL,
+    activated boolean NOT NULL
+);
+
+
+ALTER TABLE public."Resident_csv" OWNER TO postgres;
+
+--
+-- Name: Resident_csv_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Resident_csv_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Resident_csv_id_seq" OWNER TO postgres;
+
+--
+-- Name: Resident_csv_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Resident_csv_id_seq" OWNED BY public."Resident_csv".id;
+
+
+--
+-- Name: Resident_resident; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Resident_resident" (
+    id bigint NOT NULL,
+    "First_name" character varying(50) NOT NULL,
+    "Last_name" character varying(50) NOT NULL,
+    "Middle_name" character varying(50) NOT NULL,
+    "Birthdate" date NOT NULL,
+    "Gender" character varying(100) NOT NULL,
+    "Contact" character varying(11) NOT NULL,
+    "Citizenship" character varying(100) NOT NULL,
+    "Religion" character varying(100) NOT NULL,
+    "Occupation" character varying(100),
+    "Vaccination" character varying(100) NOT NULL,
+    "Address" text NOT NULL,
+    pic character varying(100),
+    created_date timestamp with time zone NOT NULL,
+    modified_date timestamp with time zone NOT NULL,
+    "Blacklisted" boolean NOT NULL,
+    "Marital_status" character varying(100) NOT NULL,
+    "Philhealth_membership" character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public."Resident_resident" OWNER TO postgres;
+
+--
+-- Name: Resident_resident_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Resident_resident_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Resident_resident_id_seq" OWNER TO postgres;
+
+--
+-- Name: Resident_resident_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Resident_resident_id_seq" OWNED BY public."Resident_resident".id;
+
+
+--
+-- Name: Resident_tempresident; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Resident_tempresident" (
+    id bigint NOT NULL,
+    pic character varying(100),
+    "First_name" character varying(50) NOT NULL,
+    "Last_name" character varying(50) NOT NULL,
+    "Middle_name" character varying(50) NOT NULL,
+    "Birthdate" date NOT NULL,
+    "Gender" character varying(100) NOT NULL,
+    "Contact" character varying(11) NOT NULL,
+    "Marital_status" character varying(100) NOT NULL,
+    "Citizenship" character varying(100) NOT NULL,
+    "Religion" character varying(100) NOT NULL,
+    "Occupation" character varying(100),
+    "Vaccination" character varying(100) NOT NULL,
+    "Address" text NOT NULL,
+    "Blacklisted" boolean NOT NULL,
+    created_date timestamp with time zone NOT NULL,
+    modified_date timestamp with time zone NOT NULL,
+    "Email" character varying(254) NOT NULL,
+    "Philhealth_membership" character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public."Resident_tempresident" OWNER TO postgres;
+
+--
+-- Name: Resident_tempresident_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."Resident_tempresident_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Resident_tempresident_id_seq" OWNER TO postgres;
+
+--
+-- Name: Resident_tempresident_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."Resident_tempresident_id_seq" OWNED BY public."Resident_tempresident".id;
+
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_group (
+    id integer NOT NULL,
+    name character varying(150) NOT NULL
+);
+
+
+ALTER TABLE public.auth_group OWNER TO postgres;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_group_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_group_id_seq OWNED BY public.auth_group.id;
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_group_permissions (
+    id bigint NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_group_permissions OWNER TO postgres;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_group_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_permissions_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_group_permissions_id_seq OWNED BY public.auth_group_permissions.id;
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_permission (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.auth_permission OWNER TO postgres;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_permission_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_permission_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_permission_id_seq OWNED BY public.auth_permission.id;
+
+
+--
+-- Name: auth_user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_user (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone,
+    is_superuser boolean NOT NULL,
+    username character varying(150) NOT NULL,
+    first_name character varying(150) NOT NULL,
+    last_name character varying(150) NOT NULL,
+    email character varying(254) NOT NULL,
+    is_staff boolean NOT NULL,
+    is_active boolean NOT NULL,
+    date_joined timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.auth_user OWNER TO postgres;
+
+--
+-- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_user_groups (
+    id bigint NOT NULL,
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_groups OWNER TO postgres;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_user_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_groups_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_user_groups_id_seq OWNED BY public.auth_user_groups.id;
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_user_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_user_id_seq OWNED BY public.auth_user.id;
+
+
+--
+-- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_user_user_permissions (
+    id bigint NOT NULL,
+    user_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_user_permissions OWNER TO postgres;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.auth_user_user_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_user_permissions_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.auth_user_user_permissions_id_seq OWNED BY public.auth_user_user_permissions.id;
+
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    content_type_id integer,
+    user_id integer NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE public.django_admin_log OWNER TO postgres;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.django_admin_log_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_admin_log_id_seq OWNER TO postgres;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.django_admin_log_id_seq OWNED BY public.django_admin_log.id;
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_content_type (
+    id integer NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.django_content_type OWNER TO postgres;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.django_content_type_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_content_type_id_seq OWNER TO postgres;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.django_content_type_id_seq OWNED BY public.django_content_type.id;
+
+
+--
+-- Name: django_migrations; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_migrations (
+    id bigint NOT NULL,
+    app character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_migrations OWNER TO postgres;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.django_migrations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_migrations_id_seq OWNER TO postgres;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.django_migrations_id_seq OWNED BY public.django_migrations.id;
+
+
+--
+-- Name: django_session; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_session OWNER TO postgres;
+
+--
+-- Name: Accounts_official id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Accounts_official" ALTER COLUMN id SET DEFAULT nextval('public."Accounts_official_id_seq"'::regclass);
+
+
+--
+-- Name: Blotter_blotreport id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Blotter_blotreport" ALTER COLUMN id SET DEFAULT nextval('public."Blotter_blotreport_id_seq"'::regclass);
+
+
+--
+-- Name: Blotter_evidences id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Blotter_evidences" ALTER COLUMN id SET DEFAULT nextval('public."Blotter_evidences_id_seq"'::regclass);
+
+
+--
+-- Name: Certification_certrequest id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Certification_certrequest" ALTER COLUMN id SET DEFAULT nextval('public."Certification_certrequest_id_seq"'::regclass);
+
+
+--
+-- Name: Resident_csv id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Resident_csv" ALTER COLUMN id SET DEFAULT nextval('public."Resident_csv_id_seq"'::regclass);
+
+
+--
+-- Name: Resident_resident id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Resident_resident" ALTER COLUMN id SET DEFAULT nextval('public."Resident_resident_id_seq"'::regclass);
+
+
+--
+-- Name: Resident_tempresident id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Resident_tempresident" ALTER COLUMN id SET DEFAULT nextval('public."Resident_tempresident_id_seq"'::regclass);
+
+
+--
+-- Name: auth_group id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group ALTER COLUMN id SET DEFAULT nextval('public.auth_group_id_seq'::regclass);
+
+
+--
+-- Name: auth_group_permissions id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('public.auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- Name: auth_permission id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission ALTER COLUMN id SET DEFAULT nextval('public.auth_permission_id_seq'::regclass);
+
+
+--
+-- Name: auth_user id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user ALTER COLUMN id SET DEFAULT nextval('public.auth_user_id_seq'::regclass);
+
+
+--
+-- Name: auth_user_groups id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_groups ALTER COLUMN id SET DEFAULT nextval('public.auth_user_groups_id_seq'::regclass);
+
+
+--
+-- Name: auth_user_user_permissions id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('public.auth_user_user_permissions_id_seq'::regclass);
+
+
+--
+-- Name: django_admin_log id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log ALTER COLUMN id SET DEFAULT nextval('public.django_admin_log_id_seq'::regclass);
+
+
+--
+-- Name: django_content_type id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_content_type ALTER COLUMN id SET DEFAULT nextval('public.django_content_type_id_seq'::regclass);
+
+
+--
+-- Name: django_migrations id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_migrations ALTER COLUMN id SET DEFAULT nextval('public.django_migrations_id_seq'::regclass);
+
+
+--
+-- Data for Name: Accounts_official; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Accounts_official" (id, "Barangay_Secretary", "Barangay_Treasurer", "Barangay_Chairman", "SK_Chairman", "Barangay_Councilors", "SK_Councilors") FROM stdin;
+1	Madeline Dahap	Kenny Jhon Esperat	Roel Cabugza	Marian Nicole Estrellas	Allan De Guzman,Danilo Esperat,Nancy Mendoza,Jeffre Cabugza,Richard Bardenas,Oscor Cabugza,Danilo Dalde	Joshua Cabugza,Jansen Uy,Reemae Riverro
+\.
+
+
+--
+-- Data for Name: Blotter_blotreport; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Blotter_blotreport" (id, "Complainant", "Complaint", created_date, modified_date, "Offender_id", "Facts", "Offender_unregistered", "Unregistered") FROM stdin;
+1	Jericho Magico	The complainant states that the offender stole his dog which had gone missing for the past few weeks. The complainant claims that the offender's dog is the same dog that he has been with for almost 2 years.	2022-04-14 07:13:01.507+08	2022-04-14 07:13:01.715+08	29	The description of the missing dog matches with the dog in question, The offender has no written evidence that he owns the dog, The offender did not own any dogs until a few weeks ago	\N	f
+\.
+
+
+--
+-- Data for Name: Blotter_evidences; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Blotter_evidences" (id, images, "Report_id") FROM stdin;
+1	images/391d45802a606be64095bd7b66c67316_XL.jpg	1
+2	images/images.jpg	1
+\.
+
+
+--
+-- Data for Name: Certification_certrequest; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Certification_certrequest" (id, "Purpose", "Request_type", "Email", "Resident_id", "Requester_id") FROM stdin;
+38	Employment	Barangay Certificate	zxzznt@gmail.com	28	28
+\.
+
+
+--
+-- Data for Name: Resident_csv; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Resident_csv" (id, file_name, uploaded, activated) FROM stdin;
+30	files/csv/Test_lcH70Gc.csv	2022-04-07 19:26:47.509+08	t
+31	files/csv/Test_YbzWC2t.csv	2022-04-07 19:37:39.979+08	t
+32	files/csv/Test_LY68vIe.csv	2022-04-11 20:27:06.229+08	t
+33	files/csv/Data_analysis_notes.docx	2022-04-14 17:41:52.046+08	f
+34	files/csv/Data_analysis_notes_e0r2yx3.docx	2022-04-14 17:44:47.969+08	f
+35	files/csv/Data_analysis_notes_VHRWlnu.docx	2022-04-14 17:52:41.499+08	f
+36	files/csv/Add_Template_2.csv	2022-04-15 18:52:14.77+08	t
+37	files/csv/Add_Template_2_U3PpAp2.csv	2022-04-15 18:56:58.041+08	t
+38	files/csv/Add_Template_2_EhRcjxs.csv	2022-04-15 18:57:40.905+08	t
+\.
+
+
+--
+-- Data for Name: Resident_resident; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Resident_resident" (id, "First_name", "Last_name", "Middle_name", "Birthdate", "Gender", "Contact", "Citizenship", "Religion", "Occupation", "Vaccination", "Address", pic, created_date, modified_date, "Blacklisted", "Marital_status", "Philhealth_membership") FROM stdin;
+20	Tanya	Degurechaff	Von	2000-02-01	Female	09234567891	Barangay Clearance	f	f	Unvaccinated	f	images/default_pp_McEYnyV.jpg	2022-04-06 13:48:41.928+08	2022-04-15 18:27:52.345+08	f	Single	None
+21	James	Roje	Quijano	1999-12-19	Male	0915923654	Filipino	Catholic	\N	Vaccinated	Aquino Drive	images/default_pp.jpg	2022-04-07 16:06:32.244+08	2022-04-15 18:26:28.659+08	f	Single	None
+25	John	Smith	Lee	2000-01-18	Male	9159204540	Filipino	Roman Catholic	Construction Worker	Vaccinated	Pineapple Drive	images/default_pp.jpg	2022-04-07 19:26:47.586+08	2022-04-15 18:26:14.91+08	f	Single	Sponsored
+26	Jessa	Marcos	Lin	2006-02-03	Female	9459368391	Filipino	Roman Catholic	Accountant	Vaccinated	Apple Compound	images/default_pp.jpg	2022-04-07 19:26:47.684+08	2022-04-15 18:26:04.341+08	f	Single	None
+28	Jacob	Flores	Martin	2009-01-18	Male	9159204540	Filipino	Roman Catholic	Construction Worker	Vaccinated	Pineapple Drive	images/default_pp.jpg	2022-04-07 19:37:40.083+08	2022-04-15 18:25:59.238+08	f	Single	Employed
+29	Val	Sarcojas	Pastero	1964-02-03	Female	9459368391	Filipino	Roman Catholic	Accountant	Vaccinated	Apple Compound	images/default_pp.jpg	2022-04-07 19:37:40.172+08	2022-04-15 18:25:53.158+08	t	Single	Employed
+30	Liam	Paolumu	Radobaan	1955-12-12	Male	9832384	Filipino	Roman Catholic	Graphic Designer	Vaccinated	Mariveles drive, Ling road	images/default_pp.jpg	2022-04-13 22:35:48.734+08	2022-04-15 18:25:43.598+08	f	Single	OFW
+31	Jean	Bumigat	Biglaang	1967-01-28	Female	09369439584	Filipino	Roman Catholic	\N	Vaccinated	Mabini drive	images/default_pp.jpg	2022-04-14 00:41:45.245+08	2022-04-15 18:25:24.935+08	f	Married	None
+32	Gino	Malakas	Masyado	1972-12-12	Male	9932383	Filipino	Roman Catholic	Construction Worker	Vaccinated	Dahon drive, Puno rd.	images/default_pp.jpg	2022-04-14 00:43:05.084+08	2022-04-15 18:24:33.346+08	f	Single	None
+55	Jake	Valedino	Falcon	1965-01-11	Male	9259558945	Filipino	Roman Catholic		Vaccinated	Lemon drive	images/default_pp.jpg	2022-04-15 18:57:40.977+08	2022-04-15 18:57:40.977+08	f	Single	None
+56	Eri	Vilanueva	Pascua	1958-02-14	Male	9245443474	Filipino	Roman Catholic	Engineer	Vaccinated	Toron drive, Mongo rd.	images/default_pp.jpg	2022-04-15 18:57:41.058+08	2022-04-15 18:57:41.058+08	f	Single	OFW
+57	Benjamin	Beckman	Beckham	1972-01-20	Male	9233334383	Filipino	Protestant	Dentist	Vaccinated	Pyesa drive	images/default_pp.jpg	2022-04-15 18:57:41.133+08	2022-04-15 18:57:41.133+08	f	Married	Employed
+58	Mohammed	Avdol	Jojo	1953-03-03	Male	9366664686	Filipino	Islam	Janitor	Vaccinated	Manual drive	images/default_pp.jpg	2022-04-15 18:57:41.216+08	2022-04-15 18:57:41.216+08	f	Single	Senior
+59	Jolyne	Cujoh	Joestar	1979-09-09	Female	9854855555	Filipino	Protestant	Waitress	Vaccinated	Kujo compound	images/default_pp.jpg	2022-04-15 18:57:41.299+08	2022-04-15 18:57:41.299+08	f	Single	None
+60	Andrea	Rosa	Empanada	1984-07-21	Female	9243343524	Filipino	Roman Catholic	Model	Unvaccinated	Teresa drive	images/template_3_q8Bdc2V.jpg	2022-04-15 18:57:41.382+08	2022-04-15 18:58:25.058+08	f	Married	Employed
+61	Angelica	Bukas	Manyana	1990-06-24	Female	9443546666	Filipino	Roman Catholic	IT	Unvaccinated	Teresa drive	images/default_pp.jpg	2022-04-15 18:57:41.458+08	2022-04-15 18:57:41.458+08	f	Single	Employed
+62	Gary	Rondo	Ropas	1984-12-12	Male	9233334383	Filipino	Roman Catholic	Electrician	Vaccinated	Paa compound	images/default_pp.jpg	2022-04-15 18:57:41.549+08	2022-04-15 18:57:41.549+08	f	Single	None
+63	Israel	Alma	Vino	1992-11-11	Male	9434435586	Filipino	Roman Catholic	Teacher	Vaccinated	Mira street	images/default_pp.jpg	2022-04-15 18:57:41.634+08	2022-04-15 18:57:41.634+08	f	Married	Employed
+64	Ansel	Poquito	Bien	1993-10-01	Male	9454364423	Filipino	Roman Catholic	Sound Engineer	Vaccinated	Mira street	images/default_pp.jpg	2022-04-15 18:57:41.733+08	2022-04-15 18:57:41.733+08	f	Single	Employed
+65	Sonya	Ariba	Itaas	1952-08-15	Female	9466629386	Filipino	Roman Catholic		Vaccinated	Grapefruit drive	images/default_pp.jpg	2022-04-15 18:57:41.816+08	2022-04-15 18:57:41.816+08	f	Married	Senior
+\.
+
+
+--
+-- Data for Name: Resident_tempresident; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Resident_tempresident" (id, pic, "First_name", "Last_name", "Middle_name", "Birthdate", "Gender", "Contact", "Marital_status", "Citizenship", "Religion", "Occupation", "Vaccination", "Address", "Blacklisted", created_date, modified_date, "Email", "Philhealth_membership") FROM stdin;
+3	images/template_3_klrLX5H.jpg	Madeline	Mabilisan	Daanan	1959-02-14	Female	9238331953	Single	Filipino	Roman Catholic	Model	Vaccinated	K-357, Dahon Drive, Una rd.	f	2022-04-14 14:37:40.288+08	2022-04-14 14:37:40.288+08	mzmb1264@gmail.com	Employed
+\.
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add log entry	1	add_logentry
+2	Can change log entry	1	change_logentry
+3	Can delete log entry	1	delete_logentry
+4	Can view log entry	1	view_logentry
+5	Can add permission	2	add_permission
+6	Can change permission	2	change_permission
+7	Can delete permission	2	delete_permission
+8	Can view permission	2	view_permission
+9	Can add group	3	add_group
+10	Can change group	3	change_group
+11	Can delete group	3	delete_group
+12	Can view group	3	view_group
+13	Can add user	4	add_user
+14	Can change user	4	change_user
+15	Can delete user	4	delete_user
+16	Can view user	4	view_user
+17	Can add content type	5	add_contenttype
+18	Can change content type	5	change_contenttype
+19	Can delete content type	5	delete_contenttype
+20	Can view content type	5	view_contenttype
+21	Can add session	6	add_session
+22	Can change session	6	change_session
+23	Can delete session	6	delete_session
+24	Can view session	6	view_session
+25	Can add official	7	add_official
+26	Can change official	7	change_official
+27	Can delete official	7	delete_official
+28	Can view official	7	view_official
+29	Can add resident	8	add_resident
+30	Can change resident	8	change_resident
+31	Can delete resident	8	delete_resident
+32	Can view resident	8	view_resident
+33	Can add csv	9	add_csv
+34	Can change csv	9	change_csv
+35	Can delete csv	9	delete_csv
+36	Can view csv	9	view_csv
+37	Can add temp resident	10	add_tempresident
+38	Can change temp resident	10	change_tempresident
+39	Can delete temp resident	10	delete_tempresident
+40	Can view temp resident	10	view_tempresident
+41	Can add blotreport	11	add_blotreport
+42	Can change blotreport	11	change_blotreport
+43	Can delete blotreport	11	delete_blotreport
+44	Can view blotreport	11	view_blotreport
+45	Can add evidences	12	add_evidences
+46	Can change evidences	12	change_evidences
+47	Can delete evidences	12	delete_evidences
+48	Can view evidences	12	view_evidences
+49	Can add certrequest	13	add_certrequest
+50	Can change certrequest	13	change_certrequest
+51	Can delete certrequest	13	delete_certrequest
+52	Can view certrequest	13	view_certrequest
+\.
+
+
+--
+-- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
+2	pbkdf2_sha256$320000$IASq3SOo3yKH8cuSEOJskS$UppvVxaFdUtS35zvBDSjH26G95DOi1IpCW+w5LYYfQ0=	\N	f	testuser	Chris	Jericho	Jericho1914@gmail.com	f	t	2022-03-27 13:04:39+08
+6	pbkdf2_sha256$320000$V4HnGJrTZ2rlIFtd4gLHpU$Ee/7axbjiATE8Nah4Xp68xeOuth885ZyDrYksVllxpU=	2022-04-11 21:07:25.681+08	f	test05	John	Lucas	John509@huwa.com	f	t	2022-03-29 23:08:15.505+08
+8	pbkdf2_sha256$320000$jTvqotncLXMBCfyvQCUllu$/rySop3SHImDhCtlLKAcVRx1f3joAQQJcEGYCl1ZlAw=	\N	f	test01	tes01	test01	test01@ff.to	f	t	2022-04-12 08:33:24.972+08
+10	pbkdf2_sha256$320000$vYtBXl1rBa7YlAWWTBCtq4$mNQDXwTjpSATGX06hKzGGOgVHpL72bLscKpmsB5fHDU=	2022-04-14 13:36:44.542+08	f	jn1911	John	Jan	jxzxz@yahoo.com	f	t	2022-04-14 13:36:33.258+08
+11	pbkdf2_sha256$320000$coabfGTO7a7qJENn3AyTYk$CWolpPUDy+jXvje4tyrIX/nZgnK+J9KqRw4WgdzMFLI=	\N	f	test03	tst	tst	jheffniq@gmail.com	f	t	2022-04-15 17:13:20.576+08
+1	pbkdf2_sha256$320000$qiysZQeVKQyHJG69c2yQee$VJszkauc1eZwSiDOeBceaxfTS6Gw1D7FVrLzdsuD8G4=	2022-04-15 23:22:49.051721+08	t	admin				t	t	2022-02-20 18:00:03.437+08
+\.
+
+
+--
+-- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+1	2022-02-20 18:18:01.901+08	1	Resident object (1)	1	[{"added": {}}]	7	1
+2	2022-02-20 19:01:28.13+08	2	Resident object (2)	1	[{"added": {}}]	7	1
+3	2022-02-20 19:20:47.41+08	3	Resident object (3)	1	[{"added": {}}]	7	1
+4	2022-02-20 19:20:57.394+08	3	Resident object (3)	2	[{"changed": {"fields": ["Contact"]}}]	7	1
+5	2022-02-20 22:14:54.837+08	1	Resident object (1)	3		7	1
+6	2022-02-20 22:14:58.707+08	2	Resident object (2)	3		7	1
+7	2022-02-20 22:15:02.468+08	3	Resident object (3)	3		7	1
+8	2022-02-20 22:18:14.762+08	1	Resident object (1)	1	[{"added": {}}]	7	1
+9	2022-02-20 22:36:18.628+08	2	Resident object (2)	1	[{"added": {}}]	7	1
+10	2022-02-20 22:36:36.539+08	3	Resident object (3)	1	[{"added": {}}]	7	1
+11	2022-02-20 22:36:55.919+08	4	Resident object (4)	1	[{"added": {}}]	7	1
+12	2022-02-22 10:10:39.29+08	5	Resident object (5)	3		7	1
+13	2022-02-22 10:28:39.66+08	8	Resident object (8)	3		7	1
+14	2022-02-22 11:34:23.757+08	12	Resident object (12)	3		7	1
+15	2022-02-22 11:34:27.472+08	11	Resident object (11)	3		7	1
+16	2022-02-22 11:36:10.975+08	10	Resident object (10)	3		7	1
+17	2022-02-22 11:36:18.822+08	13	Resident object (13)	3		7	1
+18	2022-03-03 10:11:45.132+08	1	Blotreport object (1)	3		8	1
+19	2022-03-03 10:11:51.079+08	6	Jheff Nico Ariola	2	[{"changed": {"fields": ["Marital status", "Blacklisted"]}}]	7	1
+20	2022-03-03 10:15:56.134+08	2	Blotreport object (2)	3		8	1
+21	2022-03-03 10:23:01.656+08	3	Blotreport object (3)	3		8	1
+22	2022-03-03 10:24:48.845+08	4	Blotreport object (4)	3		8	1
+23	2022-03-05 15:08:11.948+08	6	Jheff Nico Ariola	2	[{"changed": {"fields": ["Blacklisted"]}}]	7	1
+24	2022-03-05 15:08:22.085+08	6	Jheff Nico Ariola	2	[{"changed": {"fields": ["Blacklisted"]}}]	7	1
+25	2022-03-05 15:20:33.146+08	6	Jheff Nico Ariola	2	[{"changed": {"fields": ["Blacklisted"]}}]	7	1
+26	2022-03-22 18:52:06.082+08	13	Ciel Latifa Bell	2	[{"changed": {"fields": ["Marital status"]}}]	7	1
+27	2022-03-22 18:53:43.369+08	13	Ciel Latifa Bell	2	[{"changed": {"fields": ["Marital status"]}}]	7	1
+28	2022-03-22 18:55:22.162+08	13	Ciel Latifa Bell	2	[{"changed": {"fields": ["Street Address"]}}]	7	1
+29	2022-03-27 13:04:39.832+08	2	testuser	1	[{"added": {}}]	4	1
+30	2022-03-27 13:05:16.744+08	2	testuser	2	[{"changed": {"fields": ["First name", "Last name", "Email address"]}}]	4	1
+31	2022-03-28 20:18:24.755+08	18	Blotreport object (18)	2	[{"changed": {"fields": ["Complainant"]}}]	8	1
+32	2022-03-28 20:18:50.202+08	19	Blotreport object (19)	2	[{"changed": {"fields": ["Complainant"]}}]	8	1
+33	2022-03-28 20:19:01.905+08	20	Blotreport object (20)	2	[{"changed": {"fields": ["Complainant"]}}]	8	1
+34	2022-03-28 20:19:22.056+08	21	Blotreport object (21)	2	[{"changed": {"fields": ["Complainant"]}}]	8	1
+35	2022-03-29 22:05:06.879+08	5	faa	3		4	1
+36	2022-03-29 22:05:10.64+08	3	aaa	3		4	1
+37	2022-03-29 22:05:16.904+08	4	aaaf	3		4	1
+38	2022-04-02 14:52:23.849+08	6	test05	2	[{"changed": {"fields": ["password"]}}]	4	1
+39	2022-04-02 15:24:18.527+08	1	Officials object (1)	1	[{"added": {}}]	9	1
+40	2022-04-02 15:24:21.737+08	1	Officials object (1)	3		9	1
+41	2022-04-02 15:46:46.98+08	1	Official object (1)	1	[{"added": {}}]	9	1
+42	2022-04-04 17:59:41.734+08	6	Certrequest object (6)	3		12	1
+43	2022-04-04 17:59:44.359+08	5	Certrequest object (5)	3		12	1
+44	2022-04-04 17:59:46.824+08	4	Certrequest object (4)	3		12	1
+45	2022-04-04 17:59:54.031+08	3	Certrequest object (3)	3		12	1
+46	2022-04-04 17:59:56.52+08	2	Certrequest object (2)	3		12	1
+47	2022-04-04 17:59:58.886+08	1	Certrequest object (1)	3		12	1
+48	2022-04-04 18:03:45.609+08	7	Certrequest object (7)	3		12	1
+49	2022-04-04 18:19:29.26+08	17	Certrequest object (17)	3		12	1
+50	2022-04-04 18:19:29.397+08	16	Certrequest object (16)	3		12	1
+51	2022-04-04 18:19:29.555+08	15	Certrequest object (15)	3		12	1
+52	2022-04-04 18:19:29.63+08	14	Certrequest object (14)	3		12	1
+53	2022-04-04 18:19:29.714+08	13	Certrequest object (13)	3		12	1
+54	2022-04-04 18:19:29.805+08	12	Certrequest object (12)	3		12	1
+55	2022-04-04 18:19:29.897+08	11	Certrequest object (11)	3		12	1
+56	2022-04-04 18:19:29.997+08	10	Certrequest object (10)	3		12	1
+57	2022-04-04 18:19:30.089+08	9	Certrequest object (9)	3		12	1
+58	2022-04-04 18:19:30.18+08	8	Certrequest object (8)	3		12	1
+59	2022-04-06 14:00:54.601+08	6	Jonathan Smith	2	[{"changed": {"fields": ["Citizenship"]}}]	7	1
+60	2022-04-06 14:00:59.73+08	7	John Cena	2	[{"changed": {"fields": ["Citizenship"]}}]	7	1
+61	2022-04-06 14:01:06.617+08	12	Yuuna Somali	2	[{"changed": {"fields": ["Citizenship"]}}]	7	1
+62	2022-04-06 14:01:20.152+08	13	Josephine Enriquez	2	[{"changed": {"fields": ["Citizenship"]}}]	7	1
+63	2022-04-06 14:01:31.065+08	11	Jarred Leto	2	[{"changed": {"fields": ["Citizenship"]}}]	7	1
+64	2022-04-06 14:01:38.752+08	15	Eren Jaeger	2	[{"changed": {"fields": ["Citizenship"]}}]	7	1
+65	2022-04-06 14:02:07.289+08	6	Jonathan Smith	2	[]	7	1
+66	2022-04-06 14:02:10.32+08	7	John Cena	2	[]	7	1
+67	2022-04-06 14:02:14.456+08	9	John Jovii	2	[{"changed": {"fields": ["Marital status", "Citizenship"]}}]	7	1
+68	2022-04-06 14:02:22.128+08	10	Michael Sierra	2	[{"changed": {"fields": ["Marital status", "Citizenship"]}}]	7	1
+69	2022-04-06 14:02:28.2+08	11	Jarred Leto	2	[]	7	1
+70	2022-04-06 14:02:32.241+08	12	Yuuna Somali	2	[]	7	1
+71	2022-04-06 14:02:38.181+08	13	Josephine Enriquez	2	[]	7	1
+72	2022-04-06 14:02:45.01+08	13	Josephine Enriquez	2	[]	7	1
+73	2022-04-06 14:02:51.12+08	14	Ulquiorra Cifer	2	[{"changed": {"fields": ["Citizenship"]}}]	7	1
+74	2022-04-06 14:02:55.765+08	15	Eren Jaeger	2	[]	7	1
+75	2022-04-06 14:03:02+08	16	Stanley Alan Van Gundy	2	[{"changed": {"fields": ["Citizenship"]}}]	7	1
+76	2022-04-06 14:03:07.289+08	17	James Naismith	2	[{"changed": {"fields": ["Citizenship"]}}]	7	1
+77	2022-04-06 14:03:11.473+08	18	Hart Kidd	2	[{"changed": {"fields": ["Citizenship"]}}]	7	1
+78	2022-04-06 14:03:16.233+08	19	Yell Hani	2	[{"changed": {"fields": ["Citizenship"]}}]	7	1
+79	2022-04-06 14:03:21.807+08	20	David Grohl	2	[{"changed": {"fields": ["Citizenship"]}}]	7	1
+80	2022-04-06 15:01:26.75+08	24	Certrequest object (24)	3		12	1
+81	2022-04-06 15:01:26.852+08	23	Certrequest object (23)	3		12	1
+82	2022-04-06 15:01:26.935+08	22	Certrequest object (22)	3		12	1
+83	2022-04-06 15:01:27.01+08	21	Certrequest object (21)	3		12	1
+84	2022-04-06 15:01:27.077+08	20	Certrequest object (20)	3		12	1
+85	2022-04-06 15:01:27.16+08	19	Certrequest object (19)	3		12	1
+86	2022-04-06 15:01:27.268+08	18	Certrequest object (18)	3		12	1
+87	2022-04-06 15:32:16.102+08	28	Certrequest object (28)	3		12	1
+88	2022-04-06 16:18:28.82+08	26	Certrequest object (26)	2	[{"changed": {"fields": ["Email"]}}]	12	1
+89	2022-04-06 16:35:37.342+08	29	Certrequest object (29)	2	[{"changed": {"fields": ["Email"]}}]	12	1
+90	2022-04-06 17:24:34.255+08	25	Certrequest object (25)	2	[{"changed": {"fields": ["Email"]}}]	12	1
+91	2022-04-07 18:08:02.591+08	1	CSV object (1)	1	[{"added": {}}]	13	1
+92	2022-04-07 18:09:14.042+08	1	CSV object (1)	3		13	1
+93	2022-04-07 18:17:50.897+08	3	CSV object (3)	3		13	1
+94	2022-04-07 18:17:53.889+08	2	CSV object (2)	3		13	1
+95	2022-04-07 18:21:37.068+08	4	CSV object (4)	2	[{"changed": {"fields": ["Activated"]}}]	13	1
+96	2022-04-07 18:37:54.958+08	13	CSV object (13)	3		13	1
+97	2022-04-07 18:37:55.064+08	12	CSV object (12)	3		13	1
+98	2022-04-07 18:37:55.17+08	11	CSV object (11)	3		13	1
+99	2022-04-07 18:37:55.264+08	10	CSV object (10)	3		13	1
+100	2022-04-07 18:37:55.365+08	9	CSV object (9)	3		13	1
+101	2022-04-07 18:37:55.448+08	8	CSV object (8)	3		13	1
+102	2022-04-07 18:37:55.539+08	7	CSV object (7)	3		13	1
+103	2022-04-07 18:37:55.632+08	6	CSV object (6)	3		13	1
+104	2022-04-07 18:37:55.715+08	5	CSV object (5)	3		13	1
+105	2022-04-07 18:37:55.799+08	4	CSV object (4)	3		13	1
+106	2022-04-07 18:38:10.019+08	14	CSV object (14)	2	[{"changed": {"fields": ["Activated"]}}]	13	1
+107	2022-04-07 19:15:39.791+08	24	CSV object (24)	3		13	1
+108	2022-04-07 19:15:39.933+08	23	CSV object (23)	3		13	1
+109	2022-04-07 19:15:40.035+08	22	CSV object (22)	3		13	1
+110	2022-04-07 19:15:40.168+08	21	CSV object (21)	3		13	1
+111	2022-04-07 19:15:40.309+08	20	CSV object (20)	3		13	1
+112	2022-04-07 19:15:40.402+08	19	CSV object (19)	3		13	1
+113	2022-04-07 19:15:40.485+08	18	CSV object (18)	3		13	1
+114	2022-04-07 19:15:40.568+08	17	CSV object (17)	3		13	1
+115	2022-04-07 19:15:40.676+08	16	CSV object (16)	3		13	1
+116	2022-04-07 19:15:40.76+08	15	CSV object (15)	3		13	1
+117	2022-04-07 19:15:40.867+08	14	CSV object (14)	3		13	1
+118	2022-04-07 19:19:27.289+08	22	Jessa Marcos	3		7	1
+119	2022-04-07 19:20:53.799+08	23	Jessa Marcos	3		7	1
+120	2022-04-07 19:21:04.686+08	26	CSV object (26)	3		13	1
+121	2022-04-07 19:21:04.802+08	25	CSV object (25)	3		13	1
+122	2022-04-07 19:22:46.134+08	24	Joseph Joestar	3		7	1
+123	2022-04-07 19:26:41.616+08	29	CSV object (29)	3		13	1
+124	2022-04-07 19:26:41.708+08	28	CSV object (28)	3		13	1
+125	2022-04-07 19:26:41.799+08	27	CSV object (27)	3		13	1
+126	2022-04-11 22:44:16.865+08	32	afasf sadfsdf	3		7	1
+127	2022-04-13 21:42:10.88+08	33	afasf sadfsdf	3		7	1
+128	2022-04-13 21:42:30.215+08	6	Jonathan Smith	2	[{"changed": {"fields": ["Philhealth Membership Type"]}}]	7	1
+129	2022-04-13 21:42:42.478+08	29	Val Sarcojas	2	[{"changed": {"fields": ["Philhealth Membership Type"]}}]	7	1
+130	2022-04-13 21:42:47.277+08	28	Jacob Flores	2	[{"changed": {"fields": ["Philhealth Membership Type"]}}]	7	1
+131	2022-04-13 21:42:52.16+08	26	Jessa Marcos	2	[{"changed": {"fields": ["Philhealth Membership Type"]}}]	7	1
+132	2022-04-13 21:43:03.229+08	25	John Smith	2	[{"changed": {"fields": ["Philhealth Membership Type"]}}]	7	1
+133	2022-04-13 21:43:07.46+08	25	John Smith	2	[]	7	1
+134	2022-04-13 21:43:13.219+08	21	James Roje	2	[{"changed": {"fields": ["Philhealth Membership Type"]}}]	7	1
+135	2022-04-13 21:43:26.019+08	20	David Grohl	2	[{"changed": {"fields": ["Philhealth Membership Type"]}}]	7	1
+136	2022-04-13 21:43:54.122+08	19	Yell Biglaan	2	[{"changed": {"fields": ["Last name", "Middle name", "Philhealth Membership Type"]}}]	7	1
+137	2022-04-13 21:44:07.107+08	19	Yell Biglaan	2	[]	7	1
+138	2022-04-13 21:44:19.913+08	18	Hart Kidd	2	[{"changed": {"fields": ["Philhealth Membership Type"]}}]	7	1
+139	2022-04-13 21:44:57.989+08	17	James Naismith	2	[{"changed": {"fields": ["Birthdate", "Philhealth Membership Type"]}}]	7	1
+140	2022-04-13 21:45:20.574+08	16	Stanley Alan Van Gundy	2	[{"changed": {"fields": ["Birthdate", "Philhealth Membership Type"]}}]	7	1
+141	2022-04-13 21:45:27.402+08	15	Eren Jaeger	2	[{"changed": {"fields": ["Philhealth Membership Type"]}}]	7	1
+142	2022-04-13 21:45:34.261+08	14	Ulquiorra Cifer	2	[{"changed": {"fields": ["Philhealth Membership Type"]}}]	7	1
+143	2022-04-13 21:45:42.38+08	13	Josephine Enriquez	2	[{"changed": {"fields": ["Philhealth Membership Type"]}}]	7	1
+144	2022-04-13 21:45:48.739+08	12	Yuuna Somali	2	[{"changed": {"fields": ["Philhealth Membership Type"]}}]	7	1
+145	2022-04-13 21:45:55.892+08	11	Jarred Leto	2	[{"changed": {"fields": ["Philhealth Membership Type"]}}]	7	1
+146	2022-04-13 21:46:05.391+08	10	Michael Sierra	2	[{"changed": {"fields": ["Philhealth Membership Type"]}}]	7	1
+147	2022-04-13 21:46:11.301+08	9	John Jovii	2	[{"changed": {"fields": ["Philhealth Membership Type"]}}]	7	1
+148	2022-04-13 21:46:17.083+08	7	John Cena	2	[{"changed": {"fields": ["Philhealth Membership Type"]}}]	7	1
+149	2022-04-13 21:46:23.026+08	6	Jonathan Smith	2	[{"changed": {"fields": ["Philhealth Membership Type"]}}]	7	1
+150	2022-04-13 22:26:04.542+08	17	James Naismith	2	[]	7	1
+151	2022-04-13 22:27:28.361+08	12	Yuuna Somali	2	[{"changed": {"fields": ["Philhealth Membership Type"]}}]	7	1
+152	2022-04-13 22:29:02.032+08	25	John Smith	2	[{"changed": {"fields": ["Philhealth Membership Type"]}}]	7	1
+153	2022-04-13 23:53:34.918+08	1	Official object (1)	2	[{"changed": {"fields": ["Barangay Councilors", "SK Councilors"]}}]	9	1
+154	2022-04-13 23:53:37.549+08	1	Official object (1)	2	[]	9	1
+155	2022-04-14 00:10:11.662+08	1	Official object (1)	2	[{"changed": {"fields": ["Barangay Councilors"]}}]	9	1
+156	2022-04-14 00:10:38.158+08	1	Official object (1)	2	[{"changed": {"fields": ["Barangay Councilors"]}}]	9	1
+157	2022-04-14 00:17:11.807+08	1	Official object (1)	2	[{"changed": {"fields": ["Barangay Councilors"]}}]	9	1
+158	2022-04-14 00:17:26.038+08	1	Official object (1)	2	[{"changed": {"fields": ["Barangay Councilors"]}}]	9	1
+159	2022-04-14 00:17:54.026+08	1	Official object (1)	2	[{"changed": {"fields": ["Barangay Councilors"]}}]	9	1
+160	2022-04-14 01:11:42.955+08	22	Blotreport object (22)	1	[{"added": {}}]	8	1
+161	2022-04-14 01:14:12.107+08	22	Blotreport object (22)	2	[{"changed": {"fields": ["Unregistered"]}}]	8	1
+162	2022-04-14 01:17:34.668+08	22	Blotreport object (22)	2	[{"changed": {"fields": ["Offender unregistered"]}}]	8	1
+163	2022-04-14 06:39:06.868+08	6	Jonathan Smith	2	[{"changed": {"fields": ["Blacklisted"]}}]	7	1
+164	2022-04-15 18:24:33.347+08	32	Gino Malakas	2	[{"changed": {"fields": ["Contact", "Citizenship", "Religion", "Occupation", "Street Address"]}}]	7	1
+165	2022-04-15 18:25:24.936+08	31	Jean Bumigat	2	[{"changed": {"fields": ["Contact", "Citizenship", "Religion", "Occupation", "Street Address"]}}]	7	1
+166	2022-04-15 18:25:43.599+08	30	Liam Paolumu	2	[{"changed": {"fields": ["Contact"]}}]	7	1
+167	2022-04-15 18:25:53.16+08	29	Val Sarcojas	2	[]	7	1
+168	2022-04-15 18:25:59.24+08	28	Jacob Flores	2	[]	7	1
+169	2022-04-15 18:26:04.343+08	26	Jessa Marcos	2	[]	7	1
+170	2022-04-15 18:26:14.912+08	25	John Smith	2	[]	7	1
+171	2022-04-15 18:26:28.66+08	21	James Roje	2	[]	7	1
+172	2022-04-15 18:27:52.347+08	20	Tanya Degurechaff	2	[{"changed": {"fields": ["Profile Picture", "First name", "Last name", "Middle name", "Contact"]}}]	7	1
+173	2022-04-15 18:29:03.275+08	18	Hart Kidd	3		7	1
+174	2022-04-15 18:29:20.274+08	16	Stanley Alan Van Gundy	3		7	1
+175	2022-04-15 18:29:20.493+08	15	Eren Jaeger	3		7	1
+176	2022-04-15 18:29:20.664+08	14	Ulquiorra Cifer	3		7	1
+177	2022-04-15 18:29:20.751+08	13	Josephine Enriquez	3		7	1
+178	2022-04-15 18:29:20.843+08	12	Yuuna Somali	3		7	1
+179	2022-04-15 18:29:20.934+08	11	Jarred Leto	3		7	1
+180	2022-04-15 18:29:21.043+08	10	Michael Sierra	3		7	1
+181	2022-04-15 18:29:21.147+08	9	John Jovii	3		7	1
+182	2022-04-15 18:29:21.234+08	7	John Cena	3		7	1
+183	2022-04-15 18:29:21.35+08	6	Jonathan Smith	3		7	1
+184	2022-04-15 18:56:45.551+08	43	Sonya Ariba	3		7	1
+185	2022-04-15 18:56:45.677+08	42	Ansel Poquito	3		7	1
+186	2022-04-15 18:56:45.777+08	41	Israel Alma	3		7	1
+187	2022-04-15 18:56:45.9+08	40	Gary Rondo	3		7	1
+188	2022-04-15 18:56:45.994+08	39	Angelica Bukas	3		7	1
+189	2022-04-15 18:56:46.077+08	38	Andrea Rosa	3		7	1
+190	2022-04-15 18:56:46.169+08	37	Jolyne Cujoh	3		7	1
+191	2022-04-15 18:56:46.265+08	36	Mohammed Avdol	3		7	1
+192	2022-04-15 18:56:46.356+08	35	Benjamin Beckman	3		7	1
+193	2022-04-15 18:56:46.511+08	34	Eri Vilanueva	3		7	1
+194	2022-04-15 18:56:46.656+08	33	Jake Valedino	3		7	1
+195	2022-04-15 18:57:27.276+08	54	Sonya Ariba	3		7	1
+196	2022-04-15 18:57:27.463+08	53	Ansel Poquito	3		7	1
+197	2022-04-15 18:57:27.572+08	52	Israel Alma	3		7	1
+198	2022-04-15 18:57:27.672+08	51	Gary Rondo	3		7	1
+199	2022-04-15 18:57:27.772+08	50	Angelica Bukas	3		7	1
+200	2022-04-15 18:57:27.872+08	49	Andrea Rosa	3		7	1
+201	2022-04-15 18:57:27.959+08	48	Jolyne Cujoh	3		7	1
+202	2022-04-15 18:57:28.063+08	47	Mohammed Avdol	3		7	1
+203	2022-04-15 18:57:28.147+08	46	Benjamin Beckman	3		7	1
+204	2022-04-15 18:57:28.247+08	45	Eri Vilanueva	3		7	1
+205	2022-04-15 18:57:28.359+08	44	Jake Valedino	3		7	1
+\.
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_content_type (id, app_label, model) FROM stdin;
+1	admin	logentry
+2	auth	permission
+3	auth	group
+4	auth	user
+5	contenttypes	contenttype
+6	sessions	session
+7	Accounts	official
+8	Resident	resident
+9	Resident	csv
+10	Resident	tempresident
+11	Blotter	blotreport
+12	Blotter	evidences
+13	Certification	certrequest
+\.
+
+
+--
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_migrations (id, app, name, applied) FROM stdin;
+1	Accounts	0001_initial	2022-04-15 22:58:21.518783+08
+2	Accounts	0002_officialz	2022-04-15 22:58:21.581786+08
+3	Accounts	0003_delete_officialz	2022-04-15 22:58:21.682792+08
+4	Accounts	0004_rename_officials_official	2022-04-15 22:58:21.690793+08
+5	Accounts	0005_delete_official	2022-04-15 22:58:21.693793+08
+6	Accounts	0006_initial	2022-04-15 22:58:21.744796+08
+7	Accounts	0007_rename_first_name_official_baranagay_secretary_and_more	2022-04-15 22:58:21.766797+08
+8	Accounts	0008_rename_baranagay_secretary_official_barangay_secretary_and_more	2022-04-15 22:58:21.772797+08
+9	Accounts	0009_official_barangay_councilors_official_sk_councilors	2022-04-15 22:58:21.8138+08
+10	Resident	0001_initial	2022-04-15 22:58:21.873803+08
+11	Resident	0002_resident_pic	2022-04-15 22:58:21.878803+08
+12	Resident	0003_resident_currentdate	2022-04-15 22:58:21.903805+08
+13	Resident	0004_alter_resident_currentdate	2022-04-15 22:58:21.907805+08
+14	Resident	0005_resident_age_alter_resident_birthdate	2022-04-15 22:58:21.914805+08
+15	Resident	0006_remove_resident_currentdate_alter_resident_birthdate	2022-04-15 22:58:21.920806+08
+16	Resident	0007_alter_resident_pic	2022-04-15 22:58:21.923806+08
+17	Resident	0008_alter_resident_age	2022-04-15 22:58:21.927806+08
+18	Resident	0009_alter_resident_address_alter_resident_vaccination	2022-04-15 22:58:21.933806+08
+19	Resident	0010_alter_resident_vaccination	2022-04-15 22:58:21.937807+08
+20	Resident	0011_alter_resident_birthdate	2022-04-15 22:58:21.942807+08
+21	Resident	0012_resident_created_date_resident_modified_date	2022-04-15 22:58:21.952808+08
+22	Resident	0013_remove_resident_created_date_and_more	2022-04-15 22:58:21.957808+08
+23	Resident	0014_resident_created_date_resident_modified_date	2022-04-15 22:58:21.965808+08
+24	Resident	0015_alter_resident_pic	2022-04-15 22:58:21.970809+08
+25	Resident	0016_alter_resident_pic	2022-04-15 22:58:21.973809+08
+26	Resident	0017_auto_20220228_2026	2022-04-15 22:58:21.978809+08
+27	Resident	0018_remove_resident_age	2022-04-15 22:58:21.982809+08
+28	Resident	0019_alter_resident_occupation	2022-04-15 22:58:21.985809+08
+29	Resident	0020_official	2022-04-15 22:58:22.017811+08
+30	Resident	0021_delete_official	2022-04-15 22:58:22.021811+08
+31	Resident	0022_alter_resident_pic	2022-04-15 22:58:22.029812+08
+32	Resident	0023_csv	2022-04-15 22:58:22.073814+08
+33	Resident	0024_tempresident	2022-04-15 22:58:22.132818+08
+34	Resident	0025_tempresident_email	2022-04-15 22:58:22.137818+08
+35	Resident	0026_alter_tempresident_vaccination	2022-04-15 22:58:22.142818+08
+36	Resident	0027_alter_resident_vaccination	2022-04-15 22:58:22.148819+08
+37	Resident	0028_resident_philhealth_membership_and_more	2022-04-15 22:58:22.155819+08
+38	Resident	0029_alter_resident_philhealth_membership_and_more	2022-04-15 22:58:22.16382+08
+39	Resident	0030_alter_resident_philhealth_membership_and_more	2022-04-15 22:58:22.16982+08
+40	Resident	0031_alter_resident_philhealth_membership_and_more	2022-04-15 22:58:22.17582+08
+41	Resident	0032_alter_resident_philhealth_membership_and_more	2022-04-15 22:58:22.181821+08
+42	Resident	0033_alter_resident_philhealth_membership_and_more	2022-04-15 22:58:22.187821+08
+43	Resident	0034_alter_tempresident_marital_status	2022-04-15 22:58:22.193821+08
+44	Resident	0035_alter_resident_marital_status	2022-04-15 22:58:22.198822+08
+45	Blotter	0001_initial	2022-04-15 22:58:22.354831+08
+46	Blotter	0002_alter_blotreport_offender	2022-04-15 22:58:22.478838+08
+47	Blotter	0003_blotreport_facts_blotreport_offender_unregistered_and_more	2022-04-15 22:58:22.487838+08
+48	Blotter	0004_blotreport_unregistered	2022-04-15 22:58:22.493838+08
+49	Blotter	0005_blotreport_evidences	2022-04-15 22:58:22.498839+08
+50	Blotter	0006_remove_blotreport_evidences_evidences	2022-04-15 22:58:22.69085+08
+51	Blotter	0007_alter_blotreport_complaint	2022-04-15 22:58:22.69585+08
+52	Blotter	0008_alter_blotreport_offender_unregistered	2022-04-15 22:58:22.70285+08
+53	Certification	0001_initial	2022-04-15 22:58:22.742853+08
+54	Certification	0002_delete_officials	2022-04-15 22:58:22.747853+08
+55	Certification	0003_initial	2022-04-15 22:58:22.784855+08
+56	Certification	0004_certrequest_purpose_certrequest_request_type	2022-04-15 22:58:22.792856+08
+57	Certification	0005_certrequest_email	2022-04-15 22:58:22.796856+08
+58	Certification	0006_certrequest_resident_id	2022-04-15 22:58:22.835858+08
+59	Certification	0007_certrequest_requester	2022-04-15 22:58:22.87286+08
+60	contenttypes	0001_initial	2022-04-15 22:58:22.953865+08
+61	auth	0001_initial	2022-04-15 22:58:23.661905+08
+62	admin	0001_initial	2022-04-15 22:58:23.817914+08
+63	admin	0002_logentry_remove_auto_add	2022-04-15 22:58:23.824915+08
+64	admin	0003_logentry_add_action_flag_choices	2022-04-15 22:58:23.830915+08
+65	contenttypes	0002_remove_content_type_name	2022-04-15 22:58:23.847916+08
+66	auth	0002_alter_permission_name_max_length	2022-04-15 22:58:23.856916+08
+67	auth	0003_alter_user_email_max_length	2022-04-15 22:58:23.864917+08
+68	auth	0004_alter_user_username_opts	2022-04-15 22:58:23.876918+08
+69	auth	0005_alter_user_last_login_null	2022-04-15 22:58:23.890918+08
+70	auth	0006_require_contenttypes_0002	2022-04-15 22:58:23.894919+08
+71	auth	0007_alter_validators_add_error_messages	2022-04-15 22:58:23.905919+08
+72	auth	0008_alter_user_username_max_length	2022-04-15 22:58:23.951922+08
+73	auth	0009_alter_user_last_name_max_length	2022-04-15 22:58:23.961922+08
+74	auth	0010_alter_group_name_max_length	2022-04-15 22:58:24.006925+08
+75	auth	0011_update_proxy_permissions	2022-04-15 22:58:24.019926+08
+76	auth	0012_alter_user_first_name_max_length	2022-04-15 22:58:24.028926+08
+77	sessions	0001_initial	2022-04-15 22:58:24.158934+08
+\.
+
+
+--
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
+50j3drselezq0tq8z0h6nec8szbny2qq	.eJxVjDkOwjAUBe_iGln-xnEMJT1niP5mHEC2lKVC3B0ipYD2zcx7mQHXpQzrrNMwijkbMIffjZAfWjcgd6y3ZrnVZRrJbord6WyvTfR52d2_g4Jz-daJsmbykFEyCHSChDE4deRc0J67oMwMqYcT5CNqTJHIR-LcuxS9mPcHIMY5DA:1nZDGa:7GTbMIdgFdv2txJTApOpIbn4VJ61aHOocIGDAsL36rc	2022-04-12 22:56:16.968+08
+i0xzijq5xaabr99glr66tgxxos29ocfm	.eJxVjEEOgjAQRe_StWmgMLbj0r1nIDOdjkVNSSisjHcXEha6_e-9_zYDrUse1prmYRRzMa05_W5M8ZnKDuRB5T7ZOJVlHtnuij1otbdJ0ut6uH8HmWreagRywhr6M_XonbQc-y54AWpD0zkFboKAJ3CI0bEq6BaA20inimg-X94JN-Q:1nLj0p:pRNuqGPk7sRcoHEGqLj9mxMji_akkM5eNMuaCggM8aE	2022-03-06 18:00:15.206+08
+l4eyso58fbzzj3c8hxqzwwxfndin10yk	.eJxVjEEOwiAQRe_C2hBGKDgu3XuGZmAGqRpISrsy3l2bdKHb_977LzXSupRx7TKPE6uz8urwu0VKD6kb4DvVW9Op1WWeot4UvdOur43ledndv4NCvXzrbIWEEzGmIwzGOooYIyOJR7ROhFEcGEjsIFAIAIkQMngyLg_hpN4fGtc4jw:1naXWK:qU6UJCCClTVl-w76eRtKX7UVAzPwbrScmg_MXNKavV8	2022-04-16 14:46:00.199+08
+we8rizrioe67y7u5hlygzpp5oaid00qr	.eJxVjDkOwjAUBe_iGln-xnEMJT1niP5mHEC2lKVC3B0ipYD2zcx7mQHXpQzrrNMwijkbMIffjZAfWjcgd6y3ZrnVZRrJbord6WyvTfR52d2_g4Jz-daJsmbykFEyCHSChDE4deRc0J67oMwMqYcT5CNqTJHIR-LcuxS9mPcHIMY5DA:1nfNmb:-B29cTOx4m0E_4knG3ettzUQVPRWjtm6kMi7K-BqLHk	2022-04-29 23:22:49.053721+08
+\.
+
+
+--
+-- Name: Accounts_official_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Accounts_official_id_seq"', 1, true);
+
+
+--
+-- Name: Blotter_blotreport_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Blotter_blotreport_id_seq"', 1, true);
+
+
+--
+-- Name: Blotter_evidences_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Blotter_evidences_id_seq"', 2, true);
+
+
+--
+-- Name: Certification_certrequest_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Certification_certrequest_id_seq"', 38, true);
+
+
+--
+-- Name: Resident_csv_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Resident_csv_id_seq"', 38, true);
+
+
+--
+-- Name: Resident_resident_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Resident_resident_id_seq"', 65, true);
+
+
+--
+-- Name: Resident_tempresident_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Resident_tempresident_id_seq"', 3, true);
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_group_id_seq', 1, false);
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_permission_id_seq', 52, true);
+
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_user_groups_id_seq', 1, false);
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_user_id_seq', 11, true);
+
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 205, true);
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_content_type_id_seq', 13, true);
+
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 77, true);
+
+
+--
+-- Name: Accounts_official Accounts_official_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Accounts_official"
+    ADD CONSTRAINT "Accounts_official_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: Blotter_blotreport Blotter_blotreport_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Blotter_blotreport"
+    ADD CONSTRAINT "Blotter_blotreport_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: Blotter_evidences Blotter_evidences_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Blotter_evidences"
+    ADD CONSTRAINT "Blotter_evidences_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: Certification_certrequest Certification_certrequest_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Certification_certrequest"
+    ADD CONSTRAINT "Certification_certrequest_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: Resident_csv Resident_csv_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Resident_csv"
+    ADD CONSTRAINT "Resident_csv_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: Resident_resident Resident_resident_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Resident_resident"
+    ADD CONSTRAINT "Resident_resident_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: Resident_tempresident Resident_tempresident_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Resident_tempresident"
+    ADD CONSTRAINT "Resident_tempresident_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_permission_id_0cd325b0_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_0cd325b0_uniq UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_codename_01ab375a_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_01ab375a_uniq UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups auth_user_groups_user_id_group_id_94350c0c_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_group_id_94350c0c_uniq UNIQUE (user_id, group_id);
+
+
+--
+-- Name: auth_user auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user
+    ADD CONSTRAINT auth_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_user_id_permission_id_14a6b632_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_permission_id_14a6b632_uniq UNIQUE (user_id, permission_id);
+
+
+--
+-- Name: auth_user auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user
+    ADD CONSTRAINT auth_user_username_key UNIQUE (username);
+
+
+--
+-- Name: django_admin_log django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type django_content_type_app_label_model_76bd3d3b_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_app_label_model_76bd3d3b_uniq UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_migrations django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_migrations
+    ADD CONSTRAINT django_migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_session django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: Blotter_blotreport_Offender_id_a9ba0332; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "Blotter_blotreport_Offender_id_a9ba0332" ON public."Blotter_blotreport" USING btree ("Offender_id");
+
+
+--
+-- Name: Blotter_evidences_Report_id_b3085fdd; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "Blotter_evidences_Report_id_b3085fdd" ON public."Blotter_evidences" USING btree ("Report_id");
+
+
+--
+-- Name: Certification_certrequest_Requester_id_ea7cd104; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "Certification_certrequest_Requester_id_ea7cd104" ON public."Certification_certrequest" USING btree ("Requester_id");
+
+
+--
+-- Name: auth_group_name_a6ea08ec_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_group_name_a6ea08ec_like ON public.auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_group_id_b120cbf9; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_group_permissions_group_id_b120cbf9 ON public.auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_permission_id_84c5c92e; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_group_permissions_permission_id_84c5c92e ON public.auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_content_type_id_2f476e4b; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_permission_content_type_id_2f476e4b ON public.auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: auth_user_groups_group_id_97559544; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_groups_group_id_97559544 ON public.auth_user_groups USING btree (group_id);
+
+
+--
+-- Name: auth_user_groups_user_id_6a12ed8b; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_groups_user_id_6a12ed8b ON public.auth_user_groups USING btree (user_id);
+
+
+--
+-- Name: auth_user_user_permissions_permission_id_1fbb5f2c; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_user_permissions_permission_id_1fbb5f2c ON public.auth_user_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id_a95ead1b; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_user_permissions_user_id_a95ead1b ON public.auth_user_user_permissions USING btree (user_id);
+
+
+--
+-- Name: auth_user_username_6821ab7c_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_username_6821ab7c_like ON public.auth_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- Name: django_admin_log_content_type_id_c4bce8eb; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_admin_log_content_type_id_c4bce8eb ON public.django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_user_id_c564eba6; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_admin_log_user_id_c564eba6 ON public.django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_session_expire_date_a5c62663; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_session_expire_date_a5c62663 ON public.django_session USING btree (expire_date);
+
+
+--
+-- Name: django_session_session_key_c0390e0f_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_session_session_key_c0390e0f_like ON public.django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- Name: Blotter_blotreport Blotter_blotreport_Offender_id_a9ba0332_fk_Resident_resident_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Blotter_blotreport"
+    ADD CONSTRAINT "Blotter_blotreport_Offender_id_a9ba0332_fk_Resident_resident_id" FOREIGN KEY ("Offender_id") REFERENCES public."Resident_resident"(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: Blotter_evidences Blotter_evidences_Report_id_b3085fdd_fk_Blotter_blotreport_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Blotter_evidences"
+    ADD CONSTRAINT "Blotter_evidences_Report_id_b3085fdd_fk_Blotter_blotreport_id" FOREIGN KEY ("Report_id") REFERENCES public."Blotter_blotreport"(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: Certification_certrequest Certification_certre_Requester_id_ea7cd104_fk_Resident_; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Certification_certrequest"
+    ADD CONSTRAINT "Certification_certre_Requester_id_ea7cd104_fk_Resident_" FOREIGN KEY ("Requester_id") REFERENCES public."Resident_resident"(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissions auth_group_permissio_permission_id_84c5c92e_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissio_permission_id_84c5c92e_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_b120cbf9_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_b120cbf9_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_2f476e4b_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_2f476e4b_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups auth_user_groups_group_id_97559544_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_group_id_97559544_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups auth_user_groups_user_id_6a12ed8b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_6a12ed8b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_content_type_id_c4bce8eb_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_content_type_id_c4bce8eb_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_user_id_c564eba6_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_c564eba6_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
