@@ -45,12 +45,13 @@ def Display_resident (request):
 
                     gender = row[5]
                     mstatus = row[6]
-                    contact = row[7]
-                    citizenship = row[8]
-                    religion = row[9]
-                    occupation = row[10]
-                    vacstatus = row[11]
-                    address = row[12]
+                    contact = row[8]
+                    Philhealth = row[7]
+                    citizenship = row[9]
+                    religion = row[10]
+                    occupation = row[11]
+                    vacstatus = row[12]
+                    address = row[13]
 
                     Resident.objects.create(
                     First_name = first_name,
@@ -59,6 +60,7 @@ def Display_resident (request):
                     Birthdate = birthdate,
                     Gender = gender,
                     Contact = contact,
+                    Philhealth_membership = Philhealth,
                     Marital_status = mstatus,
                     Citizenship = citizenship,
                     Religion = religion,
@@ -89,6 +91,7 @@ def Display_profile(request, pk):
 
 
 #Create Resident
+@login_required(login_url='login')
 def Create_resident(request):
     form = Resident_Form()
 
@@ -236,6 +239,8 @@ def Temp_Resident(request):
 
     return render(request,"guest/temp_form.html",context=context)
 
+#Display registration requests
+@login_required(login_url='login')
 def display_registrations(request):
     Request_obj = TempResident.objects.all()
     context = {
@@ -243,6 +248,7 @@ def display_registrations(request):
     }
     return render(request, "register_requests.html", context = context)
 
+@login_required(login_url='login')
 def registration_profile(request, pk):
     profile = TempResident.objects.get(id = pk)
     context = {
@@ -250,6 +256,8 @@ def registration_profile(request, pk):
     }
     return render(request, "temp_profile.html", context = context)
 
+#Accept resident
+@login_required(login_url='login')
 def Acceptresident(request, pk):
     Input = TempResident.objects.get(id = pk)
 
@@ -279,6 +287,8 @@ def Acceptresident(request, pk):
     messages.success(request, "Resident successfully added!")
     return redirect('/display_registrations/')
 
+#Decline resident
+@login_required(login_url='login')
 def Declineresident(request, pk):
     Input = TempResident.objects.get(id = pk)
     receiver = Input.Email

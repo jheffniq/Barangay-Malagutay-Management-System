@@ -16,6 +16,7 @@ from xhtml2pdf import pisa
 
 
 #Display Residents
+@login_required(login_url='login')
 def resident_list(request):
     Resident_obj = Resident.objects.all()
     cresident = Resident.objects.filter(Blacklisted = False)
@@ -39,6 +40,8 @@ def resident_list(request):
     }
     return render(request, "certification/barangay_clearance.html",context = context)
 
+
+@login_required(login_url='login')
 def resident_list02(request):
     Resident_obj = Resident.objects.all()
     cresident = Resident.objects.filter(Blacklisted = False)
@@ -71,6 +74,7 @@ def custom_strftime(format, t):
 
 
 #View Certificate
+@login_required(login_url='login')
 def view_certificate(request, pk):
     Resident_obj = Resident.objects.get(id = pk)
     Officials = Official.objects.get(id=1)
@@ -107,6 +111,7 @@ def view_certificate(request, pk):
 
 
 #Generate Certificate
+@login_required(login_url='login')
 def generate_certificate(request, pk):
     Resident_obj = Resident.objects.get(id = pk)
     Officials = Official.objects.get(id=1)
@@ -142,6 +147,7 @@ def generate_certificate(request, pk):
 
 
 #View Second Certificate
+@login_required(login_url='login')
 def view_certificate02(request, pk):
     Resident_obj = Resident.objects.get(id = pk)
     Officials = Official.objects.get(id=1)
@@ -176,6 +182,7 @@ def view_certificate02(request, pk):
     return response
 
 #Generate Second Certificate
+@login_required(login_url='login')
 def generate_certificate02(request, pk):
     Resident_obj = Resident.objects.get(id = pk)
     Officials = Official.objects.get(id=1)
@@ -257,6 +264,8 @@ def Createrequest(request, request_type, pk):
             elif request_type == 'Certificate of Indigency':
                 return redirect('/request_certificate/indigency/')
 
+#Show Certrequests
+@login_required(login_url='login')
 def Renderrequest(request):
     Request_obj = Certrequest.objects.all()
     context = {
@@ -264,8 +273,8 @@ def Renderrequest(request):
     }
     return render(request, "requests.html", context = context)
 
-
-
+#Email cert
+@login_required(login_url='login')
 def Email_certificate(request, pk):
     Request_obj = Certrequest.objects.get(id=pk)
     Request_type = Request_obj.Request_type
@@ -327,6 +336,8 @@ def Email_certificate(request, pk):
        return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
 
+#Decline cert
+@login_required(login_url='login')
 def Declinerequest(request, pk):
     Request_obj = Certrequest.objects.get(id = pk)
     receiver = Request_obj.Email

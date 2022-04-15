@@ -1,5 +1,6 @@
 {% extends 'guest/guest.html' %}
 {%  load static %}
+{% load crispy_forms_tags %}
 {% block content %}
 <style>
     thead {
@@ -65,7 +66,7 @@
                             <div class="modal-body">
                             <form action="{% url 'Createrequest' 'Barangay Certificate' res.pk %}" method="POST">
                             {% csrf_token %}
-                            {{form.as_p}}
+                            {{form | crispy}}
                             </div>
                             <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>

@@ -28,10 +28,12 @@ def LoginUser (request):
     else:
         return redirect('/home/')
 
+@login_required(login_url='login')
 def LogoutUser (request):
     logout(request)
     messages.success(request, "Logged Out Succesfully")
     return redirect('/index/')
+
 
 def Guestuser (request):
     Officials_obj = Official.objects.get(id=1)
@@ -48,6 +50,8 @@ def Guestuser (request):
 def Faqs (request):
     return render(request, "guest/faq.html")
 
+
+@login_required(login_url='login')
 def Adduser(request):
     if request.method == "POST":
         form = User_form(request.POST)
@@ -66,6 +70,7 @@ def Adduser(request):
 
     return render(request, "register.html", context = context)
 
+@login_required(login_url='login')
 def Edituser(request):
     if request.method == "POST":
         form = Update_user(request.POST, instance=request.user)
@@ -103,6 +108,8 @@ def Displayusers (request):
     }
     return render(request, "users.html", context = context)
 
+
+@login_required(login_url='login')
 def Edit_officals(request):
    Officials_obj = Official.objects.get(id=1)
    Councilors1 = Officials_obj.Barangay_Councilors.replace('','').split(',')
@@ -119,6 +126,7 @@ def Edit_officals(request):
    context = {'form' : form, 'Councilors1' : Councilors1}
    return render(request,"officials_form.html",context = context)
 
+@login_required(login_url='login')
 def Deleteuser(request, pk):
     User = get_user_model()
     userdel = User.objects.get(id = pk)
