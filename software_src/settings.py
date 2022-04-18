@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-uy_67%%vpm+5%et3mley=asw!*@_w*6(=w29hnz5n$)f1$-c$f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -86,23 +86,23 @@ WSGI_APPLICATION = 'software_src.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-#DATABASES = {
-#   'default': {
-#      'ENGINE': 'django.db.backends.sqlite3',
-#     'NAME': BASE_DIR / 'db.sqlite3',
-#}
-#}
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'BMMS',
-        'USER' : 'postgres',
-        'PASSWORD' : 'password',
-        'HOST' : 'localhost',
-        'PORT' : '5432',
-    }
+   'default': {
+      'ENGINE': 'django.db.backends.sqlite3',
+     'NAME': BASE_DIR / 'db.sqlite3',
 }
+}
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#        'NAME': 'BMMS',
+#        'USER' : 'postgres',
+#        'PASSWORD' : 'password',
+#        'HOST' : 'localhost',
+#        'PORT' : '5432',
+#    }
+#}
 
 
 # Password validation
@@ -142,11 +142,31 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = ((os.path.join(BASE_DIR, 'static')), )
 
-MEDIA_URL = '/images/'
+#MEDIA_URL = '/images/'
 
-MEDIA_ROOT = BASE_DIR / "static/images"
+#MEDIA_ROOT = BASE_DIR / "static/images"
+
+from google.oauth2 import service_account
+GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+    os.path.join(BASE_DIR,'credential.json')
+)
+
+DEFAULT_FILE_STORAGE='software_src.gcloud.GoogleCloudMediaFileStorage'
+GS_PROJECT_ID = 'orbital-bee-347316'
+GS_BUCKET_NAME = 'bmms'
+MEDIA_ROOT = "media/"
+UPLOAD_ROOT = 'media/uploads/'
+MEDIA_URL = 'https://storage.googleapis.com/{}/'.format(GS_BUCKET_NAME)
+
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+
+
+
+
+
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587

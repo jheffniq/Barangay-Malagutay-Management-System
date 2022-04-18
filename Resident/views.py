@@ -14,6 +14,7 @@ from Certification.models import Certrequest
 import csv
 from datetime import datetime, date
 from django import forms
+from django.core.files.storage import default_storage
 
 def view_404(request, exception=None):
     return redirect('/index/')
@@ -29,9 +30,12 @@ def Display_resident (request):
         instance.save()
         form = CSVmodel
 
+
         csv_obj = instance
-        with open(csv_obj.file_name.path,'r') as f:
-            reader = csv.reader(f)
+        filename = str(csv_obj.file_name)
+        with default_storage.open(filename,'r') as f:
+            decoded_file = f.read().decode('utf-8').splitlines()
+            reader = csv.reader(decoded_file)
 
             for i, row in enumerate(reader):
                 if i == 0:
