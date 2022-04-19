@@ -38,6 +38,15 @@
         background-position: center;
         background-size: cover;
     }
+    iframe {
+        width: 500;
+    }
+
+    @media (min-width: 992px) {
+    iframe {
+        width: 695;
+    }
+}
 
 </style>
 <title>Home</title>
@@ -129,9 +138,8 @@
                 </p>
             </div>
           </div>
-        <div>
-            <iframe width="710" 
-            height="460" style="border:0" loading="lazy" 
+        <div class="container">
+            <iframe height="460" style="border:0" loading="lazy" 
             allowfullscreen src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJ8-Adj_VAUDIRpgJSaQIYge4&key=AIzaSyCmy56RDA5uqhqABUjDmKpJ_zRGrv-VPnM"></iframe>
         </div>
     </div><!--Col end-->
