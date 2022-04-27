@@ -107,11 +107,11 @@ def Delete_report(request, pk):
                 Resident_obj.Blacklisted = True
                 Resident_obj.save()
 
-        messages.success(request, "Resident has been deleted")
-        
+        messages.success(request, "Report has been deleted")
+
     else:
         Blotter_obj.delete()
-        messages.success(request, "Resident has beeasdfsadfn deleted")
+        messages.success(request, "Report has been deleted")
 
     return redirect('/blotter_display/')
 

@@ -7,6 +7,9 @@
     border-color: none;
     color: white;
   }
+  tr[data-href]{
+    cursor: pointer;
+  }
 </style>
 <title>View Blotter Reports</title>
 <h1 style="text-align: center;"><b>Blotter List</b></h1>
@@ -14,8 +17,10 @@
         <table class = "table table-bordered table-hover mt-2 mb-5" id="Display">
           <thead>
               <tr>
-                <th>Blotter Report</th>
+                <th>Complainant</th>
                 <th>Offender</th>
+                <th>Entry Date</th>
+                <th style="text-align: center;">View Report</th>
                 <th style="text-align: center;">Delete</th>
             </tr>
           </thead>
@@ -23,12 +28,14 @@
           <tbody>
                 {% for blot in Blotter_obj %}
                 <tr>
-                  <td><a href="{% url 'blotter_details' blot.id %}">Complaint from: {{blot.Complainant}}</a></td>
+                  <td>{{blot.Complainant}}</td>
                   {% if blot.Unregistered == True %}
                   <td>{{blot.Offender_unregistered}}</td>
                   {% else %}
                   <td>{{blot.Offender}}</a></td>
                   {% endif %}
+                  <td>{{blot.created_date}}</td>
+                  <td style="text-align: center;"><a href="{% url 'blotter_details' blot.id %}" target="_blank" class="btn btn-primary" role="button">View Report</a></td>
                   <td style="text-align: center;"><a href="{% url 'delete_report' blot.id %}" class="btn btn-danger" role="button">Delete</a></td>
                 </tr>
                 {% endfor %}
@@ -40,9 +47,9 @@
               $('#Display').DataTable({
                   order: [[0, 'asc']],
                   pagingType: 'full_numbers'
-                  
+            
               });
-          } );
+          });
         </script>
     </div>
 
