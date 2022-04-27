@@ -98,20 +98,20 @@ def Delete_report(request, pk):
     if Blotter_obj.Offender:
         Resident_id = Blotter_obj.Offender.id
         Resident_obj = Resident.objects.get(id = Resident_id)
+        Resident_obj.Blacklisted = False
+        Resident_obj.save()
         Blotter_obj.delete()
 
         for obj in Blotterall:
-            if obj.Offender.id == Resident_id:
+            if obj.Offender == Resident_obj:
                 Resident_obj.Blacklisted = True
-                Resident_obj.save()
-            else:
-                Resident_obj.Blacklisted = False
                 Resident_obj.save()
 
         messages.success(request, "Resident has been deleted")
+        
     else:
         Blotter_obj.delete()
-        messages.success(request, "Resident has been deleted")
+        messages.success(request, "Resident has beeasdfsadfn deleted")
 
     return redirect('/blotter_display/')
 

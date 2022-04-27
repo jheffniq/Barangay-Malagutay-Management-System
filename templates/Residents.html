@@ -7,6 +7,9 @@
     border-color: none;
     color: white;
   }
+  tr[data-href]{
+    cursor: pointer;
+  }
 </style>
 <title>Residents</title>
 <h1 style="text-align: center;"><b>List of Registered Residents</b></h1>
@@ -57,10 +60,10 @@
 
         <tbody>
               {% for res in Resident_obj %}
-              <tr>
-                <td><a href="{% url 'resident_profile' res.id %}">{{ res.First_name }}</a></td>
-                <td><a href="{% url 'resident_profile' res.id %}">{{ res.Middle_name}}</a></td>
-                <td><a href="{% url 'resident_profile' res.id %}">{{res.Last_name}}</a></td>
+              <tr data-href ="{% url 'resident_profile' res.id %}">
+                <td>{{ res.First_name }}</td>
+                <td>{{ res.Middle_name}}</a></td>
+                <td>{{res.Last_name}}</td>
 
                 <td>{{res.modified_date}}</td>
                 <td style="text-align: center;"><a href="{% url 'update_resident' res.id %}" class="btn btn-primary" role="button">Edit</a></td>
@@ -100,9 +103,17 @@
             $('#Display').DataTable({
                 order: [[0, 'asc']],
                 pagingType: 'full_numbers'
-                
+          
             });
-        } );
+          $('#Display').on("click",'tbody tr', function (){
+            const rows = document.querySelectorAll('tr[data-href]');
+            rows.forEach(row => {
+              row.addEventListener("click", () => {
+                window.location.href = row.dataset.href;
+              });
+            });
+          });
+        });
       </script>
 </div>
 <!--<form method="POST" action = "{% url 'search_resident' %}">
