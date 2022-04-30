@@ -12,6 +12,7 @@
   }
 </style>
 <title>View Blotter Reports</title>
+{{sec}}
 <h1 style="text-align: center;"><b>Blotter List</b></h1>
   <div class="container-fluid mt-5 mb-5">
         <table class = "table table-bordered table-hover mt-2 mb-5" id="Display">
@@ -36,7 +37,32 @@
                   {% endif %}
                   <td>{{blot.created_date}}</td>
                   <td style="text-align: center;"><a href="{% url 'blotter_details' blot.id %}" target="_blank" class="btn btn-primary" role="button">View Report</a></td>
-                  <td style="text-align: center;"><a href="{% url 'delete_report' blot.id %}" class="btn btn-danger" role="button">Delete</a></td>
+                  <td style="text-align: center;">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-{{ blot.id }}">
+                      Delete
+                  </button>
+                  
+                  <!-- Modal -->
+                  <div class="modal fade" id="modal-{{ blot.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                          <div class="modal-header mx-auto">
+                          <h5 class="modal-title" id="exampleModalLongTitle"><b>CONFIRM DELETE</b></h5>
+
+                          </button>
+                          </div>
+                          <div class="modal-body">
+                          <h5>Are you sure you want to archive this report?</h5>
+                          </div>
+                          <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                          <a href="{% url 'delete_report' blot.id %}" role="button" class="btn btn-danger">YES</a>
+                          </div>
+                      </div>
+                      </div>
+                  </div>
+                  </td>
                 </tr>
                 {% endfor %}
           </tbody>

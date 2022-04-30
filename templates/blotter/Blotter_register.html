@@ -6,6 +6,10 @@
     background-color: #c86444;
     border-color: none;
     color: white;
+    
+  }
+  tr[data-href]{
+    cursor: pointer;
   }
 </style>
 <title>Add Blotter</title>
@@ -23,19 +27,17 @@
     <table class = "table table-bordered table-hover mt-2 mb-5" id="Display">
       <thead>
           <tr>
-            <th>Last Name</th>
             <th>First Name</th>
-            <th>Middle Name</th>
+            <th>Last Name</th>
             <th style="text-align: center;">&nbsp;</th>
         </tr>
       </thead>
 
       <tbody>
             {% for res in Resident_obj %}
-            <tr>
-              <td><a href="{% url 'resident_profile' res.id %}">{{res.Last_name}}</a></td>
-              <td><a href="{% url 'resident_profile' res.id %}">{{ res.First_name }}</a></td>
-              <td><a href="{% url 'resident_profile' res.id %}">{{ res.Middle_name}}</a></td>
+            <tr data-href="{% url 'resident_profile' res.id %}">
+              <td>{{res.First_name}}</td>
+              <td>{{ res.Last_name }}</td>
               <td style="text-align: center;"><a href="{% url 'blotter_form' res.id %}" class="btn btn-primary" role="button">Issue Report</a></td>
             </tr>
             {% endfor %}
@@ -46,10 +48,19 @@
       $(document).ready(function() {
           $('#Display').DataTable({
               order: [[0, 'asc']],
-              pagingType: 'full_numbers'
+              pagingType: 'full_numbers',
               
+        
           });
-      } );
+        $('#Display').on("click",'tbody tr', function (){
+          const rows = document.querySelectorAll('tr[data-href]');
+          rows.forEach(row => {
+            row.addEventListener("click", () => {
+              window.location.href = row.dataset.href;
+            });
+          });
+        });
+      });
     </script>
 </div>
 {% endblock content %}

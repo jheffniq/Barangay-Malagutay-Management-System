@@ -13,9 +13,11 @@
       color: rgb(100, 100, 100);
    }
 </style>
-<title>{{profile.First_name}} {{profile.Middle_name}} {{profile.Last_name}}'s Profile</title>
+<title>{{profile.First_name}} {{profile.Last_name}}'s Profile</title>
 <div style="margin: 8px;">
    <a href = "{% url 'display_registrations' %}"  class="btn btn-success ml-2" role="button">Go Back</a>
+   <a href = "{% url 'acceptresident' profile.id%}"  class="btn btn-success ml-2 mr-2 float-end" role="button">Accept Registration</a>
+   <a href = "{% url 'declineresident' profile.id %}"  class="btn btn-danger ml-2 float-end" role="button">Decline Registration</a>
 </div>
 <div class="mt-3 border rounded mb-5 shadow-md pb-5 pt-5" style="background-color: white; padding-top: 50px; padding-left: 0; margin-left: 15px; margin-right: 15px;">
    <div class="row">
@@ -25,10 +27,17 @@
          {% endif %}
       </div>
       <div class="col-md-8">
+         {% if profile.Middle_name is not None %}
          <h1 style="font-size: 50px;"><b>{{profile.First_name}} {{profile.Middle_name}} {{profile.Last_name}}</b></h1>
-         <h4 style="color: #00b0e6;">{{profile.Occupation}}</h4>
+         {% else %}
+         <h1 style="font-size: 50px;"><b>{{profile.First_name}} {{profile.Last_name}}</b></h1>
+         {% endif %}
          <hr>
          <ul class="p-0 profile">
+            <li>
+               <h4><b>Occupation</b></h4>
+               <h4 class="info">{{profile.Occupation}}</h4>
+            </li>
             <li>
                <h4><b>Gender</b></h4>
                <h4 class="info">{{profile.Gender}}</h4>

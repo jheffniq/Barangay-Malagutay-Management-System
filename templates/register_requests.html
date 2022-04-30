@@ -7,6 +7,9 @@
       border-color: none;
       color: white;
     }
+    tr[data-href]{
+      cursor: pointer;
+    }
   </style>
 <title>Resident Requests</title>
 <h1 style="text-align: center;" class="mb-5"><b>Resident Requests</b></h1>
@@ -23,9 +26,9 @@
 
      <tbody>
             {% for Resident in Request_obj %}
-            <tr>
-                <td><a href = "{% url 'temp_profile' Resident.id %}">{{ Resident.First_name }}</a></td>
-                <td><a href = "{% url 'temp_profile' Resident.id %}">{{ Resident.Last_name }}</a></td>
+            <tr data-href = "{% url 'temp_profile' Resident.id %}">
+                <td>{{ Resident.First_name }}</td>
+                <td>{{ Resident.Last_name }}</td>
                 <td>{{ Resident.Email }}</td>
                 <td style="text-align: center;">
                     <!-- Button trigger modal -->
@@ -63,10 +66,19 @@
     $(document).ready(function() {
         $('#Display').DataTable({
             order: [[0, 'asc']],
-            pagingType: 'full_numbers'
+            pagingType: 'full_numbers',
             
+      
         });
-    } );
-</script>
+      $('#Display').on("click",'tbody tr', function (){
+        const rows = document.querySelectorAll('tr[data-href]');
+        rows.forEach(row => {
+          row.addEventListener("click", () => {
+            window.location.href = row.dataset.href;
+          });
+        });
+      });
+    });
+  </script>
 
 {%  endblock content %}

@@ -51,7 +51,11 @@
         <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
         {% if messages %}
             {% for message in messages %}
+            {% if message.tags == "error" %}
+            <script>swal("Error", "{{message}}", "error")</script>
+            {% else %}
             <script>swal("Success!", "{{message}}", "success")</script>
+            {% endif %}
             {% endfor %}
         {% endif %}
         <div class="container-fluid p-0" style="background-color: #c86444;">
@@ -75,13 +79,7 @@
                     </li>
 
                     <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Certification
-                      </a>
-                      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="{%  url 'request_certificate' 'barangay_certificate' %}">Barangay Certificate</a>
-                        <a class="dropdown-item" href="{%  url 'request_certificate' 'indigency' %}">Certificate of Indigency</a>
-                      </div>
+                      <a class="nav-link active" href="{%  url 'request_certificate' %}">Certification</a>
                     </li>
                     
                     <li class="nav-item">
@@ -90,9 +88,9 @@
 
                     <li class="nav-item">
                       {% if request.user.is_authenticated %}
-                      <a class="nav-link active" href="{% url 'home' %}">Log in</a>
+                      <a class="nav-link active" href="{% url 'home' %}">Admin</a>
                       {% else %}
-                        <a class="nav-link active" href="{% url 'login' %}">Log in</a>
+                        <a class="nav-link active" href="{% url 'login' %}">Admin</a>
                       {% endif %}
                       </li>
 

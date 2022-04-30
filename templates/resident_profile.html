@@ -13,7 +13,7 @@
       color: rgb(100, 100, 100);
    }
 </style>
-<title>{{profile.First_name}} {{profile.Middle_name}} {{profile.Last_name}}'s Profile</title>
+<title>{{profile.First_name}} {{profile.Last_name}}'s Profile</title>
 <div style="margin: 8px;">
    <a href = "{{ request.META.HTTP_REFERER }}"  class="btn btn-success ml-2" role="button">Go Back</a>
 </div>
@@ -26,10 +26,18 @@
          {% endif %}
       </div>
       <div class="col-md-8">
+         {% if profile.Middle_name is not None %}
          <h1 style="font-size: 50px;"><b>{{profile.First_name}} {{profile.Middle_name}} {{profile.Last_name}}</b></h1>
-         <h4 style="color: #00b0e6;">{{profile.Occupation}}</h4>
+         {% else %}
+         <h1 style="font-size: 50px;"><b>{{profile.First_name}} {{profile.Last_name}}</b></h1>
+         {% endif %}
+         <h4 style="color: #00b0e6;">{{profile.Resident_code}}</h4>
          <hr>
          <ul class="p-0 profile">
+            <li>
+               <h4><b>Occupation</b></h4>
+               <h4 class="info">{{profile.Occupation}}</h4>
+            </li>
             <li>
                <h4><b>Gender</b></h4>
                <h4 class="info">{{profile.Gender}}</h4>
@@ -37,6 +45,10 @@
             <li>
                <h4><b>Birthdate</b></h4>
                <h4 class="info">{{profile.Birthdate}}</h4>
+            </li>
+            <li>
+               <h4><b>Email</b></h4>
+               <h4 class="info">{{profile.Email}}</h4>
             </li>
             <li>
                <h4><b>Contact Number</b></h4>

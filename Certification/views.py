@@ -1,3 +1,4 @@
+from genericpath import exists
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -216,53 +217,51 @@ def generate_certificate02(request, pk):
        return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
 
-def request_list(request, request_type):
-    Requestype = request_type
-    form = Request_form
-    if Requestype == 'barangay_certificate' or Requestype == 'indigency':
-        Resident_obj = Resident.objects.all()
-        cresident = Resident.objects.filter(Blacklisted = False)
-        bresident = Resident.objects.filter(Blacklisted = True)
-
-        Resident_cleared = cresident.order_by('First_name')
-        Resident_blacklisted = bresident.order_by('First_name')
-        Blotter_number = []
-        
-        for res in Resident_blacklisted:
-            resid = res.id
-            blo = Blotreport.objects.filter(Offender = resid)
-            bloo = blo.count()
-            Blotter_number.append(bloo)
-
-        context = {
-            'Resident' : Resident_obj,
-            'Resident_cleared': Resident_cleared,
-            'Resident_blacklisted': Resident_blacklisted,
-            'Blotter_number' : Blotter_number,
-            'Requestype' : Requestype,
-            'form' : form
-        }
-        return render(request, "certification/guest_request.html",context = context)
-    else:
-        return redirect('index')
-
-def Createrequest(request, request_type, pk):
-    Resident_obj = Resident.objects.get(id = pk)
+def request_list(request):
+    form = Request_form()
     if request.method == "POST":
         form = Request_form(request.POST)
         if form.is_valid():
-            form.save()
-            request_obj = Certrequest.objects.last()
-            request_obj.Requester = Resident_obj
-            request_obj.Resident_id = pk
-            request_obj.Request_type = request_type
-            request_obj.save()
+            CheckResident = form.save(commit = False)
+            Rcode = CheckResident.Resident_code
 
-            messages.success(request, "Request submitted for validation")
-            if request_type == 'Barangay Certificate':
-                return redirect('/request_certificate/barangay_certificate/')
-            elif request_type == 'Certificate of Indigency':
-                return redirect('/request_certificate/indigency/')
+            try:
+                Resident_obj = Resident.objects.get(Resident_code = Rcode)
+                if Resident_obj.Blacklisted == True:
+                    messages.error(request,"Sorry, you are not eligible for a certification")
+                    return redirect('/request_certificate/')
+                else:
+                    CheckResident.Requester = Resident_obj
+                    CheckResident.save()
+                    messages.success(request, f"Request for {Resident_obj.First_name} {Resident_obj.Last_name} has been submitted")
+                    return redirect('/request_certificate/')
+
+            except Resident.DoesNotExist:
+                messages.error(request,"Resident code is invalid or does not exist")
+                return redirect('/request_certificate/')
+
+    context = {
+            'form' : form
+        }
+    return render(request, "certification/guest_request.html",context = context)
+
+
+#def Createrequest(request, request_type, pk):
+#    Resident_obj = Resident.objects.get(id = pk)
+#    if request.method == "POST":
+#        form = Request_form(request.POST)
+#       if form.is_valid():
+#            form.save()
+#            request_obj = Certrequest.objects.last()
+#            request_obj.Requester = Resident_obj
+#           request_obj.Resident_id = pk
+#            request_obj.save()
+
+#            messages.success(request, "Request submitted for validation")
+#            if request_type == 'Barangay Certificate':
+#                return redirect('/request_certificate/barangay_certificate/')
+#            elif request_type == 'Certificate of Indigency':
+#                return redirect('/request_certificate/indigency/')
 
 #Show Certrequests
 @login_required(login_url='login')

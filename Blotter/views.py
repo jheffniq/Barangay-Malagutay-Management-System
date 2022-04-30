@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from Resident.models import Resident
-from .models import Blotreport, Evidences
+from .models import Blotreport, Evidences, BlotArchive
 from .forms import Blotter_Form, Blotter_Form_Unregistered
 from django.contrib import messages
 from django.db.models import Q
 from django.http import HttpResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
+import secrets
 
 #Add report
 @login_required(login_url='login')
@@ -100,6 +101,17 @@ def Delete_report(request, pk):
         Resident_obj = Resident.objects.get(id = Resident_id)
         Resident_obj.Blacklisted = False
         Resident_obj.save()
+        BlotArchive.objects.create(
+            Offender = Blotter_obj.Offender,
+            Offender_unregistered = Blotter_obj.Offender_unregistered,
+            Complainant = Blotter_obj.Complainant,
+            Complaint = Blotter_obj.Complaint,
+            Facts = Blotter_obj.Facts,
+            Unregistered = Blotter_obj.Unregistered,
+            created_date = Blotter_obj.created_date,
+            modified_date = Blotter_obj.modified_date
+        )
+
         Blotter_obj.delete()
 
         for obj in Blotterall:
@@ -120,7 +132,7 @@ def Delete_report(request, pk):
 def Blotter_display(request):
     Blotter_obj = Blotreport.objects.all()
     context = {
-        'Blotter_obj' : Blotter_obj
+        'Blotter_obj' : Blotter_obj,
     }
     return render(request, "blotter/blotter_display.html", context = context)
 

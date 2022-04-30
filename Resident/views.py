@@ -15,6 +15,7 @@ import csv
 from datetime import datetime, date
 from django import forms
 from django.core.files.storage import default_storage
+import secrets
 
 def view_404(request, exception=None):
     return redirect('/index/')
@@ -23,6 +24,9 @@ def view_404(request, exception=None):
 @login_required(login_url='login')
 def Display_resident (request):
     Resident_obj = Resident.objects.all()
+    code = secrets.token_hex(5)
+
+
 
     form = CSVmodel(request.POST or None, request.FILES or None)
     if form.is_valid():
@@ -40,7 +44,14 @@ def Display_resident (request):
             for i, row in enumerate(reader):
                 if i == 0:
                     pass
-                else:
+                else: 
+                    
+                    while True:
+                        if Resident.objects.filter(Resident_code = code).exists():
+                            code = secrets.token_hex(5)
+                        else:
+                            break
+
                     first_name = row[1]
                     middle_name = row[2]
                     last_name = row[3]
@@ -49,13 +60,14 @@ def Display_resident (request):
 
                     gender = row[5]
                     mstatus = row[6]
-                    contact = row[8]
                     Philhealth = row[7]
-                    citizenship = row[9]
-                    religion = row[10]
-                    occupation = row[11]
-                    vacstatus = row[12]
-                    address = row[13]
+                    email = row[8]
+                    contact = row[9]
+                    citizenship = row[10]
+                    religion = row[11]
+                    occupation = row[12]
+                    vacstatus = row[13]
+                    address = row[14]
 
                     Resident.objects.create(
                     First_name = first_name,
@@ -70,7 +82,9 @@ def Display_resident (request):
                     Religion = religion,
                     Occupation = occupation,
                     Vaccination = vacstatus,
-                    Address = address
+                    Address = address,
+                    Email = email,
+                    Resident_code = code
                      )
         csv_obj.activated = True
         csv_obj.save()
@@ -101,11 +115,21 @@ def Create_resident(request):
 
     if request.method == "POST":
         form = Resident_Form(request.POST, request.FILES)
+        code = secrets.token_hex(5)
+
+        #Check for duplicates
+        while True:
+            if Resident.objects.filter(Resident_code = code).exists():
+                code = secrets.token_hex(5)
+            else:
+                break
+
         if form.is_valid():
-            form.save()
+            Resobj = form.save(commit=False)
+            Resobj.Resident_code = code
+            Resobj.save()
             messages.success(request, "Resident has been added")
             return redirect('/residents')
-
 
     context = {
         'form':form
@@ -264,6 +288,14 @@ def registration_profile(request, pk):
 @login_required(login_url='login')
 def Acceptresident(request, pk):
     Input = TempResident.objects.get(id = pk)
+    code = secrets.token_hex(5)
+
+    #Check for duplicates
+    while True:
+        if Resident.objects.filter(Resident_code = code).exists():
+            code = secrets.token_hex(5)
+        else:
+            break
 
     Resident.objects.create(
     First_name = Input.First_name,
@@ -271,19 +303,21 @@ def Acceptresident(request, pk):
     Last_name = Input.Last_name,
     Birthdate = Input.Birthdate,
     Gender = Input.Gender,
+    Email = Input.Email,
     Contact = Input.Contact,
     Marital_status = Input.Marital_status,
     Citizenship = Input.Citizenship,
     Religion = Input.Religion,
     Occupation = Input.Occupation,
     Vaccination = Input.Vaccination,
-    Address = Input.Address
+    Address = Input.Address,
+    Resident_code = code
     )
     receiver = Input.Email
     email = EmailMessage(
         'Barangay Malagutay Certificate Request',
-        'Good Day,\n\nCongratulations! Your request for registration has been accepted. You are now registered on the Barangay Malagutay Management System and can now request for certifications. If you find any errors please do not hesitate to contact us.\n\n\nThis is an automated email, do not reply. Please contact the respected barangay officials/workers if you have inquiries.',
-        'testbmms88@gmail.com', 
+        f'Good Day,\n\nCongratulations! Your request for registration has been accepted. You are now registered on the Barangay Malagutay Management System and can now request for certifications. \n\n\n\n Your Resident code is: \n\n {code}\n\n\n\nIf you find any errors please do not hesitate to contact us.\n\n\nThis is an automated email, do not reply. Please contact the respected barangay officials/workers if you have inquiries.',
+        'testbmms88@gmail.com',
         [receiver]
     )
     email.send()

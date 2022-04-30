@@ -62,7 +62,11 @@
               {% for res in Resident_obj %}
               <tr data-href ="{% url 'resident_profile' res.id %}">
                 <td>{{ res.First_name }}</td>
+                {% if res.Middle_name is not None %}
                 <td>{{ res.Middle_name}}</a></td>
+                {% else %}
+                <td></a></td>
+                {% endif %}
                 <td>{{res.Last_name}}</td>
 
                 <td>{{res.modified_date}}</td>
@@ -102,7 +106,8 @@
         $(document).ready(function() {
             $('#Display').DataTable({
                 order: [[0, 'asc']],
-                pagingType: 'full_numbers'
+                pagingType: 'full_numbers',
+                
           
             });
           $('#Display').on("click",'tbody tr', function (){

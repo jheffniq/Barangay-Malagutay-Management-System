@@ -5,6 +5,8 @@ class Request_form(forms.ModelForm):
    class Meta:
        model = Certrequest
        fields = [
+           'Resident_code',
            'Email',
-           'Purpose'
+           'Purpose',
+           'Request_type'
        ]

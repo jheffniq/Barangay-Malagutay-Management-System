@@ -20,6 +20,7 @@ class Resident_Form(forms.ModelForm):
             'Birthdate',
             'Gender',
             'Marital_status',
+            'Email',
             'Contact',
             'Philhealth_membership',
             'Citizenship',
