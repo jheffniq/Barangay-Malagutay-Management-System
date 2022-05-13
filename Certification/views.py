@@ -233,7 +233,7 @@ def request_list(request):
                 else:
                     CheckResident.Requester = Resident_obj
                     CheckResident.save()
-                    messages.success(request, f"Request for {Resident_obj.First_name} {Resident_obj.Last_name} has been submitted")
+                    messages.success(request, "Certificate request successfully submitted")
                     return redirect('/request_certificate/')
 
             except Resident.DoesNotExist:

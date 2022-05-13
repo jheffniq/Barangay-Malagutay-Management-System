@@ -63,12 +63,18 @@
     .sidebar-wrapper .offcanvas{
         transform: none;
         visibility: visible !important;
+
     }
     main {
         margin-left: 255px;
         margin-right: 5px;
     }
+    .side-toggle .btn-secondary{
+        display: none;
+    
+    }
 }
+
 
 
 

@@ -4,9 +4,18 @@
 {% if user.is_authenticated %}
 <title>Home | Barangay Malagutay Management System</title>
 <div class="container-fluid">
+    <div class="row m-0 mb-2 p-0 b-0">
+        <div class="col-6">
+            <span><h5><i class="bi bi-person-circle"></i> Welcome! {{current_user}}</h5></span>
+        </div>
+        <div class="col-6">
+            <div id = "time" class="float-right" style="font-size: 20px;"></div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col">
-            <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+            <div class="card text-white mb-3" style="max-width: 18rem; background-color: #1f77b4; border-radius: 10%;">
                 <div class="card-header">
                     RESIDENTS
                 </div>
@@ -16,7 +25,7 @@
                 {% else %}
                 <h1 class="card-title" style="text-align: center;">0</h1>
                 {% endif %}
-                {% if TotBlot == 1 %}
+                {% if TotResident == 1 %}
                 <p class="card-text" style="text-align: center;">Registered Resident</p>
                 {% else %}
                 <p class="card-text" style="text-align: center;">Registered Residents</p>
@@ -25,7 +34,7 @@
             </div>
         </div>
         <div class="col">
-            <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+            <div class="card text-white mb-3" style="max-width: 18rem; background-color: #58556d; border-radius: 10%;">
                 <div class="card-header">BLOTTER</div>
                 <div class="card-body">
                     {% if TotBlot %}
@@ -42,7 +51,7 @@
             </div>
         </div>
         <div class="col">
-            <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+            <div class="card text-white mb-3" style="max-width: 18rem; border-radius: 10%; background-color: #45a54a;">
                 <div class="card-header">REQUESTS</div>
                 <div class="card-body">
                     {% if Regreqs %}
@@ -59,7 +68,7 @@
             </div>
         </div>
         <div class="col">
-            <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+            <div class="card text-white mb-3" style="max-width: 18rem; border-radius: 10%; background-color: #45a54a;">
                 <div class="card-header">REQUESTS</div>
                 <div class="card-body">
                     {% if Certreq %}
@@ -77,9 +86,9 @@
         </div>
     </div>
     <div class="row">
+        <!--Gender Chart-->
         <div class="col-sm-2 col-md-4  p-1">
             <div class="card shadow-sm">
-            <div class="card-header">Gender Chart</div>
                 <div class="card-body">
                 <canvas id="Genderchart" width="400" height="400"></canvas>
                     <script>
@@ -97,22 +106,17 @@
                                 label: 'Gender Distribution',
                                 data: sampledata,
                                 backgroundColor: [
-                                    'rgba(245, 137, 189, 0.5)',
                                     'rgba(54, 162, 235, 0.5)',
+                                    'rgba(245, 137, 189, 0.5)'
                                 ],
                                 borderColor: [
-                                    'rgba(245, 137, 189, 1)',
                                     'rgba(54, 162, 235, 1)',
+                                    'rgba(245, 137, 189, 1)'
                                 ],
                                 borderWidth: 1
                             }]
                         },
                         options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            },
                             responsive: true
                         }
                         
@@ -122,9 +126,9 @@
             </div>
         </div>
 
+        <!--Vaccination Chart-->
         <div class="col-sm-2 col-md-4 p-1">
             <div class="card shadow-sm">
-            <div class="card-header">Vaccination Status</div>
             <div class="card-body">
             <canvas id="Vacchart" width="400" height="400"></canvas>
             
@@ -143,22 +147,17 @@
                         label: 'Vaccination Status',
                         data: vacdata,
                         backgroundColor: [
-                            'rgba(102, 204, 153,0.5)',
-                            'rgba(244, 158, 67, 0.5)'
+                            'rgba(131,189,85,0.5)',
+                            'rgba(75,202,193,0.5)'
                         ],
                         borderColor: [
-                            'rgba(102, 204, 153, 1)',
-                            'rgba(244, 158, 67, 1)'
+                            'rgba(131,189,85,1)',
+                            'rgba(75,202,193,1)'
                         ],
                         borderWidth: 1
                     }]
                 },
                 options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
                 }
             });
             </script>
@@ -168,7 +167,6 @@
 
         <div class="col-sm-2 col-md-4 p-1">
             <div class="card shadow-sm">
-            <div class="card-header">Age Distribution</div>
             <div class="card-body">
             <canvas id="Agechart" width="400" height="400"></canvas>
             <script>
@@ -216,9 +214,8 @@
         </div>
     </div>
     <div class="row justify-content-between mt-2 mb-5">
-       <div class="col-lg-6 col-md-6 col-sm-6 shadow-sm">
-            <div class="card" style="align-self: stretch;">
-            <div class="card-header">Philhealth Membership Types</div>
+       <div class="col-lg-6 col-md-6 col-sm-6 float-left">
+            <div class="card shadow-sm">
             <div class="card-body">
             <canvas id="Philhealth" width="100" height="100"></canvas>
             <script>
@@ -236,21 +233,21 @@
 
             const phealth = document.getElementById('Philhealth');
             const Philhealth = new Chart(phealth, {
-                type: 'polarArea',
+                type: 'bar',
                 data: {
                     labels: phlabel,
                     datasets: [{
-                        label: 'Philhealth Membership Types',
+                        label: 'Philhealth Membership',
                         data: Phdata,
                         backgroundColor: [
-                            'rgba(89,89,89,0.5)',
-                            'rgba(255, 99, 132, 0.5)',
-                            'rgba(54, 162, 235, 0.5)',
-                            'rgba(255, 0, 0, 0.5)',
-                            'rgba(18, 150, 40, 0.5)',
-                            'rgba(153, 102, 255, 0.5)',
-                            'rgba(18, 146, 150, 0.5)',
-                            'rgba(255, 170, 0, 0.5)'
+                            'rgba(244,171,51,0.5)',
+                            'rgba(236,113,118,0.5)',
+                            'rgba(192,104,168,0.5)',
+                            'rgba(92,99,162,0.5)',
+                            'rgba(27,78,107,0.5)',
+                            'rgba(247, 100, 7, 0.5)',
+                            'rgba(5,214,155,0.5)',
+                            'rgba(145,191,247,0.5)'
 
 
                         ],
@@ -258,6 +255,7 @@
                     }]
                 },
                 options: {
+                    indexAxis: 'y',
                     scales: {
                         y: {
                             beginAtZero: true
@@ -268,10 +266,11 @@
             </script>
         </div>
             </div>
+
+            
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 shadow-sm">
-            <div class="card">
-            <div class="card-header">Civil Status Demographic</div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="card shadow-sm">
             <div class="card-body">
             <canvas id="Marital" width="400" height="400"></canvas>
             <script>
@@ -284,38 +283,29 @@
 
             const mstatus = document.getElementById('Marital');
             const Marital = new Chart(mstatus, {
-                type: 'doughnut',
+                type: 'polarArea',
                 data: {
                     labels: maritallabel,
                     datasets: [{
                         label: 'Civil Status Demographic',
                         data: maritaldata,
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
+                            'rgba(6,214,156,0.5)',
+                            'rgba(254,89,129,0.5)',
+                            'rgba(128,128,254,0.5)',
+                            'rgba(129,192,253,0.5)'
                         ],
                         borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
+                            'rgba(6,214,156,255)',
+                            'rgba(254,89,129,255)',
+                            'rgba(128,128,254,255)',
+                            'rgba(129,192,253,255)'
                         ],
                         borderWidth: 1
                     }]
                 },
                 options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
+                  }
             });
             </script>
         </div>
@@ -323,6 +313,27 @@
         </div>
     </div>
 </div>
+<script>
+    function startTime() {
+      const today = new Date();
+      let hour = today.getHours();
+      let minute = today.getMinutes();
+      let second = today.getSeconds();
+      let suffix = hour >=12 ? 'PM' : "AM";
+      hour = hour % 12;
+      hour = hour < 10 ? "0" + hour : hour;
+      minute = checkTime(minute);
+      second = checkTime(second);
+      document.getElementById('time').innerHTML =  hour + ":" + minute + ":" + second + " " + suffix;
+      setTimeout(startTime, 1000);
+    }
+    startTime();
+    
+    function checkTime(i) {
+      if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+      return i;
+    }
+    </script>
 {% endif %}
 {%  endblock content %}
 

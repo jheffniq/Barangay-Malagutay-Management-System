@@ -16,16 +16,29 @@ from django import forms
 from django.core.files.storage import default_storage
 import secrets
 
+def view_400(request, exception):
+    return render(request,"err_templates/400.html", status=400)
+
+def view_403(request, exception):
+    return render(request,"err_templates/403.html", status=403)
+
 def view_404(request, exception=None):
     return redirect('/index/')
+
+def view_500(request):
+    if request.user.is_authenticated:
+        messages.error(request,"An unexpected error has occured")
+        return redirect('/home/')
+    else:
+        messages.error(request,"An unexpected error has occured")
+        return redirect('/index/')
+
 
 #Display Resident
 @login_required(login_url='login')
 def Display_resident (request):
     Resident_obj = Resident.objects.all()
-    code = secrets.token_hex(2)
-
-
+    code = secrets.token_hex(3)
 
     form = CSVmodel(request.POST or None, request.FILES or None)
     if form.is_valid():
@@ -78,25 +91,25 @@ def Display_resident (request):
                 else: 
                     while True:
                         if Resident.objects.filter(Resident_code = code).exists():
-                            code = secrets.token_hex(2)
+                            code = secrets.token_hex(3)
                         else:
                             break
 
-                    first_name = row[1]
-                    middle_name = row[2]
-                    last_name = row[3]
+                    first_name = row[1].capitalize()
+                    middle_name = row[2].capitalize()
+                    last_name = row[3].capitalize()
 
                     birthdate = datetime.strptime(row[4], "%m/%d/%Y").strftime("%Y-%m-%d")
 
-                    gender = row[5]
-                    mstatus = row[6]
-                    Philhealth = row[7]
+                    gender = row[5].capitalize()
+                    mstatus = row[6].capitalize()
+                    Philhealth = row[7].capitalize()
                     email = row[8]
                     contact = row[9]
-                    citizenship = row[10]
-                    religion = row[11]
-                    occupation = row[12]
-                    vacstatus = row[13]
+                    citizenship = row[10].capitalize()
+                    religion = row[11].capitalize()
+                    occupation = row[12].capitalize()
+                    vacstatus = row[13].capitalize()
                     address = row[14]
 
                     Resident.objects.create(
@@ -146,12 +159,12 @@ def Create_resident(request):
 
     if request.method == "POST":
         form = Resident_Form(request.POST, request.FILES)
-        code = secrets.token_hex(2)
+        code = secrets.token_hex(3)
 
         #Check for duplicates
         while True:
             if Resident.objects.filter(Resident_code = code).exists():
-                code = secrets.token_hex(2)
+                code = secrets.token_hex(3)
             else:
                 break
 
@@ -211,6 +224,7 @@ def Search_resident(request):
 @login_required(login_url='login')
 def home(request):
     today = date.today()
+    current_user = f"{request.user.first_name} {request.user.last_name}"
     Resident_obj = Resident.objects.all()
     TotResident = Resident.objects.all().count()
     TotBlot = Blotreport.objects.all().count()
@@ -253,6 +267,7 @@ def home(request):
             Senior_Citizens += 1
 
     context = {
+        'current_user' : current_user,
         'Males' : Males,
         'Females' : Females,
         'TotResident' : TotResident,
@@ -319,12 +334,12 @@ def registration_profile(request, pk):
 @login_required(login_url='login')
 def Acceptresident(request, pk):
     Input = TempResident.objects.get(id = pk)
-    code = secrets.token_hex(2)
+    code = secrets.token_hex(3)
 
     #Check for duplicates
     while True:
         if Resident.objects.filter(Resident_code = code).exists():
-            code = secrets.token_hex(2)
+            code = secrets.token_hex(3)
         else:
             break
 

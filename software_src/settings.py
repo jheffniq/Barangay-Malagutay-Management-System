@@ -27,10 +27,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-uy_67%%vpm+5%et3mley=asw!*@_w*6(=w29hnz5n$)f1$-c$f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
-
+ADMINS = [('Jheff','jheffniq@gmail.com')]
+SERVER_EMAIL = 'testbmms88@gmail.com'
 
 # Application definition
 
@@ -75,6 +76,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'Resident.context_processors.greet',
             ],
         },
     },
@@ -160,11 +162,6 @@ MEDIA_URL = 'https://storage.googleapis.com/{}/'.format(GS_BUCKET_NAME)
 
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-
-
-
-
 
 
 

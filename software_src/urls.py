@@ -108,5 +108,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     
 ]
-handler404 = 'Resident.views.view_404' 
+handler404 = 'Resident.views.view_404'
+handler403 = 'Resident.views.view_403'
+handler404 = 'Resident.views.view_404'
+handler500 = 'Resident.views.view_500' 
 urlpatterns += static (settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
