@@ -7,7 +7,7 @@
     color: white;
   }
 </style>
-<title>Users</title>
+<title>Users | Barangay Malagutay Management System</title>
 <div style="padding: 5px;" class="container-fluid mb-5 shadow-sm rounded">
 <h1 style="text-align: center; margin-top: 15px;"><b>List of Users</b></h1>
 
@@ -16,9 +16,9 @@
     <a href="{% url 'adduser' %}" class="btn btn-primary mt-2" role="button">Add New User</a>
     <a href="{% url 'edit_officials' %}" class="btn btn-info mt-2" role="button">Edit Barangay Officials</a>
   </div>
-  <div class="col-sm mt-3" style="padding-left: 35%;">
-    <a href="{% url 'edituser' %}" class="btn btn-success mt-2" role="button">Change User Details</a>
-    <a href="{% url 'change_password' %}" class="btn btn-warning mt-2" role="button">Change Password</a>
+  <div class="col-sm mt-3" style="padding-left: 34%;">
+    <a href="{% url 'edituser' %}" class="btn btn-success mt-2" role="button">Edit Your Details</a>
+    <a href="{% url 'change_password' %}" class="btn btn-warning mt-2" role="button">Change Your Password</a>
   </div>
 </div>
 <hr>
@@ -38,6 +38,7 @@
 
   <tbody>
          {% for user in user %}
+         {% if Current_user != user%}
          <tr>
           <td>{{ user.username}}</td>
           <td>{{ user.first_name }}</td>
@@ -76,6 +77,7 @@
             {% endif %}
           {% endif %}
          </tr>
+         {% endif %}
          {% endfor %}
   </tbody>
 </table>

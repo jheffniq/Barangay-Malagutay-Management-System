@@ -13,7 +13,7 @@
       color: rgb(100, 100, 100);
    }
 </style>
-<title>{{profile.First_name}} {{profile.Last_name}}'s Profile</title>
+<title>{{profile.First_name}} {{profile.Last_name}} | Barangay Malagutay Management System</title>
 <div style="margin: 8px;">
    <a href = "{{ request.META.HTTP_REFERER }}"  class="btn btn-success ml-2" role="button">Go Back</a>
 </div>
@@ -36,39 +36,75 @@
          <ul class="p-0 profile">
             <li>
                <h4><b>Occupation</b></h4>
+               {% if profile.Occupation %}
                <h4 class="info">{{profile.Occupation}}</h4>
+               {% else %}
+               <h4 class="info">None</h4>
+               {% endif %}
             </li>
             <li>
                <h4><b>Gender</b></h4>
+               {% if profile.Gender %}
                <h4 class="info">{{profile.Gender}}</h4>
+               {% else %}
+               <h4 class="info">None</h4>
+               {% endif %}
             </li>
             <li>
                <h4><b>Birthdate</b></h4>
+               {% if profile.Birthdate %}
                <h4 class="info">{{profile.Birthdate}}</h4>
+               {% else %}
+               <h4 class="info">None</h4>
+               {% endif %}
             </li>
             <li>
                <h4><b>Email</b></h4>
+               {% if profile.Email %}
                <h4 class="info">{{profile.Email}}</h4>
+               {% else %}
+               <h4 class="info">None</h4>
+               {% endif %}
             </li>
             <li>
                <h4><b>Contact Number</b></h4>
+               {% if profile.Contact %}
                <h4 class="info">{{profile.Contact}}</h4>
+               {% else %}
+               <h4 class="info">None</h4>
+               {% endif %}
             </li>
             <li>
                <h4><b>Citizenship</b></h4>
+               {% if profile.Citizenship %}
                <h4 class="info">{{profile.Citizenship}}</h4>
+               {% else %}
+               <h4 class="info">None</h4>
+               {% endif %}
             </li>
             <li>
                <h4><b>Philhealth Membership Type</b></h4>
+               {% if profile.Philhealth_membership %}
                <h4 class="info">{{profile.Philhealth_membership}}</h4>
+               {% else %}
+               <h4 class="info">None</h4>
+               {% endif %}
             </li>
             <li>
                <h4><b>Vaccination Status</b></h4>
+               {% if profile.Vaccination %}
                <h4 class="info">{{profile.Vaccination}}</h4>
+               {% else %}
+               <h4 class="info">None</h4>
+               {% endif %}
             </li>
             <li>
                <h4><b>Street Address</b></h4>
+               {% if profile.Address %}
                <h4 class="info">{{profile.Address}}</h4>
+               {% else %}
+               <h4 class="info">None</h4>
+               {% endif %}
             </li>
             <li>
                <h4><b>Has Blotter Record</b></h4>

@@ -1,5 +1,4 @@
 from cmath import log
-from re import A
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
@@ -24,7 +23,7 @@ def view_404(request, exception=None):
 @login_required(login_url='login')
 def Display_resident (request):
     Resident_obj = Resident.objects.all()
-    code = secrets.token_hex(5)
+    code = secrets.token_hex(2)
 
 
 
@@ -38,17 +37,48 @@ def Display_resident (request):
         csv_obj = instance
         filename = str(csv_obj.file_name)
         with default_storage.open(filename,'r') as f:
-            decoded_file = f.read().decode('utf-8').splitlines()
+            try:
+                decoded_file = f.read().decode('utf-8').splitlines()
+            except UnicodeDecodeError:
+                messages.error(request,"Please check if the file format is correct")
+                return redirect('/residents/')
+
+            check_file = csv.reader(decoded_file)
             reader = csv.reader(decoded_file)
+            
+            #File Checking
+            for c, row in enumerate(check_file):
+                if c == 0:
+                    pass
+                else:
+                    try:
+                        Checkrow1 = row[1]
+                        Checkrow2 = row[2]
+                        Checkrow3 = row[3]
+                        Checkrow4 = datetime.strptime(row[4], "%m/%d/%Y").strftime("%Y-%m-%d")
+                        Checkrow5 = row[5]
+                        Checkrow6 = row[6]
+                        Checkrow7 = row[7]
+                        Checkrow8 = row[8]
+                        Checkrow9 = row[9]
+                        Checkrow10 = row[10]
+                        Checkrow11 = row[11]
+                        Checkrow12 = row[12]
+                        Checkrow13 = row[13]
+                        Checkrow14 = row[14]
+                    except ValueError:
+                        messages.error(request,"Please check if there are rows that have incorrect data")
+                        return redirect('/residents/')
+
+            #create objects
 
             for i, row in enumerate(reader):
                 if i == 0:
                     pass
                 else: 
-                    
                     while True:
                         if Resident.objects.filter(Resident_code = code).exists():
-                            code = secrets.token_hex(5)
+                            code = secrets.token_hex(2)
                         else:
                             break
 
@@ -85,10 +115,11 @@ def Display_resident (request):
                     Address = address,
                     Email = email,
                     Resident_code = code
-                     )
-        csv_obj.activated = True
-        csv_obj.save()
-        return redirect('/residents/')
+                    )
+            csv_obj.activated = True
+            csv_obj.save()
+            messages.success(request,"Residents have been successfully added")
+            return redirect('/residents/')
 
     context = {
         'Resident_obj' : Resident_obj,
@@ -115,12 +146,12 @@ def Create_resident(request):
 
     if request.method == "POST":
         form = Resident_Form(request.POST, request.FILES)
-        code = secrets.token_hex(5)
+        code = secrets.token_hex(2)
 
         #Check for duplicates
         while True:
             if Resident.objects.filter(Resident_code = code).exists():
-                code = secrets.token_hex(5)
+                code = secrets.token_hex(2)
             else:
                 break
 
@@ -288,12 +319,12 @@ def registration_profile(request, pk):
 @login_required(login_url='login')
 def Acceptresident(request, pk):
     Input = TempResident.objects.get(id = pk)
-    code = secrets.token_hex(5)
+    code = secrets.token_hex(2)
 
     #Check for duplicates
     while True:
         if Resident.objects.filter(Resident_code = code).exists():
-            code = secrets.token_hex(5)
+            code = secrets.token_hex(2)
         else:
             break
 

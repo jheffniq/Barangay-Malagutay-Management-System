@@ -237,7 +237,7 @@ def request_list(request):
                     return redirect('/request_certificate/')
 
             except Resident.DoesNotExist:
-                messages.error(request,"Resident code is invalid or does not exist")
+                messages.error(request,"Resident code does not exist")
                 return redirect('/request_certificate/')
 
     context = {

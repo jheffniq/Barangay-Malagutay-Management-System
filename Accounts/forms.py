@@ -1,6 +1,8 @@
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from Accounts.models import Official
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordResetForm
 from django.contrib.auth.models import User
+from django.contrib import messages
+from django.core.exceptions import ValidationError
+from Accounts.models import Official
 from django import forms
 
 class User_form(UserCreationForm):
@@ -46,3 +48,11 @@ class OfficalForm(forms.ModelForm):
         super(OfficalForm, self).__init__(*args, **kwargs)
         self.fields['Barangay_Councilors'].help_text = "Please separate each name with a comma."
         self.fields['SK_Councilors'].help_text = "Please separate each name with a comma."
+
+class EmailValidationPassword(PasswordResetForm):
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if not User.objects.filter(email=email, is_active=True).exists():
+            raise ValidationError("User with specified email does not exist")
+
+        return email

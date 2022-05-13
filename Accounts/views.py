@@ -31,7 +31,7 @@ def LoginUser (request):
 @login_required(login_url='login')
 def LogoutUser (request):
     logout(request)
-    messages.success(request, "Logged Out Succesfully")
+    messages.success(request, "You have been signed out")
     return redirect('/index/')
 
 
@@ -105,6 +105,7 @@ def Displayusers (request):
     context = {
         "user" : users,
         "admin" : admin,
+        "Current_user" : Current_user
     }
     return render(request, "users.html", context = context)
 

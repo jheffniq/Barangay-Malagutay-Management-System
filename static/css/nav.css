@@ -25,15 +25,23 @@
 .sidebar-wrapper .offcanvas{
     width: 250px;
     border: none;
-    background-color: #c86444;
+    background-image: linear-gradient(180deg, #c86444, #e45513);
     overflow: hidden;
 }
 .sidebar-link{
     display: flex;
     align-items: center;
 }
+.sidebar-link[aria-expanded="true"] .chev {
+    transform: rotate(180deg);
+}
 
-
+.navbar-nav li a{
+    color: rgb(241, 241, 241) !important;
+}
+.navbar-nav li a:hover{
+    color: rgb(255, 255, 255) !important;
+}
 
 .side-toggle .btn-secondary{
     background-color: #c86444 !important;

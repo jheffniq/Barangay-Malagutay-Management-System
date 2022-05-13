@@ -1,21 +1,30 @@
 <style>
     p{
         font-size: 14px;
+        -pdf-keep-with-next: true;
     }
     li{
         font-size: 14px;
+        -pdf-keep-with-next: true;
     }
     h5{
         font-size: 14px;
         text-align: right;
+        -pdf-keep-with-next: true;
     }
     h1{
         font-size: 32px;
         text-align: center;
+        -pdf-keep-with-next: true;
     }
     h4{
         font-size: 14px;
+        -pdf-keep-with-next: true;
     }
+    img {
+        -pdf-keep-with-next: true;
+    }
+    p.separator { -pdf-keep-with-next: false; font-size: 6pt; }
 </style>
 <title>Blotter Report</title>
 <div style="text-align: center; margin-right: 110px;">
@@ -26,7 +35,11 @@
 <h5>Entry Date: {{Blotter_obj.created_date}}</h5>
 <h5>Case No: {{Blotter_obj.id}}</h5><br><br>
 <h4>Complaint by: {{Blotter_obj.Complainant}}</h3>
+{% if Blotter_obj.Offender_unregistered %}
+<h4>Issued to: {{Blotter_obj.Offender_unregistered}}</h3><br>
+{% else %}
 <h4>Issued to: {{Blotter_obj.Offender}}</h3><br>
+{% endif %}
 <div style="justify-content: center;">
 <p>This report was issued upon the request of the complainant. The details of the report are as follows: </p>
 <p>{{Blotter_obj.Complaint}}</p>
@@ -39,10 +52,11 @@
 </ul>
 {% endfor %}
 </div>
+<p class="separator">&nbsp;</p>
 <p>Evidences:</p>
 {% for url in url_list %}
-<div style="margin-left: 5px; margin-right: 5px; text-align: center;">
-<img src="{{url}}" height="320px" width="320px">
+<div style="margin-left: 5px; margin-right: 5px; margin-top: 20px; text-align: center;">
+<img src="{{url}}" height="320px" width="480px">
 </div>
 {% endfor %}
 
