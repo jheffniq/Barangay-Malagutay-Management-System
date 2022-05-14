@@ -46,7 +46,7 @@
       </div>
   <a href="{% static 'Add_Template.csv' %}" class="btn btn-success mb-3" type="button" download>Download CSV Template</a>
 
-      <table class = "table table-bordered table-hover mt-2 mb-5" id="Display">
+      <table class = "table table-bordered table-hover mt-2 mb-5" id="Display" style="background-color: rgb(255,255,255,0.8)">
         <thead>
             <tr>
               <th>First Name</th>
@@ -68,8 +68,8 @@
                 <td></a></td>
                 {% endif %}
                 <td>{{res.Last_name}}</td>
-
                 <td>{{res.modified_date}}</td>
+                
                 <td style="text-align: center;"><a href="{% url 'update_resident' res.id %}" class="btn btn-primary" role="button">Edit</a></td>
                   <td style="text-align: center;">
                         <!-- Button trigger modal -->

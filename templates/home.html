@@ -17,7 +17,7 @@
         <div class="col">
             <div class="card text-white mb-3" style="max-width: 18rem; background-color: #1f77b4; border-radius: 10%;">
                 <div class="card-header">
-                    RESIDENTS
+                <i class="bi bi-people-fill mr-2"></i>RESIDENTS
                 </div>
                 <div class="card-body">
                 {% if TotResident %}
@@ -30,12 +30,13 @@
                 {% else %}
                 <p class="card-text" style="text-align: center;">Registered Residents</p>
                 {% endif %}
+                <a href="{% url 'residents' %}" class="stretched-link"></a>
                 </div>
             </div>
         </div>
         <div class="col">
             <div class="card text-white mb-3" style="max-width: 18rem; background-color: #58556d; border-radius: 10%;">
-                <div class="card-header">BLOTTER</div>
+                <div class="card-header"><i class="bi bi-layers-fill mr-2"></i>BLOTTER</div>
                 <div class="card-body">
                     {% if TotBlot %}
                     <h1 class="card-title" style="text-align: center;">{{TotBlot}}</h1>
@@ -47,12 +48,13 @@
                     {% else %}
                     <p class="card-text" style="text-align: center;">Blotter Reports Issued</p>
                     {% endif %}
+                    <a href="{% url 'blotter_display' %}" class="stretched-link"></a>
                 </div>
             </div>
         </div>
         <div class="col">
             <div class="card text-white mb-3" style="max-width: 18rem; border-radius: 10%; background-color: #45a54a;">
-                <div class="card-header">REQUESTS</div>
+                <div class="card-header"><i class="bi bi-file-earmark-person-fill mr-2"></i>REQUESTS</div>
                 <div class="card-body">
                     {% if Regreqs %}
                     <h1 class="card-title" style="text-align: center;">{{Regreqs}}</h1>
@@ -64,12 +66,13 @@
                     {% else %}
                     <p class="card-text" style="text-align: center;">Registration Requests</p>
                     {% endif %}
+                    <a href="{% url 'display_registrations' %}" class="stretched-link"></a>
                 </div>
             </div>
         </div>
         <div class="col">
             <div class="card text-white mb-3" style="max-width: 18rem; border-radius: 10%; background-color: #45a54a;">
-                <div class="card-header">REQUESTS</div>
+                <div class="card-header"><i class="bi bi-file-earmark-medical-fill mr-2"></i>REQUESTS</div>
                 <div class="card-body">
                     {% if Certreq %}
                     <h1 class="card-title" style="text-align: center;">{{Certreq}}</h1>
@@ -81,13 +84,14 @@
                     {% else %}
                     <p class="card-text" style="text-align: center;">Certification Requests</p>
                     {% endif %}
+                    <a href="{% url 'display_requests' %}" class="stretched-link"></a>
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
         <!--Gender Chart-->
-        <div class="col-sm-2 col-md-4  p-1">
+        <div class="col-sm-2 col-md-4  p-3">
             <div class="card shadow-sm">
                 <div class="card-body">
                 <canvas id="Genderchart" width="400" height="400"></canvas>
@@ -117,17 +121,18 @@
                             }]
                         },
                         options: {
-                            responsive: true
+                            responsive: true,
                         }
                         
                     });
+
                     </script>
                 </div>
             </div>
         </div>
 
         <!--Vaccination Chart-->
-        <div class="col-sm-2 col-md-4 p-1">
+        <div class="col-sm-2 col-md-4 p-3">
             <div class="card shadow-sm">
             <div class="card-body">
             <canvas id="Vacchart" width="400" height="400"></canvas>
@@ -136,7 +141,11 @@
             var vaclabel = ["Vaccinated","Unvaccinated"]
             var Vaccinated = parseInt("{{Vaccinated}}")
             var Unvaccinated = parseInt("{{Unvaccinated}}")
-            var vacdata = [Vaccinated,Unvaccinated]
+            //var vacdata = [Vaccinated,Unvaccinated]
+            var vacdata = [
+                        {Status: 'Vaccinated',url:'/DisplayVaccinated/',number:{popu: Vaccinated}},
+                        {Status: 'Unvaccinated',url:'/DisplayUnvaccinated/',number:{popu: Unvaccinated}}
+                    ]
 
             const con = document.getElementById('Vacchart');
             const Vacchart = new Chart(con, {
@@ -158,14 +167,25 @@
                     }]
                 },
                 options: {
+                    parsing: {
+                                key: 'number.popu'
+                            }
                 }
             });
+            function ClickHandler(click){
+                        const Info  = Vacchart.getElementsAtEventForMode(click,'nearest',{intersect:true},true);
+                        if(Info.length){
+                            const Selected = Info[0];
+                            window.open(Vacchart.data.datasets[Selected.datasetIndex].data[Selected.index].url)
+                        }
+                    }
+                    con.onclick = ClickHandler
             </script>
         </div>
         </div>
         </div>
 
-        <div class="col-sm-2 col-md-4 p-1">
+        <div class="col-sm-2 col-md-4 p-3">
             <div class="card shadow-sm">
             <div class="card-body">
             <canvas id="Agechart" width="400" height="400"></canvas>
@@ -204,6 +224,14 @@
                     scales: {
                         y: {
                             beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        legend:{
+                            labels: {
+                                boxWidth: 0
+
+                            }
                         }
                     }
                 }
@@ -256,10 +284,19 @@
                 },
                 options: {
                     indexAxis: 'y',
+                    plugins: {
+                        legend:{
+                            labels: {
+                                boxWidth: 0
+
+                            }
+                        }
+                    },
                     scales: {
                         y: {
                             beginAtZero: true
                         }
+
                     }
                 }
             });
@@ -324,7 +361,7 @@
       hour = hour < 10 ? "0" + hour : hour;
       minute = checkTime(minute);
       second = checkTime(second);
-      document.getElementById('time').innerHTML =  hour + ":" + minute + ":" + second + " " + suffix;
+      document.getElementById('time').innerHTML =  hour + ":" + minute + " " + suffix;
       setTimeout(startTime, 1000);
     }
     startTime();

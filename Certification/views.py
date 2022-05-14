@@ -234,6 +234,7 @@ def request_list(request):
         if form.is_valid():
             CheckResident = form.save(commit = False)
             Rcode = CheckResident.Resident_code
+            receiver = CheckResident.Email
 
             try:
                 Resident_obj = Resident.objects.get(Resident_code = Rcode)
@@ -244,7 +245,15 @@ def request_list(request):
                     CheckResident.Requester = Resident_obj
                     CheckResident.Requestcode = request_code
                     CheckResident.save()
+                    email = EmailMessage(
+                        'Barangay Malagutay Certificate Request',
+                        f'Good Day,\n\nYou are receiving this email because you have requested for a certification.\n\nYour request is under verification but you can track its status anytime using the following request code: \n\n\n\n Your Request Code is: \n\n {request_code}\n\n\n\nIf you find any errors please do not hesitate to contact us.\n\n\nThis is an automated email, do not reply. Please contact the respected barangay officials/workers if you have inquiries.',
+                        'testbmms88@gmail.com',
+                        [receiver]
+                    )
+                    email.send()
                     messages.success(request, f"Your request code is:{str}{request_code}")
+
                     return redirect('/request_certificate/')
 
             except Resident.DoesNotExist:
@@ -386,12 +395,12 @@ def Checkrequest(request):
 
             except Certrequest.DoesNotExist:
                 try:
-                    Archivedrequest = Requestarchive.objects.get(Requestcode = Code)
+                    Archivedrequest = Requestarchive.objects.filter(Requestcode = Code).last()
                     Status = Archivedrequest.Status
                     str = " "
                     messages.info(request,f"Your request status is:{str}{Status}")
                     return redirect('/request_certificate/')
-                except Requestarchive.DoesNotExist:
+                except (Requestarchive.DoesNotExist,AttributeError):
                     messages.error(request,"Request does not exist")
                     return redirect('/request_certificate/')
     

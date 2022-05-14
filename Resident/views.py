@@ -28,10 +28,10 @@ def view_404(request, exception=None):
 def view_500(request):
     if request.user.is_authenticated:
         messages.error(request,"An unexpected error has occured")
-        return redirect('/home/')
+        return redirect(request.META.get('HTTP_REFERER'))
     else:
         messages.error(request,"An unexpected error has occured")
-        return redirect('/index/')
+        return redirect(request.META.get('HTTP_REFERER'))
 
 
 #Display Resident
@@ -389,3 +389,23 @@ def Declineresident(request, pk):
     Input.delete()
     messages.success(request, "Request has been declined")
     return redirect('/display_registrations/')
+
+@login_required(login_url='login')
+def DisplayVaccinated(request):
+    Resident_obj = Resident.objects.filter(Vaccination="Vaccinated")
+    context = {
+        'Resident_obj' : Resident_obj
+    }
+    return render(request,"Vaccinatedresidents.html",context = context)
+
+def DisplayUnvaccinated(request):
+    Resident_obj = Resident.objects.filter(Vaccination="Unvaccinated")
+    context = {
+        'Resident_obj' : Resident_obj
+    }
+    return render(request,"Unvaccinatedresidents.html",context = context)
+
+
+
+def redirtest(request):
+    return redirect(request.META.get('HTTP_REFERER'))
