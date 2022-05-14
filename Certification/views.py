@@ -6,14 +6,15 @@ from Accounts.models import Official
 from django.http import HttpResponse
 from Resident.models import Resident
 from Blotter.models import Blotreport
-from Certification.models import Certrequest
-from .forms import Request_form
+from Certification.models import Certrequest, Requestarchive
+from .forms import Request_form, Requeststatus
 from django.contrib import messages
 from datetime import datetime
 from django.core.mail import EmailMessage
 from django.http import HttpResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
+import secrets
 
 
 #Display Residents
@@ -219,6 +220,15 @@ def generate_certificate02(request, pk):
 
 def request_list(request):
     form = Request_form()
+    statform = Requeststatus()
+    request_code = secrets.token_hex(2)
+    str = " "
+    while True:
+        if Certrequest.objects.filter(Requestcode=request_code).exists():
+            request_code = secrets.token_hex(2)
+        else:
+            break
+
     if request.method == "POST":
         form = Request_form(request.POST)
         if form.is_valid():
@@ -232,16 +242,18 @@ def request_list(request):
                     return redirect('/request_certificate/')
                 else:
                     CheckResident.Requester = Resident_obj
+                    CheckResident.Requestcode = request_code
                     CheckResident.save()
-                    messages.success(request, "Certificate request successfully submitted")
+                    messages.success(request, f"Your request code is:{str}{request_code}")
                     return redirect('/request_certificate/')
 
             except Resident.DoesNotExist:
-                messages.error(request,"Resident code does not exist")
+                messages.error(request,"Resident does not exist")
                 return redirect('/request_certificate/')
 
     context = {
-            'form' : form
+            'form' : form,
+            'statform' : statform
         }
     return render(request, "certification/guest_request.html",context = context)
 
@@ -326,8 +338,12 @@ def Email_certificate(request, pk):
     )
     email.attach('Indigency_Certificate.pdf', response.getvalue() , 'application/pdf')
     email.send()
+    Requestarchive.objects.create(
+        Requestcode = Request_obj.Requestcode,
+        Status = "APPROVED"
+    )
     Request_obj.delete()
-    messages.success(request, success_message)
+    messages.success(request, "Certificate has been sent")
     return redirect('/display_requests/')
 
     # if error then show some funy view
@@ -347,8 +363,37 @@ def Declinerequest(request, pk):
         [receiver]
     )
     email.send()
+    Requestarchive.objects.create(
+        Requestcode = Request_obj.Requestcode,
+        Status = "DENIED"
+    )
     Request_obj.delete()
     messages.success(request, "Request has been declined")
     return redirect('/display_requests/')
+
+def Checkrequest(request):
+    if request.method == 'POST':
+        form = Requeststatus(request.POST)
+        if form.is_valid():
+            Userinput = form.cleaned_data
+            #CheckStatus = form.save(commit = False)
+            Code = Userinput.get('Status')
+
+            try:
+                Request_obj = Certrequest.objects.get(Requestcode = Code)
+                messages.info(request, "Your request status is: PENDING")
+                return redirect('/request_certificate/')
+
+            except Certrequest.DoesNotExist:
+                try:
+                    Archivedrequest = Requestarchive.objects.get(Requestcode = Code)
+                    Status = Archivedrequest.Status
+                    str = " "
+                    messages.info(request,f"Your request status is:{str}{Status}")
+                    return redirect('/request_certificate/')
+                except Requestarchive.DoesNotExist:
+                    messages.error(request,"Request does not exist")
+                    return redirect('/request_certificate/')
+    
 
 

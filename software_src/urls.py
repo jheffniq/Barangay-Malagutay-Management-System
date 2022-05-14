@@ -39,7 +39,7 @@ from Blotter.views import Blotter_details, Delete_report, Create_Report_unregist
 #Certification app import
 from Certification.views import resident_list, resident_list02, generate_certificate, view_certificate 
 from Certification.views import view_certificate02, generate_certificate02, request_list 
-from Certification.views import Renderrequest, Email_certificate, Declinerequest
+from Certification.views import Renderrequest, Checkrequest, Email_certificate, Declinerequest
 
 
 
@@ -98,6 +98,7 @@ urlpatterns = [
     path('view_certificate02/<str:pk>', view_certificate02, name="view_certificate02"),
     path('generate_certificate02/<str:pk>/',generate_certificate02,name="generate_certificate02"),
     path('display_requests/',Renderrequest,name="display_requests"),
+    path('checkstatus/', Checkrequest, name = "checkstatus"),
 
     #Email Certificate
     path('email/<str:pk>/', Email_certificate, name = "email"),

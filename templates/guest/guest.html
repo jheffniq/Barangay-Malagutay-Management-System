@@ -9,6 +9,7 @@
             }}
             .navbar-nav li.nav-item a.nav-link {
               color: rgb(241, 241, 241);
+              font-size: 20px;
             }
             .navbar-nav li.nav-item a.nav-link:hover {
               color: rgb(255, 255, 255);
@@ -71,6 +72,8 @@
             {% for message in messages %}
             {% if message.tags == "error" %}
             <script>swal("Error", "{{message}}", "error")</script>
+            {% elif message.tags == "info" %}
+            <script>swal("Notice","{{message}}","info")</script>
             {% else %}
             <script>swal("Success!", "{{message}}", "success")</script>
             {% endif %}

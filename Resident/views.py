@@ -224,7 +224,10 @@ def Search_resident(request):
 @login_required(login_url='login')
 def home(request):
     today = date.today()
-    current_user = f"{request.user.first_name} {request.user.last_name}"
+    if request.user.username == "admin":
+        current_user = "Admin"
+    else:
+        current_user = f"{request.user.first_name} {request.user.last_name}"
     Resident_obj = Resident.objects.all()
     TotResident = Resident.objects.all().count()
     TotBlot = Blotreport.objects.all().count()

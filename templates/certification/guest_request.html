@@ -17,6 +17,16 @@
     {{form | crispy}}
     <input type = "submit" name = "Submit" onclick = "" class="btn btn-primary" id = "sub">
 </form>
+<h1 class="mt-5">Check Request Status</h1>
+<p class="mb-4 ">You can check for the status of your request by entering the request code that was given to you</p>
+<div>
+    <form method="POST", action="{% url 'checkstatus' %}">
+    {% csrf_token %}
+    <label for="exampleInputEmail1">Request Code</label>
+        {{statform.Status | as_crispy_field}}
+        <input type = "submit" name = "Submit" onclick = "" class="btn btn-primary mb-2" id = "sub">
+      </div> 
+    </form>
 </div>
 </div>
 

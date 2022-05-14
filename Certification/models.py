@@ -13,3 +13,8 @@ class Certrequest(models.Model):
     Request_type = models.CharField(max_length=100, choices=Request_choices, default="")
     Email = models.EmailField(max_length=254)
     Purpose = models.CharField(max_length=100)
+    Requestcode = models.CharField(max_length=10)
+
+class Requestarchive(models.Model):
+    Requestcode = models.CharField(max_length=10)
+    Status = models.CharField(max_length=20)

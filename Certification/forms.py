@@ -10,3 +10,5 @@ class Request_form(forms.ModelForm):
            'Purpose',
            'Request_type'
        ]
+class Requeststatus(forms.Form):
+    Status = forms.CharField(max_length=10, label=False)
