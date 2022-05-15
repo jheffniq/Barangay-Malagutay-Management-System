@@ -294,7 +294,8 @@ def home(request):
         'Single': Single,
         'Married' : Married,
         'Separated' : Separated,
-        'Widowed' : Widowed
+        'Widowed' : Widowed,
+        'today' : today
     }
     return render(request,"home.html",context = context)
 
