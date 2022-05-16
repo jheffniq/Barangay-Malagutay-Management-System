@@ -83,6 +83,14 @@
                {% endif %}
             </li>
             <li>
+               <h4><b>Religion</b></h4>
+               {% if profile.Religion %}
+               <h4 class="info">{{profile.Religion}}</h4>
+               {% else %}
+               <h4 class="info">None</h4>
+               {% endif %}
+            </li>
+            <li>
                <h4><b>Philhealth Membership Type</b></h4>
                {% if profile.Philhealth_membership %}
                <h4 class="info">{{profile.Philhealth_membership}}</h4>

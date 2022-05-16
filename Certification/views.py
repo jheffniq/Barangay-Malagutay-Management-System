@@ -331,7 +331,7 @@ def Email_certificate(request, pk):
     #Download
     #response['Content-Disposition'] = 'attachment; filename="report.pdf"'
 
-    response['Content-Disposition'] = 'filename="Indigency_Certificate.pdf"'
+    response['Content-Disposition'] = 'filename="Certificate.pdf"'
     # find the template and render it.
     template = get_template(template_path)
     html = template.render(context)
@@ -345,7 +345,7 @@ def Email_certificate(request, pk):
         'testbmms88@gmail.com', 
         [receiver]
     )
-    email.attach('Indigency_Certificate.pdf', response.getvalue() , 'application/pdf')
+    email.attach('Certificate.pdf', response.getvalue() , 'application/pdf')
     email.send()
     Requestarchive.objects.create(
         Requestcode = Request_obj.Requestcode,
