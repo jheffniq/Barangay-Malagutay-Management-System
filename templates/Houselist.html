@@ -22,7 +22,7 @@
             <tr>
               <th>Household Name</th>
               <th>Household Head</th>
-              <th>Date Established</th>
+              <th>Number of Members</th>
               <th style="text-align: center;">Edit</th>
               <th style="text-align: center;">Delete</th>
           </tr>
@@ -32,8 +32,9 @@
               {% for household in Household %}
               <tr data-href ="#">
                 <td>{{household.HouseholdName}}</td>
-                <td>asfsdf</td>
-                <td>sadasd</td>
+                <td>{{household.Head}}</td>
+                {% for num in Number %}
+                <td>{{num}}</td>
                 
                 <td style="text-align: center;"><a href="#" class="btn btn-primary" role="button">Edit</a></td>
                   <td style="text-align: center;">
@@ -63,6 +64,7 @@
                       </div>
                     </td>
               </tr>
+              {% endfor %}
               {% endfor %}
         </tbody>
       </table>

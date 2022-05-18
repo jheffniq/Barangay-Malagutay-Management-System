@@ -433,10 +433,17 @@ def Createhousehold(request):
 
 def HouseholdList(request):
     Household_obj = Household.objects.all()
+    Number = []
+    for num in Household_obj:
+        Members = num.Member.all()
+        Number.append(Members.count())
+
     context = {
-        'Household' : Household_obj
+        'Household' : Household_obj,
+        'Number' : Number
     }
     return render(request,"Houselist.html",context=context)
+
 
 def ViewHousehold(request):
     Household_obj = Household.objects.get(id=10)
