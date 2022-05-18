@@ -5,10 +5,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Q
 from django.core.mail import EmailMessage
-from .models import Resident, CSV
+from .models import Resident, CSV, Household
 from Resident.models import TempResident
 from Blotter.models import Blotreport
-from .forms import Resident_Form, CSVmodel, Temp_Form
+from .forms import Resident_Form, CSVmodel, Temp_Form, HouseholdForm
 from Certification.models import Certrequest
 import csv
 from datetime import datetime, date
@@ -406,7 +406,46 @@ def DisplayUnvaccinated(request):
     }
     return render(request,"Unvaccinatedresidents.html",context = context)
 
+def Createhousehold(request):
+    form = HouseholdForm
+    if request.method == "POST":
+        form = HouseholdForm(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            if Household.objects.filter(Head = instance.Head).exists():
+                messages.error(request,"Household head already belongs to a household")
+                return redirect('/createhousehold/')
+            else:
+                pass
 
+            instance.save()
+            Household_obj=Household.objects.last()
+            Last_Name = Household_obj.Head.Last_name
+            Household_obj.HouseholdName = f"{Last_Name} Household"
+            Household_obj.save()
+            messages.success(request,"Form Submitted")
+            return redirect("/createhousehold/")
+
+    context = {
+        'form' : form
+    }
+    return render (request,"HouseholdForm.html",context = context)
+
+def HouseholdList(request):
+    Household_obj = Household.objects.all()
+    context = {
+        'Household' : Household_obj
+    }
+    return render(request,"Houselist.html",context=context)
+
+def ViewHousehold(request):
+    Household_obj = Household.objects.get(id=10)
+    Members = Household_obj.Member.all()
+    context = {
+        'Household' : Household_obj,
+        'Members' : Members
+    }
+    return render(request,"blank.html",context=context)
 
 def redirtest(request):
     return redirect(request.META.get('HTTP_REFERER'))

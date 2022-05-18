@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
 {%  load static %}
 {% block content %}
+{% for mem in Members %}
+{{mem.First_name}} {{mem.Last_name}}
+{% endfor %}
 {%  endblock content %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{%  load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<head>
+    <title>Create Householdk</title>
+    {{ form.media.css }}
+    <style>
+        input, select {width: 50%}
+    </style>
+</head>
+<body>
+    <h1>Create Household</h1>
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <input type="submit" name="Submit" value="Save" class="btn btn-primary">
+    </form>
+    {{ form.media.js }}
+{%  endblock content %}
+<!--
+<input type = "submit" name = "Submit" value = "Save" class = "btn btn-primary" onclick = "">-->

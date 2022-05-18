@@ -1,5 +1,6 @@
 from django import forms
-from .models import Resident, CSV, TempResident
+from .models import Resident, CSV, TempResident, Household
+from django_select2 import forms as s2forms
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -41,7 +42,7 @@ class CSVmodel(forms.ModelForm):
 
 
 class Temp_Form(forms.ModelForm):
-
+    
     class Meta:
         widgets = {
             'Birthdate' : DateInput()
@@ -63,4 +64,22 @@ class Temp_Form(forms.ModelForm):
             'Occupation',
             'Vaccination',
             'Address',   
+        ]
+class MembersWidget(s2forms.ModelSelect2MultipleWidget):
+    search_fields = [
+        "First_name__icontains",
+        "Middle_name__icontains",
+        "Last_name__icontains"
+    ]
+
+class HouseholdForm(forms.ModelForm):
+    class Meta:
+        model = Household
+        widgets = {'Member' : MembersWidget}
+        fields = [
+            'Head',
+            'Contact',
+            'Homeowner',
+            'Income',
+            'Member'
         ]

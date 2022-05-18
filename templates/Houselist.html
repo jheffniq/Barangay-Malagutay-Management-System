@@ -1,0 +1,95 @@
+{%  extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+  thead {
+    background-color: #c86444;
+    border-color: none;
+    color: white;
+  }
+  tr[data-href]{
+    cursor: pointer;
+  }
+</style>
+<title>List of Registered Households | Barangay Malagutay Management System</title>
+<h1 style="text-align: center; margin-top: 5%; color: #4e1806;"><b>List of Registered Households</b></h1>
+<div class="container-fluid mt-5 mb-5">
+
+  <a href="/resident_form" class="btn btn-primary mb-3" role="button">Register Household</a>
+
+      <table class = "table table-bordered table-hover mt-2 mb-5" id="Display" style="background-color: rgb(255,255,255,0.8)">
+        <thead>
+            <tr>
+              <th>Household Name</th>
+              <th>Household Head</th>
+              <th>Date Established</th>
+              <th style="text-align: center;">Edit</th>
+              <th style="text-align: center;">Delete</th>
+          </tr>
+        </thead>
+
+        <tbody>
+              {% for household in Household %}
+              <tr data-href ="#">
+                <td>{{household.HouseholdName}}</td>
+                <td>asfsdf</td>
+                <td>sadasd</td>
+                
+                <td style="text-align: center;"><a href="#" class="btn btn-primary" role="button">Edit</a></td>
+                  <td style="text-align: center;">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-{{ res.id }}">
+                          Delete
+                      </button>
+                      
+                      <!-- Modal -->
+                      <div class="modal fade" id="modal-{{ res.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                              <div class="modal-header mx-auto">
+                              <h5 class="modal-title" id="exampleModalLongTitle"><b>CONFIRM DELETE</b></h5>
+
+                              </button>
+                              </div>
+                              <div class="modal-body">
+                              <h5>Are you sure you want to delete {{ res.First_name }} {{ res.Last_name }} from the database?</h5>
+                              </div>
+                              <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                              <a href="#" role="button" class="btn btn-danger">YES</a>
+                              </div>
+                          </div>
+                          </div>
+                      </div>
+                    </td>
+              </tr>
+              {% endfor %}
+        </tbody>
+      </table>
+
+      <script>
+        $(document).ready(function() {
+            $('#Display').DataTable({
+                order: [[0, 'asc']],
+                pagingType: 'full_numbers',
+                
+          
+            });
+          $('#Display').on("click",'tbody tr', function (){
+            const rows = document.querySelectorAll('tr[data-href]');
+            rows.forEach(row => {
+              row.addEventListener("click", () => {
+                window.location.href = row.dataset.href;
+              });
+            });
+          });
+        });
+      </script>
+</div>
+<!--<form method="POST" action = "{% url 'search_resident' %}">
+  {% csrf_token %}
+  <input type="search" placeholder="search" name = "q">
+  <input type = "submit">
+</form>-->
+
+{% endblock content %}

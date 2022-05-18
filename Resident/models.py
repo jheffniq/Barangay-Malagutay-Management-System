@@ -36,7 +36,7 @@ class Resident (models.Model):
         ('Widowed','Widowed'),
         )
     Marital_status = models.CharField(max_length=100, choices = Cstatus_choices, default = "")
-    Citizenship = models.CharField(max_length=100) 
+    Citizenship = models.CharField(max_length=100,verbose_name="Ethnicity") 
     Religion = models.CharField(max_length=100)
     Occupation = models.CharField(max_length=100, null=True, blank=True)
     Vac_choices = (
@@ -94,7 +94,7 @@ class TempResident (models.Model):
         ('Widowed','Widowed'),
         )
     Marital_status = models.CharField(max_length=100, choices = Cstatus_choices, default = "")
-    Citizenship = models.CharField(max_length=100) 
+    Citizenship = models.CharField(max_length=100,verbose_name="Ethnicity") 
     Religion = models.CharField(max_length=100)
     Occupation = models.CharField(max_length=100, null=True, blank=True)
     Vac_choices = (
@@ -109,3 +109,20 @@ class TempResident (models.Model):
 
     def __str__(self):
         return f'{self.First_name} {self.Last_name}'
+class Household (models.Model):
+    numbers = RegexValidator(r'^[0-9]+','Only numbers are accepted')
+    OwnerChoices = (('Yes','Yes'),('No','No'))
+    IncomeChoices = (('131,000 and up','131,000 and up'),
+                    ('41,000 - 130,000','41,000 - 130,000'),
+                    ('11,000 - 40,000','11,000 - 40,000'),
+                    ('Less than 10,000','Less than 10,000')
+                    )
+
+    HouseholdName = models.CharField(max_length=250)
+    Head = models.ForeignKey(Resident,on_delete=models.CASCADE,verbose_name="Head of Household")
+    Date = models.DateField(auto_now_add=False, auto_now=False,verbose_name="Date Established")
+    Contact = models.CharField(max_length=11, validators=[numbers],verbose_name="Telephone/Mobile",null=True, blank=True)
+    Address = models.CharField(max_length=250, verbose_name="Address")
+    Homeowner = models.CharField(max_length=20,choices=OwnerChoices,default="Yes")
+    Income = models.CharField(max_length=250,choices=IncomeChoices,default="")
+    Member = models.ManyToManyField(Resident,related_name='mem',verbose_name="Household Members")

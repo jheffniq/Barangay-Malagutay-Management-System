@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.shortcuts import redirect
-from django.urls import path, reverse_lazy
+from django.urls import include,path, reverse_lazy
 from django.contrib.auth import views as auth_views
 from Accounts.forms  import EmailValidationPassword
 from django.contrib.staticfiles.storage import staticfiles_storage
@@ -31,6 +31,7 @@ from Accounts.views import Deleteuser,Faqs
 from Resident.views import Display_resident, Create_resident, Update_resident, home
 from Resident.views import Delete_resident, Display_profile, Search_resident, Temp_Resident, display_registrations
 from Resident.views import registration_profile, Acceptresident, Declineresident,DisplayVaccinated,DisplayUnvaccinated,redirtest
+from Resident.views import Createhousehold, ViewHousehold, HouseholdList
 
 #Blotter app import
 from Blotter.views import Addreport, Blotter_search_resident, Create_Report, Blotter_display
@@ -82,6 +83,10 @@ urlpatterns = [
     path('faq/',Faqs,name="faq"),
     path('DisplayVaccinated/',DisplayVaccinated,name="displayvaccinated"),
     path('DisplayUnvaccinated/',DisplayUnvaccinated,name="displayunvaccinated"),
+
+    path('createhousehold/',Createhousehold,name="createhousehold"),
+    path('householdlist/',HouseholdList,name="HouseholdList"),
+    path('blank/',ViewHousehold,name="blank"),
     
     #Blotter paths
     path('add_report/', Addreport, name = "add_report"),
@@ -107,6 +112,7 @@ urlpatterns = [
     path('declinerequest/<str:pk>/', Declinerequest, name = "declinerequest"),
 
     path('redirtest/',redirtest,name="redirtest"),
+    path("select2/",include("django_select2.urls")),
 
     path('admin/', admin.site.urls),
     
