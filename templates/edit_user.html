@@ -11,9 +11,11 @@
 <a href = "{% url 'users' %}" class="btn btn-success ml-2" role="button">Go Back</a>
 <div class="border rounded shadow-md p-3 mb-5 mt-3" style="background-color: white;">
 <h1 class="mb-3" style="text-align: center;"><b>Edit User Details</b></h1>
+{{x}}
     <form method = POST>
         {% csrf_token %}
         {{form | crispy}}
+        {{details | crispy}}
         <br>
         <input type = "submit" class ="btn btn-md btn-primary" name = "Submit" value="Save" onclick = "" style="padding-left: 5%; padding-right: 5%; text-align: center;">
     </form>

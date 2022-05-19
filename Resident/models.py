@@ -63,6 +63,7 @@ class CSV(models.Model):
 
 class TempResident (models.Model):
     pic = models.ImageField(null=True, blank = True, verbose_name="Profile Picture", upload_to= "images/", default='images/default_pp.jpg')
+    identification = models.ImageField(null=False,blank=False,verbose_name="Identification Card", upload_to="images/")
     First_name = models.CharField(max_length=50)
     Last_name = models.CharField(max_length=50)
     Middle_name = models.CharField(max_length=50, null=True, blank=True)

@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm, Password
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.core.exceptions import ValidationError
-from Accounts.models import Official
+from Accounts.models import Official, Profile
 from django import forms
 
 class User_form(UserCreationForm):
@@ -21,6 +21,12 @@ class User_form(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(User_form, self).__init__(*args, **kwargs)
 
+class Profileform(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = [
+            'Position'
+        ]
 
 class Update_user(forms.ModelForm):
 

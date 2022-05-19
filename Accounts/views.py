@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm, UserChangeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import User_form, Update_user, OfficalForm
+from .forms import Profileform, User_form, Update_user, OfficalForm
 from .models import Official
 
 def LoginUser (request):
@@ -55,17 +55,25 @@ def Faqs (request):
 def Adduser(request):
     if request.method == "POST":
         form = User_form(request.POST)
-        if form.is_valid():
-            form.save()
+        details = Profileform(request.POST)
+        if form.is_valid() and details.is_valid():
+            user = form.save()
+            profile = details.save(commit=False)
+            profile.user = user
+
+            profile.save()
+
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
             messages.success(request, "User sucessfully added")
             return redirect('/users/')
     else:
-        form = User_form
+        form = User_form()
+        details = Profileform()
 
     context = {
-        'form' : form
+        'form' : form,
+        'details' : details
     }
 
     return render(request, "register.html", context = context)

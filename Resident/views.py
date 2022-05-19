@@ -186,9 +186,16 @@ def Create_resident(request):
         if form.is_valid():
             Resobj = form.save(commit=False)
             Resobj.Resident_code = code
-            Resobj.save()
-            messages.success(request, "Resident has been added")
-            return redirect('/residents')
+            checkfirst = Q(First_name = Resobj.First_name)
+            checklast = Q(Last_name = Resobj.Last_name)
+            query = Resident.objects.filter(checkfirst & checklast)
+            if query.exists():
+                messages.error(request,f"This resident is already registered")
+            else:
+                Resobj.save()
+                messages.success(request, "Resident has been added")
+                return redirect('/residents')
+            
 
     context = {
         'form':form
@@ -321,9 +328,16 @@ def Temp_Resident(request):
     if request.method == "POST":
         form = Temp_Form(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            messages.success(request, "Form submitted succesfully")
-            return redirect('/index/')
+            Resobj = form.save(commit=False)
+            checkfirst = Q(First_name = Resobj.First_name)
+            checklast = Q(Last_name = Resobj.Last_name)
+            query = Resident.objects.filter(checkfirst & checklast)
+            if query.exists():
+                messages.error(request,f"This resident is already registered")
+            else:
+                Resobj.save()
+                messages.success(request, "Form submitted succesfully")
+                return redirect('/index/')
 
 
     context = {

@@ -50,6 +50,7 @@ class Temp_Form(forms.ModelForm):
         model = TempResident
         fields = [
             'pic',
+            'identification',
             'First_name',
             'Middle_name',
             'Last_name',
