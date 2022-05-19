@@ -108,12 +108,31 @@
                         </div>
                         </div>
                     </li>
+
                     <li>
+                        <a class="nav-link px-3 sidebar-link active" data-bs-toggle="collapse" href="#Pofilingcollapse" role="button" aria-expanded="false" aria-controls="collapseExample"
+                        style="display: flex; align-items: center;">
+                            <span><i class="bi bi-person-lines-fill"></i></span>
+                            <span style="font-size: 20px; margin-left: 5px;">Profiling</span>
+                           <span class="chev ms-auto"><i class="bi bi-chevron-down"></i></span>
+                        </a>
+                        <div class="collapse" id="Pofilingcollapse">
+                        <div>
+                            <ul class="navbar-nav ps-3">
+                                <li><a href = "{% url 'householdlist' %}" class = "nav-link px-3 active">Households</a></li>
+                                <li><a href = "{% url 'residents' %}" class = "nav-link px-3 active">Residents</a></li>
+                            </ul>                        
+                        </div>
+                        </div>
+                    </li>
+                    
+                    
+                    <!--<li>
                             <a href = "/residents" class="nav-link ps-3 active">
                                 <span><i class="bi bi-person-lines-fill"></i></span>
                                 <span style="font-size: 20px; margin-left: 2px;">Residents</span>
                             </a>
-                        </li>
+                        </li>-->
                     
                     <li>
                         <a class="nav-link px-3 sidebar-link active" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"

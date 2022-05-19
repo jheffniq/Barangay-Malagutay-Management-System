@@ -31,7 +31,7 @@ from Accounts.views import Deleteuser,Faqs
 from Resident.views import Display_resident, Create_resident, Update_resident, home
 from Resident.views import Delete_resident, Display_profile, Search_resident, Temp_Resident, display_registrations
 from Resident.views import registration_profile, Acceptresident, Declineresident,DisplayVaccinated,DisplayUnvaccinated,redirtest
-from Resident.views import Createhousehold, ViewHousehold, HouseholdList
+from Resident.views import Createhousehold, ViewHousehold, HouseholdList, UpdateHousehold, DeleteHousehold
 
 #Blotter app import
 from Blotter.views import Addreport, Blotter_search_resident, Create_Report, Blotter_display
@@ -77,16 +77,18 @@ urlpatterns = [
     path('delete_resident/<str:pk>/', Delete_resident, name = "delete_resident"),
     path('temp_resident/',Temp_Resident, name = "tempresident"),
     path ('display_registrations/', display_registrations, name = "display_registrations"),
-    path ('temp_profile/<str:pk>', registration_profile, name = "temp_profile"),
-    path('acceptresident/<str:pk>', Acceptresident, name = "acceptresident"),
-    path('declineresident/<str:pk>', Declineresident, name= "declineresident"),
+    path ('temp_profile/<str:pk>/', registration_profile, name = "temp_profile"),
+    path('acceptresident/<str:pk>/', Acceptresident, name = "acceptresident"),
+    path('declineresident/<str:pk>/', Declineresident, name= "declineresident"),
     path('faq/',Faqs,name="faq"),
     path('DisplayVaccinated/',DisplayVaccinated,name="displayvaccinated"),
     path('DisplayUnvaccinated/',DisplayUnvaccinated,name="displayunvaccinated"),
 
     path('createhousehold/',Createhousehold,name="createhousehold"),
-    path('householdlist/',HouseholdList,name="HouseholdList"),
-    path('blank/',ViewHousehold,name="blank"),
+    path('updatehousehold/<str:pk>/',UpdateHousehold,name="updatehousehold"),
+    path('deletehousehold/<str:pk>/',DeleteHousehold,name="deletehousehold"),
+    path('householdlist/',HouseholdList,name="householdlist"),
+    path('householdinfo/<str:pk>/',ViewHousehold,name="householdinfo"),
     
     #Blotter paths
     path('add_report/', Addreport, name = "add_report"),

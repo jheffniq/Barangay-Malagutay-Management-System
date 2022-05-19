@@ -145,9 +145,24 @@ def Display_resident (request):
 @login_required(login_url='login')
 def Display_profile(request, pk):
     resident_obj = Resident.objects.get(id = pk)
+    household_obj = Household.objects.all()
+    for h in household_obj:
+        member = h.Member.all()
+        if h.Head == resident_obj:
+            House = f"{h.HouseholdName} (Head)"
+            break
+        else:
+            for m in member:
+                if m == resident_obj:
+                    House = h.HouseholdName
+                    break
+                else:
+                    House = None
 
     context = {
-        "profile" : resident_obj
+        "profile" : resident_obj,
+        "House" : House
+        
     }
     return render(request, "resident_profile.html",context=context)
 
@@ -406,22 +421,29 @@ def DisplayUnvaccinated(request):
     }
     return render(request,"Unvaccinatedresidents.html",context = context)
 
+
+#Households
 def Createhousehold(request):
     form = HouseholdForm
+    Household_obj = Household.objects.all()
     if request.method == "POST":
         form = HouseholdForm(request.POST)
         if form.is_valid():
             instance = form.save(commit=False)
+            
             if Household.objects.filter(Head = instance.Head).exists():
-                messages.error(request,"Household head already belongs to a household")
+                messages.error(request,"Selected head already belongs to a household")
                 return redirect('/createhousehold/')
             else:
-                pass
+                form.save()
 
-            instance.save()
             Household_obj=Household.objects.last()
+            Members = Household_obj.Member.all()
+            Numbers = Members.count()
+
             Last_Name = Household_obj.Head.Last_name
             Household_obj.HouseholdName = f"{Last_Name} Household"
+            Household_obj.Number = Numbers
             Household_obj.save()
             messages.success(request,"Form Submitted")
             return redirect("/createhousehold/")
@@ -431,8 +453,40 @@ def Createhousehold(request):
     }
     return render (request,"HouseholdForm.html",context = context)
 
+#Update Household
+def UpdateHousehold(request, pk):
+    household_obj = Household.objects.get(id = pk)
+    form = HouseholdForm(instance = household_obj)
+
+    if request.method == "POST":
+        form = HouseholdForm(request.POST, instance = household_obj)
+        if form.is_valid():
+            form.save()
+            Member = household_obj.Member.all()
+            Numbers = Member.count()
+            household_obj.Number = Numbers
+            household_obj.save()
+
+            messages.success(request, "Household has been updated")
+            return redirect('/householdlist/')
+
+    context = {
+        'form' : form
+    }
+
+    return render(request,"Householdform.html",context = context)
+
+#Delete Household
+def DeleteHousehold(request,pk):
+    household_obj = Household.objects.get(id = pk)
+    household_obj.delete()
+    messages.success(request, "Household has been deleted")
+    return redirect('/householdlist/')
+
+
 def HouseholdList(request):
     Household_obj = Household.objects.all()
+    form = HouseholdForm
     Number = []
     for num in Household_obj:
         Members = num.Member.all()
@@ -440,19 +494,23 @@ def HouseholdList(request):
 
     context = {
         'Household' : Household_obj,
-        'Number' : Number
+        'Number' : Number,
+        'form' : form
     }
     return render(request,"Houselist.html",context=context)
 
 
-def ViewHousehold(request):
-    Household_obj = Household.objects.get(id=10)
+
+
+#View Household
+def ViewHousehold(request, pk):
+    Household_obj = Household.objects.get(id=pk)
     Members = Household_obj.Member.all()
     context = {
         'Household' : Household_obj,
-        'Members' : Members
+        'Members' : Members,
     }
-    return render(request,"blank.html",context=context)
+    return render(request,"Householdinfo.html",context=context)
 
 def redirtest(request):
     return redirect(request.META.get('HTTP_REFERER'))

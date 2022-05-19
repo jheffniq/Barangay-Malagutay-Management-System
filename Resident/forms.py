@@ -65,7 +65,14 @@ class Temp_Form(forms.ModelForm):
             'Vaccination',
             'Address',   
         ]
+
 class MembersWidget(s2forms.ModelSelect2MultipleWidget):
+    search_fields = [
+        "First_name__icontains",
+        "Middle_name__icontains",
+        "Last_name__icontains"
+    ]
+class HeadWidget(s2forms.ModelSelect2Widget):
     search_fields = [
         "First_name__icontains",
         "Middle_name__icontains",
@@ -75,10 +82,12 @@ class MembersWidget(s2forms.ModelSelect2MultipleWidget):
 class HouseholdForm(forms.ModelForm):
     class Meta:
         model = Household
-        widgets = {'Member' : MembersWidget}
+        widgets = {'Member' : MembersWidget,'Head' : HeadWidget, 'Date' : DateInput()}
         fields = [
             'Head',
+            'Date',
             'Contact',
+            'Address',
             'Homeowner',
             'Income',
             'Member'

@@ -35,6 +35,14 @@
          <hr>
          <ul class="p-0 profile">
             <li>
+               <h4><b>Household</b></h4>
+               {% if House %}
+               <h4 class="info">{{House}}</h4>
+               {% else %}
+               <h4 class="info">None</h4>
+               {% endif %}
+            </li>
+            <li>
                <h4><b>Occupation</b></h4>
                {% if profile.Occupation %}
                <h4 class="info">{{profile.Occupation}}</h4>
@@ -75,7 +83,7 @@
                {% endif %}
             </li>
             <li>
-               <h4><b>Citizenship</b></h4>
+               <h4><b>Ethnicity</b></h4>
                {% if profile.Citizenship %}
                <h4 class="info">{{profile.Citizenship}}</h4>
                {% else %}

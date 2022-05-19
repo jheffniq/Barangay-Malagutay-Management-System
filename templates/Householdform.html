@@ -1,22 +1,24 @@
+
 {% extends 'base.html' %}
-{%  load static %}
 {% load crispy_forms_tags %}
 {% block content %}
-<head>
-    <title>Create Householdk</title>
-    {{ form.media.css }}
-    <style>
-        input, select {width: 50%}
-    </style>
-</head>
-<body>
-    <h1>Create Household</h1>
-    <form method="POST" action="">
+{{ form.media.css }}
+<style>
+        .asteriskField{
+        display:none
+    }
+</style>
+<div style="margin-left: 40px;">
+    <a href = "{% url 'householdlist' %}" class="btn btn-success ml-2 mb-3" role="button">Go Back</a>
+</div>
+<title>Register Household | Barangay Malagutay Management System</title>
+<div style="margin-right: 50px; margin-left:50px; padding:20px; background-color: white;" class="border rounded shadow-sm mb-5">
+    <h1 class="mb-4">Register Household</h1>
+    <form method = "POST" action="">
         {% csrf_token %}
         {{ form | crispy }}
         <input type="submit" name="Submit" value="Save" class="btn btn-primary">
     </form>
-    {{ form.media.js }}
-{%  endblock content %}
-<!--
-<input type = "submit" name = "Submit" value = "Save" class = "btn btn-primary" onclick = "">-->
+</div>
+{{ form.media.js }}
+{% endblock content %}

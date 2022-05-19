@@ -109,6 +109,7 @@ class TempResident (models.Model):
 
     def __str__(self):
         return f'{self.First_name} {self.Last_name}'
+        
 class Household (models.Model):
     numbers = RegexValidator(r'^[0-9]+','Only numbers are accepted')
     OwnerChoices = (('Yes','Yes'),('No','No'))
@@ -120,7 +121,10 @@ class Household (models.Model):
 
     HouseholdName = models.CharField(max_length=250)
     Head = models.ForeignKey(Resident,on_delete=models.CASCADE,verbose_name="Head of Household")
+    Date = models.DateField(auto_now_add=False, auto_now=False,verbose_name="Date Established")
     Contact = models.CharField(max_length=11, validators=[numbers],verbose_name="Telephone/Mobile",null=True, blank=True)
+    Address = models.CharField(max_length=500,null=True,blank=True,verbose_name="House Address")
     Homeowner = models.CharField(max_length=20,choices=OwnerChoices,default="Yes")
     Income = models.CharField(max_length=250,choices=IncomeChoices,default="")
-    Member = models.ManyToManyField(Resident,related_name='mem',verbose_name="Householdddd Members")
+    Member = models.ManyToManyField(Resident,related_name='mem',verbose_name="Household Members")
+    Number = models.CharField(max_length=1000)

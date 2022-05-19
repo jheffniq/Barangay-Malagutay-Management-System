@@ -1,6 +1,8 @@
 {%  extends 'base.html' %}
 {% load static %}
 {% block content %}
+{% load crispy_forms_tags %}
+{{ form.media.css }}
 <style>
   thead {
     background-color: #c86444;
@@ -11,11 +13,11 @@
     cursor: pointer;
   }
 </style>
-<title>List of Registered Households | Barangay Malagutay Management System</title>
-<h1 style="text-align: center; margin-top: 5%; color: #4e1806;"><b>List of Registered Households</b></h1>
+<title>Registered Households | Barangay Malagutay Management System</title>
+<h1 style="text-align: center; margin-top: 5%; color: #4e1806;"><b>Registered Households</b></h1>
 <div class="container-fluid mt-5 mb-5">
 
-  <a href="/resident_form" class="btn btn-primary mb-3" role="button">Register Household</a>
+  <a href="{% url 'createhousehold' %}" class="btn btn-primary mb-3" role="button">Register Household</a>
 
       <table class = "table table-bordered table-hover mt-2 mb-5" id="Display" style="background-color: rgb(255,255,255,0.8)">
         <thead>
@@ -28,23 +30,22 @@
           </tr>
         </thead>
 
-        <tbody>
+        <tbody>   
               {% for household in Household %}
-              <tr data-href ="#">
+              <tr data-href ="{% url 'householdinfo' household.id %}">
                 <td>{{household.HouseholdName}}</td>
                 <td>{{household.Head}}</td>
-                {% for num in Number %}
-                <td>{{num}}</td>
+                <td>{{household.Number}}</td>
                 
-                <td style="text-align: center;"><a href="#" class="btn btn-primary" role="button">Edit</a></td>
+                <td style="text-align: center;"><a href="{% url 'updatehousehold' household.id %}" class="btn btn-primary" role="button">Edit</a></td>
                   <td style="text-align: center;">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-{{ res.id }}">
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-{{ household.id }}">
                           Delete
                       </button>
                       
                       <!-- Modal -->
-                      <div class="modal fade" id="modal-{{ res.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                      <div class="modal fade" id="modal-{{ household.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                           <div class="modal-dialog modal-dialog-centered" role="document">
                           <div class="modal-content">
                               <div class="modal-header mx-auto">
@@ -53,18 +54,17 @@
                               </button>
                               </div>
                               <div class="modal-body">
-                              <h5>Are you sure you want to delete {{ res.First_name }} {{ res.Last_name }} from the database?</h5>
+                              <h5>Are you sure you want to delete {{household.HouseholdName}}?</h5>
                               </div>
                               <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
-                              <a href="#" role="button" class="btn btn-danger">YES</a>
+                              <a href="{% url 'deletehousehold' household.id %}" role="button" class="btn btn-danger">YES</a>
                               </div>
                           </div>
                           </div>
                       </div>
                     </td>
               </tr>
-              {% endfor %}
               {% endfor %}
         </tbody>
       </table>
@@ -93,5 +93,5 @@
   <input type="search" placeholder="search" name = "q">
   <input type = "submit">
 </form>-->
-
+{{ form.media.js }}
 {% endblock content %}
