@@ -1,3 +1,4 @@
+import profile
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
@@ -7,7 +8,7 @@ from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm, User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import Profileform, User_form, Update_user, OfficalForm
-from .models import Official
+from .models import Official, Profile
 
 def LoginUser (request):
     if not request.user.is_authenticated:
@@ -80,10 +81,24 @@ def Adduser(request):
 
 @login_required(login_url='login')
 def Edituser(request):
+
+    NoPosition = False
+    try:
+        prof = Profile.objects.get(user=request.user)
+    except Profile.DoesNotExist:
+        NoPosition = True
+
     if request.method == "POST":
         form = Update_user(request.POST, instance=request.user)
+        if NoPosition == True:
+            details = Profileform(request.POST)
+        else:
+            details = Profileform(request.POST, instance=prof)
+
         if form.is_valid():
             form.save()
+            details.save()
+
             messages.success(request, "User sucessfully updated")
             return redirect('/users/')
         def get_object(self):
@@ -91,9 +106,14 @@ def Edituser(request):
     
     else:
         form = Update_user(instance=request.user)
+        if NoPosition == True:
+            details = Profileform()
+        else:
+            details = Profileform(instance=prof)
 
     context = { 
-        'form' : form
+        'form' : form,
+        'details' : details
     }
 
     return render(request, "edit_user.html", context = context)
@@ -103,6 +123,7 @@ def Edituser(request):
 def Displayusers (request):
     User = get_user_model()
     users = User.objects.all()
+    positions = Profile.objects.all()
 
     Current_user = request.user
     if Current_user.is_superuser:
@@ -113,7 +134,8 @@ def Displayusers (request):
     context = {
         "user" : users,
         "admin" : admin,
-        "Current_user" : Current_user
+        "Current_user" : Current_user,
+        'positions' : positions
     }
     return render(request, "users.html", context = context)
 
