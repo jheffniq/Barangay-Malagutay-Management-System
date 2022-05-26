@@ -254,6 +254,7 @@ def home(request):
     Resident_obj = Resident.objects.all()
     TotResident = Resident.objects.all().count()
     TotBlot = Blotreport.objects.all().count()
+    Tothou = Household.objects.all().count()
     Regreq = TempResident.objects.all()
     Regreqs = Regreq.count()
     Certreq = Certrequest.objects.all().count()
@@ -318,7 +319,8 @@ def home(request):
         'Married' : Married,
         'Separated' : Separated,
         'Widowed' : Widowed,
-        'today' : today
+        'today' : today,
+        'Tothou' : Tothou
     }
     return render(request,"home.html",context = context)
 
@@ -462,8 +464,8 @@ def Createhousehold(request):
             Household_obj.HouseholdName = f"{Last_Name} Household"
             Household_obj.Number = Numbers
             Household_obj.save()
-            messages.success(request,"Form Submitted")
-            return redirect("/createhousehold/")
+            messages.success(request,"Household has been registered")
+            return redirect("/householdlist/")
 
     context = {
         'form' : form

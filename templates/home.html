@@ -38,17 +38,17 @@
         </div>
         <div class="col">
             <div class="card text-white mb-3" style="max-width: 18rem; background-color: #ff5003; border-radius: 10%;">
-                <div class="card-header"><i class="bi bi-layers-fill mr-2"></i>BLOTTER</div>
+                <div class="card-header"><i class="bi bi-house-fill mr-2"></i>Households</div>
                 <div class="card-body">
-                    {% if TotBlot %}
-                    <h1 class="card-title" style="text-align: center;">{{TotBlot}}</h1>
+                    {% if Tothou %}
+                    <h1 class="card-title" style="text-align: center;">{{Tothou}}</h1>
                     {% else %}
                     <h1 class="card-title" style="text-align: center;">0</h1>
                     {% endif %}
-                    {% if TotBlot == 1 %}
-                    <p class="card-text" style="text-align: center;">Blotter Report Issued</p>
+                    {% if Tothou == 1 %}
+                    <p class="card-text" style="text-align: center;">Household</p>
                     {% else %}
-                    <p class="card-text" style="text-align: center;">Blotter Reports Issued</p>
+                    <p class="card-text" style="text-align: center;">Households</p>
                     {% endif %}
                     <a href="{% url 'blotter_display' %}" class="stretched-link"></a>
                 </div>
