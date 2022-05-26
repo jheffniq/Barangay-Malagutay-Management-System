@@ -470,7 +470,7 @@ def Createhousehold(request):
     context = {
         'form' : form
     }
-    return render (request,"HouseholdForm.html",context = context)
+    return render (request,"Householdform.html",context = context)
 
 #Update Household
 def UpdateHousehold(request, pk):
