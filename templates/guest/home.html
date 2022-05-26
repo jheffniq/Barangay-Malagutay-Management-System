@@ -1,7 +1,150 @@
 {% extends 'guest/guest.html' %}
 {%  load static %}
 {% block content %}
+<style>
+.masthead{
+    background-size: cover;
+    min-height: 100vh;
+    position: relative;
+    color: white;
+    text-shadow: 2px 2px 2px rgba(0,0,0,.2);
+}
 
+@media (max-width: 768) {
+    .masthead{
+        position: absolute !important;
+        display: none !important;
+        visibility: hidden !important;
+    }
+}
+.navbar.scrolled {
+              background-color: #314152 !important;
+              transition: background-color 200ms linear;
+          }     
+@media (max-width: 991px){
+.navbar{
+background-color: #314152;
+}
+}
+
+</style>
+<body>
+    <div class="masthead d-none d-lg-block" style="background-image: url('/static/images/header.png');">
+        <div class="color-overlay d-flex justify-content-center align-items-center">
+          <h1>&nbsp;</h1>
+        </div>
+
+    </div>
+<main class="main mt-5 mb-5" style="margin-left: 6%; margin-right: 6%;">
+    <div class="row mt-3">
+        <div class="col-md-4">
+            <div class="card text-white mb-3" style="background-color: #0079a1;">
+                <div class="card-header" style="text-align: center;"><b>BARANGAY OFFICIALS</b></div>
+                    <div class="card-body" style="text-align: center;">
+                        <h5 class="card-title m-0 p-0">{{Officials_obj.Barangay_Chairman}}</h5>
+                        <p class="card-text mb-4 mt-0 p-0" style="color: #f0f0f0;">Barangay Chairman</p>
+                        <h5 class="card-title m-0 p-0">{{Officials_obj.Barangay_Secretary}}</h5>
+                        <p class="card-text mb-4 mt-0 p-0" style="color: #f0f0f0;">Barangay Secretary</p>
+                        <h5 class="card-title m-0 p-0">{{Officials_obj.Barangay_Treasurer}}</h5>
+                        <p class="card-text mb-4 mt-0 p-0" style="color: #f0f0f0;">Barangay Treasurer</p>
+                        <h5 class="card-title m-0 p-0">{{Officials_obj.SK_Chairman}}</h5>
+                        <p class="card-text mb-4 mt-0 p-0" style="color: #f0f0f0;">SK Chairman</p>
+                        {% for councilor in Councilors1 %}
+                        <h5 class="card-title m-0 p-0">{{councilor}}</h5>
+                        <p class="card-text mb-4 mt-0 p-0" style="color: #f0f0f0;">Barangay Councilor</p>
+                        {% endfor %}
+                        {% for councilor in Councilors2 %}
+                        <h5 class="card-title m-0 p-0">{{councilor}}</h5>
+                        <p class="card-text mb-4 mt-0 p-0" style="color: #f0f0f0;">SK Councilor</p>
+                        {% endfor %}
+                    </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+    
+            <div class="card text-dark mb-3 bg-light" style="border: 1px solid #0079a1;">
+                <div class="card-header"><b>More Information</b></div>
+                <div class="card-body">
+                  <h5 class="card-title"><b>ABOUT BARANGAY MALAGUTAY</b></h5>
+                  <p class="card-text">Malagutay is a barangay in Zamboanga City. Its population 
+                    represents 0.85% of the total population of 
+                    Zamboanga City. Malagutay is situated approximately 6.9390, 122.0163, in the 
+                    island of Mindanao and borders the barangays of San Jose Gusu, Capisan, San Roque,
+                    Maasin, Sinunoc, and Calarian.
+                  </p>
+                </div>
+            </div>
+    
+            <div class="card mb-3" style="border: 1px solid #0079a1;">
+                <img class="card-img-top" src="{% static 'images/main_image01.jpg' %}" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">VISIT OUR OFFICIAL FACEBOOK PAGE</h5>
+                  <p class="card-text" style="line-height: 1.8em;">
+                    Get updated with what's going on in our community by visiting our social media account.<br>
+                    Send us a message with your feedbacks or concerns and we'll be sure to reply. <br>Don't forget
+                    to leave a like and follow us.
+                    </p>
+                    <a href = "https://web.facebook.com/barangaymalagutay" class="btn btn-lg btn-primary">Click here to visit</a>
+                </div>
+              </div>
+            <div class="container">
+                <iframe height="460" width="100%" style="border:0" loading="lazy" 
+                allowfullscreen src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJ8-Adj_VAUDIRpgJSaQIYge4&key=AIzaSyCmy56RDA5uqhqABUjDmKpJ_zRGrv-VPnM"></iframe>
+            </div>
+        </div>
+</main>
+<script>
+    $(function () {
+    $(document).scroll(function () {
+      var $nav = $(".navbar");
+      $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
+    });
+  });
+  </script>
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
 <style>
     .carousel-item{
         height: 32rem;
@@ -72,10 +215,6 @@
                     <a href = "https://web.facebook.com/barangaymalagutay" class="btn btn-lg btn-primary">Click here to visit</a>
                 </div>
                 </div>
-
-                <!--<div class = "carousel-item">
-                    <div class="overlay-image02" style="background-image: url('/static/images/main_image04.jpg');">  </div>
-                    </div>-->
     </div>
     <a href="#MainCarousel" class="carousel-control-prev" role="button" data-slide="prev">
         <span class="sr-only"></span>
@@ -123,8 +262,6 @@
             </div>
         </div>
 
-        <!---->
-
         <div class="card mb-3">
             <img class="card-img-top" src="{% static 'images/main_image01.jpg' %}" alt="Card image cap">
             <div class="card-body">
@@ -142,6 +279,6 @@
             <iframe height="460" style="border:0" loading="lazy" 
             allowfullscreen src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJ8-Adj_VAUDIRpgJSaQIYge4&key=AIzaSyCmy56RDA5uqhqABUjDmKpJ_zRGrv-VPnM"></iframe>
         </div>
-    </div><!--Col end-->
-</div>
+    </div>-->
+<!--</div>-->
 {%  endblock content %}

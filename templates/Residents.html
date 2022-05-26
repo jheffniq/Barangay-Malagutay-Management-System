@@ -3,7 +3,7 @@
 {% block content %}
 <style>
   thead {
-    background-color: #c86444;
+    background-color: #314152;
     border-color: none;
     color: white;
   }
@@ -12,7 +12,7 @@
   }
 </style>
 <title>Residents | Barangay Malagutay Management System</title>
-<h1 style="text-align: center; margin-top: 5%; color: #4e1806;"><b>Registered Residents</b></h1>
+<h1 style="text-align: center; margin-top: 15px; color: white; padding:10px; background-color: #0079a1;"><b>Registered Residents</b></h1>
 <div class="container-fluid mt-5 mb-5">
 
   <a href="/resident_form" class="btn btn-primary mb-3" role="button">Add New Resident</a>
@@ -25,10 +25,10 @@
       <div class="modal fade" id="Uploadcsv" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="background-color:#314152;color: white;">
               <h5 class="modal-title" id="exampleModalLongTitle">Upload CSV</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+                <span aria-hidden="true" style="color: white">&times;</span>
               </button>
             </div>
             <div class="modal-body">
@@ -37,8 +37,8 @@
                 {{form.file_name}}
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="submit" value ="Submit" class="btn btn-primary">Import Data</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: #314152; background-color: white; border-color: #314152;">Close</button>
+              <button type="submit" value ="Submit" class="btn btn-primary" style="background-color: #314152; border-color: #314152;">Import Data</button>
             </form>
             </div>
           </div>
@@ -81,8 +81,8 @@
                       <div class="modal fade" id="modal-{{ res.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                           <div class="modal-dialog modal-dialog-centered" role="document">
                           <div class="modal-content">
-                              <div class="modal-header mx-auto">
-                              <h5 class="modal-title" id="exampleModalLongTitle"><b>CONFIRM DELETE</b></h5>
+                              <div class="modal-header" style="background-color: #314152; color: white;">
+                              <h5 class="modal-title mx-auto" id="exampleModalLongTitle"><b>CONFIRM DELETE</b></h5>
 
                               </button>
                               </div>
@@ -90,8 +90,8 @@
                               <h5>Are you sure you want to delete {{ res.First_name }} {{ res.Last_name }} from the database?</h5>
                               </div>
                               <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
-                              <a href="{% url 'delete_resident' res.id %}" role="button" class="btn btn-danger">YES</a>
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color: white; color: #314152; border-color: #314152;">NO</button>
+                              <a href="{% url 'delete_resident' res.id %}" role="button" class="btn btn-danger" style="background-color: #314152; border-color: #314152;">YES</a>
                               </div>
                           </div>
                           </div>

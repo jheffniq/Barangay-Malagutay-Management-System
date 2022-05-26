@@ -6,29 +6,37 @@
         .asteriskField{
         display:none
     }
+    .navbar{
+    background-color: #314152;
+        }
+        body{
+            background: url('/static/images/background.png') !important;
+        }
+    .main{
+        background-color: white;
+        margin-left: 6%; 
+        margin-right: 6%; 
+        margin-top: 150px;
+        margin-bottom: 10%;
+        padding: 5%;
+        border-radius: 1%;
+    }
   </style>
-<title>Certification Requests | Barangay Malagutay Management System</title>
-<div class="container-fluid" style="margin-bottom:20%; margin-top: 5%;">
-<h1 class="mb-4">Request Certification</h1>
-<div>
 
-    <form method="POST", action="">
-    {% csrf_token %}
-    {{form | crispy}}
-    <input type = "submit" name = "Submit" onclick = "" class="btn btn-primary" id = "sub">
-</form>
-<h1 class="mt-5">Check Request Status</h1>
-<p class="mb-4 ">You can check for the status of your request by entering the request code that was given to you</p>
-<div>
-    <form method="POST", action="{% url 'checkstatus' %}">
-    {% csrf_token %}
-    <label for="exampleInputEmail1">Request Code</label>
-        {{statform.Status | as_crispy_field}}
-        <input type = "submit" name = "Submit" onclick = "" class="btn btn-primary mb-2" id = "sub">
-      </div> 
+<main class="main">
+    <title>Certification Requests | Barangay Malagutay Management System</title>
+    <div class="container-fluid" style="margin-bottom:5%; margin-top: 5%;">
+    <h1 class="mb-4">Request Certification</h1>
+    <div>
+    
+        <form method="POST", action="">
+        {% csrf_token %}
+        {{form | crispy}}
+        <input type = "submit" name = "Submit" onclick = "" class="btn btn-primary" id = "sub">
     </form>
-</div>
-</div>
+    </div>
+    </div>
+</main>
 
 <!--
 <div class="container" style="margin-bottom: 20%;">

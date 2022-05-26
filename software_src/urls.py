@@ -35,12 +35,13 @@ from Resident.views import Createhousehold, ViewHousehold, HouseholdList, Update
 
 #Blotter app import
 from Blotter.views import Addreport, Blotter_search_resident, Create_Report, Blotter_display
-from Blotter.views import Blotter_details, Delete_report, Create_Report_unregistered
+from Blotter.views import Blotter_details, Delete_report, Create_Report_unregistered, Resolved_display
 
 #Certification app import
 from Certification.views import resident_list, resident_list02, generate_certificate, view_certificate 
 from Certification.views import view_certificate02, generate_certificate02, request_list 
-from Certification.views import Renderrequest, Checkrequest, Email_certificate, Declinerequest
+from Certification.views import Renderrequest, Checkrequest, Email_certificate, Declinerequest, resident_list03
+from Certification.views import view_certificate03, generate_certificate03
 
 
 
@@ -96,16 +97,20 @@ urlpatterns = [
     path('blotter_form/<str:pk>/', Create_Report, name = "blotter_form"),
     path('blotter_form_unregistered/',Create_Report_unregistered,name="blotter_form_unregistered"),
     path('blotter_display/', Blotter_display, name = "blotter_display"),
+    path('resolved_display/',Resolved_display,name="resolved_display"),
     path('blotter_details/<str:pk>/', Blotter_details, name = "blotter_details"),
     path('delete_report/<str:pk>/', Delete_report, name = "delete_report"),
 
     #Certificate paths
     path('resident_list/',resident_list,name="resident_list"),
     path('resident_list02/',resident_list02,name="resident_list02"),
+    path('resident_list03/',resident_list03, name="resident_list03"),
     path('view_certificate/<str:pk>', view_certificate, name="view_certificate"),
     path('generate_certificate/<str:pk>/',generate_certificate,name="generate_certificate"),
     path('view_certificate02/<str:pk>', view_certificate02, name="view_certificate02"),
     path('generate_certificate02/<str:pk>/',generate_certificate02,name="generate_certificate02"),
+    path('view_certificate03/<str:pk>', view_certificate03, name="view_certificate03"),
+    path('generate_certificate03/<str:pk>/',generate_certificate03,name="generate_certificate03"),
     path('display_requests/',Renderrequest,name="display_requests"),
     path('checkstatus/', Checkrequest, name = "checkstatus"),
 

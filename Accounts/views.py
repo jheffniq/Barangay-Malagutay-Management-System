@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import Profileform, User_form, Update_user, OfficalForm
 from .models import Official, Profile
+from Certification.forms import Requeststatus
 
 def LoginUser (request):
     if not request.user.is_authenticated:
@@ -37,6 +38,7 @@ def LogoutUser (request):
 
 
 def Guestuser (request):
+    statform = Requeststatus()
     Officials_obj = Official.objects.get(id=1)
     Councilors1 = Officials_obj.Barangay_Councilors.replace('','').split(',')
     Councilors2 = Officials_obj.SK_Councilors.replace('','').split(',')
@@ -44,12 +46,17 @@ def Guestuser (request):
     context = {
         'Officials_obj' : Officials_obj,
         'Councilors1' : Councilors1,
-        'Councilors2' : Councilors2
+        'Councilors2' : Councilors2,
+        'statform' : statform
     }
     return render(request,"guest/home.html", context = context)
 
 def Faqs (request):
-    return render(request, "guest/faq.html")
+    statform = Requeststatus()
+    context = {
+        'statform' : statform
+    }
+    return render(request, "guest/faq.html",context=context)
 
 
 @login_required(login_url='login')

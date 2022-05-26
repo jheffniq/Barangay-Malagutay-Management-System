@@ -14,9 +14,10 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" style="background-color: #0079a1; padding: 10px;">
+        <h6 style="margin-left: 15px; color: white;">DASHBOARD</h6>
         <div class="col">
-            <div class="card text-white mb-3" style="max-width: 18rem; background-color: #1f77b4; border-radius: 10%;">
+            <div class="card text-white mb-3" style="max-width: 18rem; background-color: #fb8500; border-radius: 10%;">
                 <div class="card-header">
                 <i class="bi bi-people-fill mr-2"></i>RESIDENTS
                 </div>
@@ -36,7 +37,7 @@
             </div>
         </div>
         <div class="col">
-            <div class="card text-white mb-3" style="max-width: 18rem; background-color: #58556d; border-radius: 10%;">
+            <div class="card text-white mb-3" style="max-width: 18rem; background-color: #ff5003; border-radius: 10%;">
                 <div class="card-header"><i class="bi bi-layers-fill mr-2"></i>BLOTTER</div>
                 <div class="card-body">
                     {% if TotBlot %}
@@ -54,7 +55,7 @@
             </div>
         </div>
         <div class="col">
-            <div class="card text-white mb-3" style="max-width: 18rem; border-radius: 10%; background-color: #45a54a;">
+            <div class="card text-white mb-3" style="max-width: 18rem; border-radius: 10%; background-color: #00cc0a;">
                 <div class="card-header"><i class="bi bi-file-earmark-person-fill mr-2"></i>REQUESTS</div>
                 <div class="card-body">
                     {% if Regreqs %}
@@ -72,7 +73,7 @@
             </div>
         </div>
         <div class="col">
-            <div class="card text-white mb-3" style="max-width: 18rem; border-radius: 10%; background-color: #45a54a;">
+            <div class="card text-white mb-3" style="max-width: 18rem; border-radius: 10%; background-color: #00cc0a;">
                 <div class="card-header"><i class="bi bi-file-earmark-medical-fill mr-2"></i>REQUESTS</div>
                 <div class="card-body">
                     {% if Certreq %}
@@ -93,7 +94,7 @@
     <div class="row">
         <!--Gender Chart-->
         <div class="col-sm-2 col-md-4  p-3">
-            <div class="card shadow-sm">
+            <div class="card shadow-sm" style="border-color: #0079a1;">
                 <div class="card-body">
                 <canvas id="Genderchart" width="400" height="400"></canvas>
                     <script>
@@ -134,7 +135,7 @@
 
         <!--Vaccination Chart-->
         <div class="col-sm-2 col-md-4 p-3">
-            <div class="card shadow-sm">
+            <div class="card shadow-sm" style="border-color: #0079a1;">
             <div class="card-body">
             <canvas id="Vacchart" width="400" height="400"></canvas>
             
@@ -187,7 +188,7 @@
         </div>
 
         <div class="col-sm-2 col-md-4 p-3">
-            <div class="card shadow-sm">
+            <div class="card shadow-sm" style="border-color: #0079a1;">
             <div class="card-body">
             <canvas id="Agechart" width="400" height="400"></canvas>
             <script>
@@ -244,7 +245,7 @@
     </div>
     <div class="row justify-content-between mt-2 mb-5">
        <div class="col-lg-6 col-md-6 col-sm-6 float-left">
-            <div class="card shadow-sm">
+            <div class="card shadow-sm" style="border-color: #0079a1;">
             <div class="card-body">
             <canvas id="Philhealth" width="100" height="100"></canvas>
             <script>
@@ -308,7 +309,7 @@
             
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6">
-            <div class="card shadow-sm">
+            <div class="card shadow-sm" style="border-color: #0079a1;">
             <div class="card-body">
             <canvas id="Marital" width="400" height="400"></canvas>
             <script>

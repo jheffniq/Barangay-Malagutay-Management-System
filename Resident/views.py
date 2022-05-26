@@ -15,6 +15,7 @@ from datetime import datetime, date
 from django import forms
 from django.core.files.storage import default_storage
 import secrets
+from Certification.forms import Requeststatus
 
 def view_400(request, exception):
     return render(request,"err_templates/400.html", status=400)
@@ -324,6 +325,7 @@ def home(request):
 #Add Temp Resident
 def Temp_Resident(request):
     form = Temp_Form()
+    statform = Requeststatus()
 
     if request.method == "POST":
         form = Temp_Form(request.POST, request.FILES)
@@ -341,7 +343,8 @@ def Temp_Resident(request):
 
 
     context = {
-        'form':form
+        'form':form,
+        'statform' : statform
     }
 
     return render(request,"guest/temp_form.html",context=context)

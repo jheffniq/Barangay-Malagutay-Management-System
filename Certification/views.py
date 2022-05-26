@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from Accounts.models import Official
 from django.http import HttpResponse
-from Resident.models import Resident
+from Resident.models import Resident, Household
 from Blotter.models import Blotreport
 from Certification.models import Certrequest, Requestarchive
 from .forms import Request_form, Requeststatus
@@ -66,6 +66,30 @@ def resident_list02(request):
         'Blotter_number' : Blotter_number
     }
     return render(request, "certification/indigency.html",context = context)
+
+@login_required(login_url='login')
+def resident_list03(request):
+    Resident_obj = Resident.objects.all()
+    cresident = Resident.objects.filter(Blacklisted = False)
+    bresident = Resident.objects.filter(Blacklisted = True)
+
+    Resident_cleared = cresident.order_by('First_name')
+    Resident_blacklisted = bresident.order_by('First_name')
+    Blotter_number = []
+    
+    for res in Resident_blacklisted:
+        resid = res.id
+        blo = Blotreport.objects.filter(Offender = resid)
+        bloo = blo.count()
+        Blotter_number.append(bloo)
+
+    context = {
+        'Resident_obj' : Resident_obj,
+        'Resident_cleared': Resident_cleared,
+        'Resident_blacklisted': Resident_blacklisted,
+        'Blotter_number' : Blotter_number
+    }
+    return render(request, "certification/residency.html",context = context)
 
 #Date_format
 def suffix(d):
@@ -217,6 +241,78 @@ def generate_certificate02(request, pk):
     if pisa_status.err:
        return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
+
+#View Third Certificate
+@login_required(login_url='login')
+def view_certificate03(request, pk):
+    Resident_obj = Resident.objects.get(id = pk)
+    Officials = Official.objects.get(id=1)
+    Chairman = Officials.Barangay_Chairman
+    Month_Today = datetime.now().strftime('%B')
+    Day_Today = custom_strftime('{S}', datetime.now())
+    Year_Today = datetime.now().strftime('%Y')
+    
+    template_path = 'certification/Certificate3.html'
+    context = {'Resident_obj': Resident_obj,
+                'Chairman' : Chairman,
+                'Month_Today': Month_Today,
+                'Day_Today': Day_Today,
+                'Year_Today' : Year_Today,
+                }
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+
+    #Download
+    #response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+
+    response['Content-Disposition'] = 'filename="Residency_Certificate.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    # if error then show some funy view
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+#Generate Third Certificate
+@login_required(login_url='login')
+def generate_certificate03(request, pk):
+    Resident_obj = Resident.objects.get(id = pk)
+    Officials = Official.objects.get(id=1)
+    Chairman = Officials.Barangay_Chairman
+    Month_Today = datetime.now().strftime('%B')
+    Day_Today = custom_strftime('{S}', datetime.now())
+    Year_Today = datetime.now().strftime('%Y')
+    
+    template_path = 'certification/Certificate3.html'
+    context = {'Resident_obj': Resident_obj,
+                'Chairman' : Chairman,
+                'Month_Today': Month_Today,
+                'Day_Today': Day_Today,
+                'Year_Today' : Year_Today}
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+
+    #Download
+    #response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+
+    response['Content-Disposition'] = 'attachment; filename="Residency_Certificate.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    # if error then show some funy view
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
 
 def request_list(request):
     form = Request_form()
@@ -391,7 +487,7 @@ def Checkrequest(request):
             try:
                 Request_obj = Certrequest.objects.get(Requestcode = Code)
                 messages.info(request, "Your request status is: PENDING")
-                return redirect('/request_certificate/')
+                return redirect('/index/')
 
             except Certrequest.DoesNotExist:
                 try:
@@ -399,10 +495,10 @@ def Checkrequest(request):
                     Status = Archivedrequest.Status
                     str = " "
                     messages.info(request,f"Your request status is:{str}{Status}")
-                    return redirect('/request_certificate/')
+                    return redirect('/index/')
                 except (Requestarchive.DoesNotExist,AttributeError):
                     messages.error(request,"Request does not exist")
-                    return redirect('/request_certificate/')
+                    return redirect('/index/')
     
 
 

@@ -25,7 +25,7 @@
 .sidebar-wrapper .offcanvas{
     width: 250px;
     border: none;
-    background-image: linear-gradient(180deg, #c86444, #e45513);
+    background-color: #314152;
     overflow: hidden;
 }
 .sidebar-link{
@@ -66,8 +66,8 @@
 
     }
     main {
-        margin-left: 255px;
-        margin-right: 5px;
+        margin-left: 250px;
+        /*margin-right: 5px;*/
     }
     .side-toggle .btn-secondary{
         display: none;

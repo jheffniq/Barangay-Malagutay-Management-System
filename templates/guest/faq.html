@@ -2,9 +2,21 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-
+<style>
+      .navbar{
+    background-color: #314152;
+        }
+    .main{
+        background-color: white;
+        margin-left: 6%; 
+        margin-right: 6%; 
+        margin-top: 150px;
+        margin-bottom: 10%;
+    }
+</style>
 <title>Frequently Asked Questions | Barangay Malagutay Management System</title>
-<div class="container-fluid">
+<main class="main">
+  <div class="container-fluid">
 
     <h1><b>Frequenty Asked Questions</b></h1>
     <div class="accordion mt-4 mb-5" id="accordionExample">
@@ -125,4 +137,10 @@
       </div>
 
 </div>
+</main>
+<!--
+  <main class="main">
+
+</main>
+-->
 {% endblock content %}

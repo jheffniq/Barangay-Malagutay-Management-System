@@ -14,6 +14,7 @@ class Blotreport (models.Model):
     Unregistered = models.BooleanField(default = False)
     created_date = models.DateTimeField (auto_now_add=True)
     modified_date = models.DateTimeField (auto_now=True)
+    Resolved = models.BooleanField(default=False)
 
 class Evidences (models.Model):
     Report = models.ForeignKey(Blotreport, null = True, blank = True, default=None, on_delete=models.CASCADE)

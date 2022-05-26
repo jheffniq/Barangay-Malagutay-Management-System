@@ -5,7 +5,7 @@
 {{ form.media.css }}
 <style>
   thead {
-    background-color: #c86444;
+    background-color: #314152;
     border-color: none;
     color: white;
   }
@@ -14,7 +14,7 @@
   }
 </style>
 <title>Registered Households | Barangay Malagutay Management System</title>
-<h1 style="text-align: center; margin-top: 5%; color: #4e1806;"><b>Registered Households</b></h1>
+<h1 style="text-align: center; margin-top: 15px; color: white; padding:10px; background-color: #0079a1;"><b>Registered Households</b></h1>
 <div class="container-fluid mt-5 mb-5">
 
   <a href="{% url 'createhousehold' %}" class="btn btn-primary mb-3" role="button">Register Household</a>
@@ -48,8 +48,8 @@
                       <div class="modal fade" id="modal-{{ household.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                           <div class="modal-dialog modal-dialog-centered" role="document">
                           <div class="modal-content">
-                              <div class="modal-header mx-auto">
-                              <h5 class="modal-title" id="exampleModalLongTitle"><b>CONFIRM DELETE</b></h5>
+                              <div class="modal-header" style="background-color: #314152; color: white;">
+                              <h5 class="modal-title mx-auto" id="exampleModalLongTitle"><b>CONFIRM DELETE</b></h5>
 
                               </button>
                               </div>
@@ -57,8 +57,8 @@
                               <h5>Are you sure you want to delete {{household.HouseholdName}}?</h5>
                               </div>
                               <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
-                              <a href="{% url 'deletehousehold' household.id %}" role="button" class="btn btn-danger">YES</a>
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color: white; color: #314152; border-color: #314152;">NO</button>
+                              <a href="{% url 'deletehousehold' household.id %}" role="button" class="btn btn-danger" style="background-color: #314152; border-color: #314152;">YES</a>
                               </div>
                           </div>
                           </div>

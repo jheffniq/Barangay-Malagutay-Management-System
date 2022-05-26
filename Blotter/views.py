@@ -101,38 +101,43 @@ def Delete_report(request, pk):
         Resident_obj = Resident.objects.get(id = Resident_id)
         Resident_obj.Blacklisted = False
         Resident_obj.save()
-        BlotArchive.objects.create(
-            Offender = Blotter_obj.Offender,
-            Offender_unregistered = Blotter_obj.Offender_unregistered,
-            Complainant = Blotter_obj.Complainant,
-            Complaint = Blotter_obj.Complaint,
-            Facts = Blotter_obj.Facts,
-            Unregistered = Blotter_obj.Unregistered,
-            created_date = Blotter_obj.created_date,
-            modified_date = Blotter_obj.modified_date
-        )
 
-        Blotter_obj.delete()
+        Blotter_obj.Resolved = True
+        Blotter_obj.save()
 
         for obj in Blotterall:
-            if obj.Offender == Resident_obj:
+            if obj.Offender == Resident_obj and obj.Resolved == False:
                 Resident_obj.Blacklisted = True
                 Resident_obj.save()
 
-        messages.success(request, "Report has been deleted")
+        messages.success(request, "Report has marked resolved")
 
     else:
-        Blotter_obj.delete()
-        messages.success(request, "Report has been deleted")
+        Blotter_obj.Resolved = True
+        Blotter_obj.save()
+        messages.success(request, "Report has been marked resolved")
 
     return redirect('/blotter_display/')
 
 #Show Report
 @login_required(login_url='login')
 def Blotter_display(request):
-    Blotter_obj = Blotreport.objects.all()
+    Blotter_obj = Blotreport.objects.filter(Resolved = False)
+    Include = True
     context = {
         'Blotter_obj' : Blotter_obj,
+        'Include' : Include
+    }
+    return render(request, "blotter/blotter_display.html", context = context)
+
+#Show Resolved Reports
+@login_required(login_url='login')
+def Resolved_display(request):
+    Blotter_obj = Blotreport.objects.filter(Resolved = True)
+    Include = False
+    context = {
+        'Blotter_obj' : Blotter_obj,
+        'Exclude' : Include
     }
     return render(request, "blotter/blotter_display.html", context = context)
 
